@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Countdown Timer - MedusaSMM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #030014; --glass: rgba(255,255,255,0.05); --primary: #ff9e00; --text: #fff; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; margin: 0; }
+        nav { padding: 20px 5%; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; }
+        .logo { font-family: 'Outfit', sans-serif; font-size: 1.5rem; text-decoration: none; color: #fff; }
+        .container { max-width: 700px; margin: 50px auto; padding: 30px; background: var(--glass); border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); text-align: center; }
+        
+        input { padding: 10px; border-radius: 5px; border: none; margin-bottom: 20px; }
+        button { padding: 10px 20px; background: var(--primary); border: none; font-weight: bold; border-radius: 5px; cursor: pointer; }
+
+        /* Animation Section */
+        .timer-display { display: flex; justify-content: center; gap: 20px; margin-top: 40px; }
+        .time-box { background: rgba(0,0,0,0.5); padding: 20px; border-radius: 10px; width: 100px; border: 1px solid var(--primary); }
+        .number { font-size: 3rem; font-family: 'Outfit'; display: block; animation: pulse 1s infinite; }
+        .label { font-size: 0.8rem; color: #aaa; text-transform: uppercase; }
+
+        @keyframes pulse {
+            0% { transform: scale(1); text-shadow: 0 0 10px rgba(255, 158, 0, 0.5); }
+            50% { transform: scale(1.05); text-shadow: 0 0 20px rgba(255, 158, 0, 0.8); }
+            100% { transform: scale(1); text-shadow: 0 0 10px rgba(255, 158, 0, 0.5); }
+        }
+    </style>
+</head>
+<body>
+    <nav><a href="index.html" class="logo">MedusaTools</a><a href="index.html" style="color:#aaa; text-decoration:none;">Back</a></nav>
+    <div class="container">
+        <h2 style="font-family:'Outfit';">⏳ Animated Countdown</h2>
+        <p>Pick a date and time to start</p>
+        <input type="datetime-local" id="target">
+        <button onclick="startTimer()">Start Countdown</button>
+
+        <div class="timer-display" id="display" style="display:none;">
+            <div class="time-box"><span class="number" id="d">0</span><span class="label">Days</span></div>
+            <div class="time-box"><span class="number" id="h">0</span><span class="label">Hours</span></div>
+            <div class="time-box"><span class="number" id="m">0</span><span class="label">Mins</span></div>
+            <div class="time-box"><span class="number" id="s">0</span><span class="label">Secs</span></div>
+        </div>
+    </div>
+    <script>
+        let interval;
+        function startTimer() {
+            let target = new Date(document.getElementById('target').value).getTime();
+            if(isNaN(target)) return;
+            
+            document.getElementById('display').style.display = 'flex';
+            clearInterval(interval);
+
+            interval = setInterval(() => {
+                let now = new Date().getTime();
+                let dist = target - now;
+
+                if (dist < 0) {
+                    clearInterval(interval);
+                    document.getElementById('display').innerHTML = "<h2>TIME UP!</h2>";
+                    return;
+                }
+
+                document.getElementById('d').innerText = Math.floor(dist / (1000 * 60 * 60 * 24));
+                document.getElementById('h').innerText = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                document.getElementById('m').innerText = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
+                document.getElementById('s').innerText = Math.floor((dist % (1000 * 60)) / 1000);
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
