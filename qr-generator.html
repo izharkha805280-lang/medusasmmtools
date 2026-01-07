@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>QR Generator - MedusaSMM</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #030014; --glass: rgba(255,255,255,0.05); --primary: #00b4d8; --text: #fff; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; margin: 0; }
+        nav { padding: 20px 5%; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; }
+        .logo { font-family: 'Outfit', sans-serif; font-size: 1.5rem; text-decoration: none; color: #fff; }
+        .container { max-width: 500px; margin: 50px auto; padding: 30px; background: var(--glass); border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); text-align: center; }
+        input { width: 100%; padding: 15px; margin: 20px 0; background: rgba(0,0,0,0.3); border: 1px solid #555; color: #fff; border-radius: 8px; outline:none; }
+        button { padding: 15px 40px; background: var(--primary); color: #000; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; }
+        #qrcode { margin-top: 30px; display: flex; justify-content: center; }
+        #qrcode img { border: 5px solid #fff; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <nav><a href="index.html" class="logo">MedusaTools</a><a href="index.html" style="color:#aaa; text-decoration:none;">Back</a></nav>
+    <div class="container">
+        <h2 style="font-family:'Outfit';">🔳 QR Code Generator</h2>
+        <input type="text" id="text" placeholder="Enter URL or Text...">
+        <button onclick="genQR()">Generate QR</button>
+        <div id="qrcode"></div>
+    </div>
+    <script>
+        function genQR() {
+            let text = document.getElementById('text').value;
+            let container = document.getElementById('qrcode');
+            container.innerHTML = ""; // Clear previous
+            if(text) {
+                new QRCode(container, {
+                    text: text,
+                    width: 150,
+                    height: 150,
+                    colorDark : "#000000",
+                    colorLight : "#ffffff"
+                });
+            }
+        }
+    </script>
+</body>
+</html>
