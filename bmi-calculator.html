@@ -2,28 +2,114 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BMI Calculator - MedusaSMM</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #030014; --glass: rgba(255,255,255,0.05); --primary: #9d4edd; --text: #fff; }
+        /* Shared CSS */
+        :root { --bg: #030014; --glass: rgba(255,255,255,0.05); --border: rgba(255,255,255,0.1); --primary: #9d4edd; --text: #fff; --gray: #9ca3af; }
         body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; margin: 0; }
-        nav { padding: 20px 5%; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; }
+        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
         .logo { font-family: 'Outfit', sans-serif; font-size: 1.5rem; text-decoration: none; color: #fff; }
-        .container { max-width: 500px; margin: 50px auto; padding: 30px; background: var(--glass); border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); text-align: center; }
-        input { width: 100%; padding: 15px; margin: 10px 0; background: rgba(0,0,0,0.3); border: 1px solid #555; color: #fff; border-radius: 8px; outline:none; }
-        button { width: 100%; padding: 15px; background: var(--primary); color: #fff; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; margin-top: 10px; }
-        .result { margin-top: 25px; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 8px; }
+        .main-wrapper { flex: 1; padding: 40px 20px; width: 100%; max-width: 800px; margin: 0 auto; }
+        .tool-box { background: var(--glass); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px; }
+        h1 { font-family: 'Outfit'; text-align: center; color: var(--primary); margin-bottom: 20px; font-size: 2rem; }
+        
+        .input-row { display: flex; gap: 15px; flex-wrap: wrap; }
+        .input-group { flex: 1; min-width: 200px; margin-bottom: 15px; }
+        label { display: block; margin-bottom: 8px; color: var(--gray); }
+        input { width: 100%; padding: 16px; background: rgba(0,0,0,0.3); border: 1px solid #555; color: #fff; border-radius: 8px; font-size: 1rem; outline: none; }
+        button { width: 100%; padding: 18px; background: var(--primary); color: #fff; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; font-size: 1.1rem; margin-top: 10px; }
+        
+        .result { margin-top: 25px; padding: 20px; background: rgba(255,255,255,0.1); border-radius: 10px; text-align: center; font-size: 1.2rem; }
+        
+        /* Content & Suggestions */
+        .content-section { margin-top: 40px; color: var(--gray); line-height: 1.6; }
+        .content-section h2 { color: #fff; font-family: 'Outfit'; margin-bottom: 15px; }
+        .suggestions { margin-top: 50px; border-top: 1px solid var(--border); padding-top: 30px; }
+        .sugg-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px; }
+        .sugg-card { background: var(--glass); padding: 20px; border-radius: 10px; text-align: center; border: 1px solid var(--border); }
+        .sugg-card:hover { border-color: var(--primary); }
+        .sugg-card a { text-decoration: none; color: #fff; display: block; }
+        
+        /* Footer */
+        footer { border-top: 1px solid var(--border); padding: 40px 5%; background: rgba(0,0,0,0.3); margin-top: auto; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
+        .footer-col h3 { color: #fff; margin-bottom: 15px; font-family: 'Outfit'; }
+        .footer-col ul { list-style: none; padding: 0; }
+        .footer-col li a { color: var(--gray); text-decoration: none; font-size: 0.9rem; display: block; margin-bottom: 8px; }
+        .copy { text-align: center; margin-top: 40px; color: var(--gray); font-size: 0.8rem; border-top: 1px solid var(--border); padding-top: 20px; }
     </style>
 </head>
 <body>
-    <nav><a href="index.html" class="logo">MedusaTools</a><a href="index.html" style="color:#aaa; text-decoration:none;">Back</a></nav>
-    <div class="container">
-        <h2 style="font-family:'Outfit';">⚖️ BMI Calculator</h2>
-        <input type="number" id="weight" placeholder="Weight (kg)">
-        <input type="number" id="height" placeholder="Height (cm)">
-        <button onclick="calcBMI()">Calculate BMI</button>
-        <div class="result" id="output">Enter details above</div>
+    <nav>
+        <a href="index.html" class="logo">MedusaTools</a>
+        <a href="index.html" style="color:#aaa; text-decoration:none;">Back</a>
+    </nav>
+
+    <div class="main-wrapper">
+        <div class="tool-box">
+            <h1>⚖️ BMI Calculator</h1>
+            <div class="input-row">
+                <div class="input-group">
+                    <label>Weight (kg)</label>
+                    <input type="number" id="weight" placeholder="e.g. 70">
+                </div>
+                <div class="input-group">
+                    <label>Height (cm)</label>
+                    <input type="number" id="height" placeholder="e.g. 175">
+                </div>
+            </div>
+            <button onclick="calcBMI()">Calculate BMI</button>
+            <div class="result" id="output">Enter details to check health status</div>
+        </div>
+
+        <div class="content-section">
+            <h2>What is BMI?</h2>
+            <p>Body Mass Index (BMI) is a value derived from the mass (weight) and height of a person. It is defined as the body mass divided by the square of the body height.</p>
+            <ul>
+                <li><strong>Underweight:</strong> Less than 18.5</li>
+                <li><strong>Normal weight:</strong> 18.5 – 24.9</li>
+                <li><strong>Overweight:</strong> 25 – 29.9</li>
+                <li><strong>Obesity:</strong> 30 or greater</li>
+            </ul>
+        </div>
+
+        <div class="suggestions">
+            <h2>🔥 Check Out These Tools</h2>
+            <div class="sugg-grid">
+                <div class="sugg-card"><a href="age-calculator.html">🎂 Age Calculator</a></div>
+                <div class="sugg-card"><a href="emi-calculator.html">💸 EMI Calculator</a></div>
+                <div class="sugg-card"><a href="word-counter.html">📝 Word Counter</a></div>
+            </div>
+        </div>
     </div>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3>MedusaSMM</h3>
+                <p style="color:var(--gray); font-size:0.9rem;">Tools for a healthier digital life.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms of Use</a></li>
+                    <li><a href="disclaimer.html">Disclaimer</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copy">&copy; 2024 MedusaSMM Tools. All rights reserved.</div>
+    </footer>
+
     <script>
         function calcBMI() {
             let w = document.getElementById('weight').value;
@@ -32,14 +118,15 @@
             if(w && h) {
                 let bmi = (w / ((h/100) * (h/100))).toFixed(1);
                 let status = "";
+                let color = "";
                 
-                if(bmi < 18.5) status = "Underweight";
-                else if(bmi < 25) status = "Normal";
-                else if(bmi < 30) status = "Overweight";
-                else status = "Obese";
+                if(bmi < 18.5) { status = "Underweight"; color = "#f1c40f"; }
+                else if(bmi < 25) { status = "Normal"; color = "#2ecc71"; }
+                else if(bmi < 30) { status = "Overweight"; color = "#e67e22"; }
+                else { status = "Obese"; color = "#e74c3c"; }
 
                 document.getElementById('output').innerHTML = 
-                    `Your BMI is <strong>${bmi}</strong><br>Status: <span style="color:${status === 'Normal' ? '#0f0' : '#f00'}">${status}</span>`;
+                    `Your BMI is <strong>${bmi}</strong><br>Status: <span style="color:${color}; font-weight:bold;">${status}</span>`;
             }
         }
     </script>
