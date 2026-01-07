@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Binary Translator - MedusaSMM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Outfit:wght@600;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg-color: #030014; --glass-bg: rgba(255, 255, 255, 0.03); --glass-border: rgba(255, 255, 255, 0.08); --primary: #00ff9d; --text-white: #ffffff; }
+        body { background-color: var(--bg-color); font-family: 'Inter', sans-serif; color: var(--text-white); margin: 0; min-height: 100vh; display: flex; flex-direction: column; }
+        nav { display: flex; justify-content: space-between; padding: 25px 5%; border-bottom: 1px solid var(--glass-border); }
+        .logo { font-family: 'Outfit', sans-serif; font-size: 1.8rem; font-weight: 800; color: #fff; text-decoration: none; }
+        .tool-container { max-width: 700px; margin: 60px auto; padding: 40px; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 20px; }
+        input { width: 100%; padding: 15px; background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border); color: #fff; border-radius: 8px; margin-bottom: 20px; outline:none; }
+        button { width: 100%; padding: 15px; background: var(--primary); color: #000; border: none; font-weight: bold; border-radius: 8px; cursor: pointer; }
+        .output { margin-top: 20px; padding: 20px; background: #000; border-left: 3px solid var(--primary); font-family: monospace; color: var(--primary); word-break: break-all; min-height: 60px; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="logo">medusasmmTools</a>
+        <a href="index.html" style="color:#fff; text-decoration:none;">Back to Home</a>
+    </nav>
+    <div class="tool-container">
+        <h1 style="text-align:center; font-family:'Outfit', sans-serif;">🤖 Text to Binary</h1>
+        <input type="text" id="inputText" placeholder="Enter text to translate...">
+        <button onclick="convert()">Translate to 010101</button>
+        <div class="output" id="result">Binary code will appear here...</div>
+        <a href="index.html" style="display:block; text-align:center; margin-top:20px; color:grey; text-decoration:none;">← Go Back</a>
+    </div>
+    <script>
+        function convert() {
+            let input = document.getElementById('inputText').value;
+            let output = "";
+            for (let i = 0; i < input.length; i++) {
+                output += input[i].charCodeAt(0).toString(2) + " ";
+            }
+            document.getElementById('result').innerText = output;
+        }
+    </script>
+</body>
+</html>
