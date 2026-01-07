@@ -22,6 +22,7 @@
 
         button { width: 100%; padding: 18px; background: var(--primary); color: #fff; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; font-size: 1.1rem; transition: 0.3s; }
         button:hover { box-shadow: 0 0 20px var(--primary); transform: translateY(-2px); }
+        button:disabled { background: #555; cursor: not-allowed; }
         
         .image-container { 
             margin-top: 30px; 
@@ -37,15 +38,17 @@
         }
         
         .image-container img { max-width: 100%; border-radius: 10px; display: none; box-shadow: 0 0 30px rgba(217, 0, 255, 0.3); }
-        .loading { display: none; color: var(--primary); font-family: 'Outfit'; font-size: 1.2rem; animation: pulse 1s infinite; }
         
-        @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
+        /* Loading Animation */
+        .loading { display: none; color: var(--primary); font-family: 'Outfit'; font-size: 1.2rem; flex-direction: column; align-items: center; gap: 10px; }
+        .spinner { width: 40px; height: 40px; border: 4px solid rgba(255,255,255,0.1); border-top: 4px solid var(--primary); border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         .download-btn { display: inline-block; margin-top: 20px; padding: 12px 25px; background: #fff; color: #000; text-decoration: none; font-weight: bold; border-radius: 5px; display: none; cursor: pointer; }
 
+        /* Content & Suggestions */
         .content-section { margin-top: 40px; color: var(--gray); line-height: 1.6; text-align: left; }
         .content-section h2 { color: #fff; font-family: 'Outfit'; margin-bottom: 15px; }
-        
         .suggestions { margin-top: 50px; border-top: 1px solid var(--border); padding-top: 30px; }
         .sugg-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 20px; }
         .sugg-card { background: var(--glass); padding: 15px; border-radius: 10px; text-align: center; border: 1px solid var(--border); transition:0.3s; }
@@ -72,10 +75,13 @@
             <p style="color:gray; margin-bottom:20px;">Describe your imagination, and AI will draw it.</p>
             
             <input type="text" id="promptInput" placeholder="e.g. A futuristic cyberpunk city with neon lights...">
-            <button onclick="generateImage()">✨ Generate Art</button>
+            <button id="genBtn" onclick="generateImage()">✨ Generate Art</button>
             
             <div class="image-container">
-                <span class="loading" id="loader">Generating High Quality Art... Please wait...</span>
+                <div class="loading" id="loader">
+                    <div class="spinner"></div>
+                    <span>Creating Magic... Please wait...</span>
+                </div>
                 <img id="resultImg" src="" alt="AI Generated Image">
             </div>
 
@@ -108,4 +114,109 @@
             <div class="footer-col">
                 <h3>Legal</h3>
                 <ul>
-                    <li><a href="privacy
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms of Use</a></li>
+                    <li><a href="disclaimer.html">Disclaimer</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copy">&copy; 2024 MedusaSMM Tools. All rights reserved.</div>
+    </footer>
+
+    <script>
+        async function generateImage() {
+            let prompt = document.getElementById('promptInput').value;
+            let imgElement = document.getElementById('resultImg');
+            let loader = document.getElementById('loader');
+            let downloadBtn = document.getElementById('downloadLink');
+            let genBtn = document.getElementById('genBtn');
+
+            if(!prompt) {
+                alert("Please write a description first!");
+                return;
+            }
+
+            // UI State: Loading
+            imgElement.style.display = 'none';
+            downloadBtn.style.display = 'none';
+            loader.style.display = 'flex';
+            genBtn.disabled = true;
+            genBtn.innerText = "Generating...";
+
+            let randomSeed = Math.floor(Math.random() * 10000);
+            let apiUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?n=${randomSeed}&width=800&height=800&model=flux`;
+
+            try {
+                // Fetch the image as a Blob (File) directly to avoid CORS issues on Canvas
+                const response = await fetch(apiUrl);
+                const blob = await response.blob();
+                
+                // Create an image bitmap from the blob
+                const imageBitmap = await createImageBitmap(blob);
+                
+                // Create Canvas
+                let canvas = document.createElement('canvas');
+                let ctx = canvas.getContext('2d');
+                canvas.width = imageBitmap.width;
+                canvas.height = imageBitmap.height;
+
+                // Draw Image
+                ctx.drawImage(imageBitmap, 0, 0);
+
+                // --- WATERMARK LOGIC ---
+                let text = "MedusaSMM Tools";
+                let fontSize = canvas.width / 25; 
+                let padding = 20;
+
+                ctx.font = `bold ${fontSize}px sans-serif`;
+                let textWidth = ctx.measureText(text).width;
+                
+                // Black Box Background
+                let boxX = canvas.width - textWidth - (padding * 2);
+                let boxY = canvas.height - fontSize - (padding * 1.5);
+                let boxWidth = textWidth + (padding * 2);
+                let boxHeight = fontSize + (padding * 2);
+
+                ctx.fillStyle = "rgba(0, 0, 0, 0.7)"; 
+                ctx.fillRect(boxX, boxY, boxWidth, boxHeight);
+
+                // White Text
+                ctx.fillStyle = "#ffffff";
+                ctx.textAlign = "left";
+                ctx.textBaseline = "middle";
+                let textX = boxX + padding;
+                let textY = boxY + (boxHeight / 2) + 4;
+                ctx.fillText(text, textX, textY);
+                // --- END WATERMARK ---
+
+                // Display Result
+                let watermarkedUrl = canvas.toDataURL("image/jpeg");
+                imgElement.src = watermarkedUrl;
+                
+                // On Image Load (Just to be safe)
+                imgElement.onload = function() {
+                    loader.style.display = 'none';
+                    imgElement.style.display = 'block';
+                    downloadBtn.href = watermarkedUrl;
+                    downloadBtn.style.display = 'inline-block';
+                    genBtn.disabled = false;
+                    genBtn.innerText = "✨ Generate Art";
+                };
+
+            } catch (error) {
+                console.error(error);
+                loader.innerHTML = "<span style='color:red'>Error generating image. Server might be busy.</span>";
+                genBtn.disabled = false;
+                genBtn.innerText = "✨ Generate Art";
+            }
+        }
+    </script>
+</body>
+</html>
