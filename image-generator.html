@@ -6,7 +6,7 @@
     <title>AI Image Generator - MedusaSMM</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        /* Shared CSS */
+        /* --- CSS Wahi Same Hai (No Changes needed in Design) --- */
         :root { --bg: #030014; --glass: rgba(255,255,255,0.05); --border: rgba(255,255,255,0.1); --primary: #d900ff; --text: #fff; --gray: #9ca3af; --danger: #ff4444; }
         body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; margin: 0; }
         
@@ -22,7 +22,7 @@
 
         button { width: 100%; padding: 18px; background: var(--primary); color: #fff; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; font-size: 1.1rem; transition: 0.3s; }
         button:hover { box-shadow: 0 0 20px var(--primary); transform: translateY(-2px); }
-        button:disabled { background: #555; cursor: not-allowed; transform: none; box-shadow: none; }
+        button:disabled { background: #555; cursor: not-allowed; transform: none; box-shadow: none; opacity: 0.7; }
         
         .image-container { 
             margin-top: 30px; 
@@ -39,21 +39,17 @@
         
         .image-container img { max-width: 100%; border-radius: 10px; display: none; box-shadow: 0 0 30px rgba(217, 0, 255, 0.3); }
         
-        /* Loading Animation */
         .loading { display: none; color: var(--primary); font-family: 'Outfit'; font-size: 1.2rem; flex-direction: column; align-items: center; gap: 10px; }
         .spinner { width: 40px; height: 40px; border: 4px solid rgba(255,255,255,0.1); border-top: 4px solid var(--primary); border-radius: 50%; animation: spin 1s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         .download-btn { display: inline-block; margin-top: 20px; padding: 12px 25px; background: #fff; color: #000; text-decoration: none; font-weight: bold; border-radius: 5px; display: none; cursor: pointer; }
 
-        /* Error & Warning Box */
-        .status-msg { margin-top: 15px; padding: 10px; border-radius: 8px; display: none; font-weight: bold; }
+        .status-msg { margin-top: 15px; padding: 15px; border-radius: 8px; display: none; font-weight: bold; text-align: center; }
         .error { background: rgba(255, 68, 68, 0.2); color: #ff4444; border: 1px solid #ff4444; }
         .warning { background: rgba(255, 187, 0, 0.2); color: #ffbb00; border: 1px solid #ffbb00; }
 
-        /* Content & Footer */
-        .content-section { margin-top: 40px; color: var(--gray); line-height: 1.6; text-align: left; }
-        .content-section h2 { color: #fff; font-family: 'Outfit'; margin-bottom: 15px; }
+        /* Suggestions & Footer */
         .suggestions { margin-top: 50px; border-top: 1px solid var(--border); padding-top: 30px; }
         .sugg-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 20px; }
         .sugg-card { background: var(--glass); padding: 15px; border-radius: 10px; text-align: center; border: 1px solid var(--border); transition:0.3s; }
@@ -61,6 +57,10 @@
         .sugg-card a { text-decoration: none; color: #fff; display: block; }
         
         footer { border-top: 1px solid var(--border); padding: 40px 5%; background: rgba(0,0,0,0.3); margin-top: auto; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
+        .footer-col h3 { color: #fff; margin-bottom: 15px; font-family: 'Outfit'; }
+        .footer-col ul { list-style: none; padding: 0; }
+        .footer-col li a { color: var(--gray); text-decoration: none; font-size: 0.9rem; display: block; margin-bottom: 8px; }
         .copy { text-align: center; margin-top: 40px; color: var(--gray); font-size: 0.8rem; border-top: 1px solid var(--border); padding-top: 20px; }
     </style>
 </head>
@@ -76,7 +76,7 @@
             <p style="color:gray; margin-bottom:20px;">Safe & Secure AI Art Generation.</p>
             
             <input type="text" id="promptInput" placeholder="e.g. A futuristic cyberpunk city...">
-            <button id="genBtn" onclick="generateImage()">✨ Generate Art</button>
+            <button id="genBtn" onclick="initiateGeneration()">✨ Generate Art</button>
             
             <div id="statusBox" class="status-msg"></div>
 
@@ -91,16 +91,6 @@
             <a id="downloadLink" class="download-btn" download="medusa-art.jpg">Download Image</a>
         </div>
 
-        <div class="content-section">
-            <h2>Safety Guidelines</h2>
-            <p>To ensure a safe environment for everyone, we have a strict policy against inappropriate content.</p>
-            <h3>Rules:</h3>
-            <ul>
-                <li>Do not generate NSFW, violent, or hateful content.</li>
-                <li><strong>3 Strike Policy:</strong> If you use banned words 3 times, you will be suspended for 3 hours.</li>
-            </ul>
-        </div>
-
         <div class="suggestions">
             <h2>🔥 Try These Tools</h2>
             <div class="sugg-grid">
@@ -112,34 +102,54 @@
     </div>
 
     <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3>MedusaSMM</h3>
+                <p style="color:var(--gray); font-size:0.9rem;">Creative Tools.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms of Use</a></li>
+                    <li><a href="disclaimer.html">Disclaimer</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
         <div class="copy">&copy; 2024 MedusaSMM Tools. All rights reserved.</div>
     </footer>
 
     <script>
-        // --- SAFETY CONFIGURATION ---
-        // Aap yahan aur words add kar sakte hain
-        const bannedWords = ['nude', 'boob'‚ 'pussy'‚ 'naked', 'sex', 'porn', 'xxx', 'blood', 'kill', 'murder', 'terrorist', 'drug', 'abuse', 'child'];
+        // --- 1. SAFETY LOGIC ---
+        const bannedWords = ['nude', 'naked', 'sex', 'porn', 'xxx', 'blood', 'kill', 'murder', 'terrorist', 'drug', 'abuse', 'child', 'nsfw'];
         const MAX_STRIKES = 3;
-        const BAN_DURATION_MS = 3 * 60 * 60 * 1000; // 3 Hours in milliseconds
+        const BAN_DURATION_MS = 3 * 60 * 60 * 1000; // 3 Hours
 
         function checkSafety(prompt) {
             let strikes = parseInt(localStorage.getItem('medusa_strikes') || '0');
             let banTime = parseInt(localStorage.getItem('medusa_ban_time') || '0');
             let currentTime = new Date().getTime();
 
-            // 1. Check if User is Banned
+            // Check Suspended Status
             if (currentTime < banTime) {
-                let remaining = Math.ceil((banTime - currentTime) / (1000 * 60)); // Minutes left
+                let remaining = Math.ceil((banTime - currentTime) / (1000 * 60)); 
                 showStatus(`⛔ You are suspended! Try again in ${remaining} minutes.`, 'error');
                 return false;
             } else if (banTime > 0 && currentTime > banTime) {
-                // Ban expired, reset
+                // Reset if ban over
                 localStorage.setItem('medusa_strikes', '0');
                 localStorage.setItem('medusa_ban_time', '0');
                 strikes = 0;
             }
 
-            // 2. Check for Bad Words
+            // Check Content
             let lowerPrompt = prompt.toLowerCase();
             let foundBadWord = bannedWords.some(word => lowerPrompt.includes(word));
 
@@ -148,19 +158,16 @@
                 localStorage.setItem('medusa_strikes', strikes);
 
                 if (strikes >= MAX_STRIKES) {
-                    // Ban the user
                     let newBanTime = currentTime + BAN_DURATION_MS;
                     localStorage.setItem('medusa_ban_time', newBanTime);
-                    showStatus(`🚫 Account Suspended for 3 Hours due to repeated policy violations.`, 'error');
+                    showStatus(`🚫 Account Suspended for 3 Hours due to safety violations.`, 'error');
                 } else {
-                    // Give Warning
                     let left = MAX_STRIKES - strikes;
-                    showStatus(`⚠️ Warning! Inappropriate content detected. ${left} attempts remaining before suspension.`, 'warning');
+                    showStatus(`⚠️ Warning! Content violation detected. ${left} attempts remaining before suspension.`, 'warning');
                 }
                 return false;
             }
 
-            // Safe to proceed
             hideStatus();
             return true;
         }
@@ -168,7 +175,7 @@
         function showStatus(msg, type) {
             const box = document.getElementById('statusBox');
             box.innerText = msg;
-            box.className = `status-msg ${type}`; // Apply 'error' or 'warning' class
+            box.className = `status-msg ${type}`;
             box.style.display = 'block';
         }
 
@@ -176,47 +183,66 @@
             document.getElementById('statusBox').style.display = 'none';
         }
 
-        // --- IMAGE GENERATION LOGIC ---
-        async function generateImage() {
+        // --- 2. GENERATION LOGIC (FAIL-SAFE) ---
+        function initiateGeneration() {
             let prompt = document.getElementById('promptInput').value;
-            let imgElement = document.getElementById('resultImg');
-            let loader = document.getElementById('loader');
-            let downloadBtn = document.getElementById('downloadLink');
-            let genBtn = document.getElementById('genBtn');
-
+            
             if(!prompt) {
                 alert("Please write a description first!");
                 return;
             }
 
-            // ** SAFETY CHECK RUN KAREIN **
-            if (!checkSafety(prompt)) {
-                return; // Stop function if unsafe or banned
-            }
+            if (!checkSafety(prompt)) return;
 
-            // UI State: Loading
+            // UI Loading State
+            let imgElement = document.getElementById('resultImg');
+            let loader = document.getElementById('loader');
+            let downloadBtn = document.getElementById('downloadLink');
+            let genBtn = document.getElementById('genBtn');
+
             imgElement.style.display = 'none';
             downloadBtn.style.display = 'none';
             loader.style.display = 'flex';
             genBtn.disabled = true;
             genBtn.innerText = "Generating...";
 
+            // API Call
             let randomSeed = Math.floor(Math.random() * 10000);
             let apiUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?n=${randomSeed}&width=800&height=800&model=flux`;
 
-            try {
-                const response = await fetch(apiUrl);
-                const blob = await response.blob();
-                const imageBitmap = await createImageBitmap(blob);
+            // Using Fetch + Blob + ObjectURL (Most Compatible Method)
+            fetch(apiUrl)
+                .then(response => {
+                    if (!response.ok) throw new Error("Network response was not ok");
+                    return response.blob();
+                })
+                .then(blob => {
+                    let imgUrl = URL.createObjectURL(blob);
+                    applyWatermark(imgUrl);
+                })
+                .catch(error => {
+                    console.error("Fetch error:", error);
+                    showStatus("Error: Could not connect to Image Server. Try again later.", "error");
+                    resetUI();
+                });
+        }
+
+        function applyWatermark(sourceUrl) {
+            let canvas = document.createElement('canvas');
+            let ctx = canvas.getContext('2d');
+            let tempImg = new Image();
+            
+            tempImg.crossOrigin = "Anonymous"; // Crucial for security
+            tempImg.src = sourceUrl;
+
+            tempImg.onload = function() {
+                canvas.width = tempImg.width;
+                canvas.height = tempImg.height;
                 
-                let canvas = document.createElement('canvas');
-                let ctx = canvas.getContext('2d');
-                canvas.width = imageBitmap.width;
-                canvas.height = imageBitmap.height;
+                // Draw Original Image
+                ctx.drawImage(tempImg, 0, 0);
 
-                ctx.drawImage(imageBitmap, 0, 0);
-
-                // Watermark Logic
+                // --- WATERMARK ---
                 let text = "MedusaSMM Tools";
                 let fontSize = canvas.width / 25; 
                 let padding = 20;
@@ -224,6 +250,7 @@
                 ctx.font = `bold ${fontSize}px sans-serif`;
                 let textWidth = ctx.measureText(text).width;
                 
+                // Black Box
                 let boxX = canvas.width - textWidth - (padding * 2);
                 let boxY = canvas.height - fontSize - (padding * 1.5);
                 let boxWidth = textWidth + (padding * 2);
@@ -232,32 +259,40 @@
                 ctx.fillStyle = "rgba(0, 0, 0, 0.7)"; 
                 ctx.fillRect(boxX, boxY, boxWidth, boxHeight);
 
+                // Text
                 ctx.fillStyle = "#ffffff";
                 ctx.textAlign = "left";
                 ctx.textBaseline = "middle";
                 let textX = boxX + padding;
                 let textY = boxY + (boxHeight / 2) + 4;
                 ctx.fillText(text, textX, textY);
+                // --- END WATERMARK ---
 
-                let watermarkedUrl = canvas.toDataURL("image/jpeg");
-                imgElement.src = watermarkedUrl;
+                // Final Output
+                let finalUrl = canvas.toDataURL("image/jpeg");
                 
-                imgElement.onload = function() {
-                    loader.style.display = 'none';
-                    imgElement.style.display = 'block';
-                    downloadBtn.href = watermarkedUrl;
-                    downloadBtn.style.display = 'inline-block';
-                    genBtn.disabled = false;
-                    genBtn.innerText = "✨ Generate Art";
-                };
+                let imgElement = document.getElementById('resultImg');
+                let downloadBtn = document.getElementById('downloadLink');
+                
+                imgElement.src = finalUrl;
+                imgElement.style.display = 'block';
+                downloadBtn.href = finalUrl;
+                downloadBtn.style.display = 'inline-block';
+                
+                resetUI();
+            };
 
-            } catch (error) {
-                console.error(error);
-                showStatus("Error generating image. Server might be busy.", "error");
-                loader.style.display = 'none';
-                genBtn.disabled = false;
-                genBtn.innerText = "✨ Generate Art";
-            }
+            tempImg.onerror = function() {
+                showStatus("Error processing image watermark.", "error");
+                resetUI();
+            };
+        }
+
+        function resetUI() {
+            document.getElementById('loader').style.display = 'none';
+            let genBtn = document.getElementById('genBtn');
+            genBtn.disabled = false;
+            genBtn.innerText = "✨ Generate Art";
         }
     </script>
 </body>
