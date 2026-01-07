@@ -2,38 +2,134 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EMI Calculator - MedusaSMM</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #030014; --glass: rgba(255,255,255,0.05); --primary: #00ff9d; --text: #fff; }
+        /* --- CSS (Updated for Full Width & Mobile) --- */
+        :root { --bg: #030014; --glass: rgba(255,255,255,0.05); --border: rgba(255,255,255,0.1); --primary: #00ff9d; --text: #fff; --gray: #9ca3af; }
         body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; margin: 0; }
-        nav { padding: 20px 5%; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; }
+        
+        /* Navbar */
+        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
         .logo { font-family: 'Outfit', sans-serif; font-size: 1.5rem; text-decoration: none; color: #fff; }
-        .container { max-width: 500px; margin: 50px auto; padding: 30px; background: var(--glass); border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); }
-        input { width: 100%; padding: 15px; margin: 10px 0; background: rgba(0,0,0,0.3); border: 1px solid #444; color: #fff; border-radius: 8px; outline: none; }
-        button { width: 100%; padding: 15px; background: var(--primary); color: #000; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; margin-top: 10px; }
-        .result { margin-top: 20px; text-align: center; font-size: 1.5rem; color: var(--primary); font-family: 'Outfit', sans-serif; }
+        
+        /* Main Container */
+        .main-wrapper { flex: 1; padding: 40px 20px; width: 100%; max-width: 800px; margin: 0 auto; }
+        
+        /* Tool Box */
+        .tool-box { background: var(--glass); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px; }
+        h1 { font-family: 'Outfit'; text-align: center; color: var(--primary); margin-bottom: 20px; font-size: 2rem; }
+        
+        .input-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 8px; color: var(--gray); font-size: 0.95rem; }
+        input { width: 100%; padding: 16px; background: rgba(0,0,0,0.3); border: 1px solid #444; color: #fff; border-radius: 8px; font-size: 1rem; outline: none; }
+        button { width: 100%; padding: 18px; background: var(--primary); color: #000; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; font-size: 1.1rem; margin-top: 10px; transition: 0.3s; }
+        button:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0, 255, 157, 0.3); }
+        
+        .result { margin-top: 25px; text-align: center; font-size: 1.8rem; color: var(--primary); font-family: 'Outfit'; padding: 20px; background: rgba(0,255,157,0.1); border-radius: 10px; }
+
+        /* Content Section */
+        .content-section { margin-top: 40px; color: var(--gray); line-height: 1.6; }
+        .content-section h2 { color: #fff; font-family: 'Outfit'; margin-bottom: 15px; font-size: 1.5rem; }
+        .content-section ul { padding-left: 20px; }
+        .content-section li { margin-bottom: 10px; }
+
+        /* Suggestions */
+        .suggestions { margin-top: 50px; border-top: 1px solid var(--border); padding-top: 30px; }
+        .sugg-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px; }
+        .sugg-card { background: var(--glass); padding: 20px; border-radius: 10px; text-align: center; border: 1px solid var(--border); transition: 0.3s; }
+        .sugg-card:hover { border-color: var(--primary); transform: translateY(-3px); }
+        .sugg-card a { text-decoration: none; color: #fff; font-weight: 500; display: block; }
+
+        /* Footer */
+        footer { border-top: 1px solid var(--border); padding: 40px 5%; background: rgba(0,0,0,0.3); margin-top: auto; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
+        .footer-col h3 { color: #fff; margin-bottom: 15px; font-family: 'Outfit'; }
+        .footer-col ul { list-style: none; padding: 0; }
+        .footer-col li a { color: var(--gray); text-decoration: none; font-size: 0.9rem; display: block; margin-bottom: 8px; }
+        .footer-col li a:hover { color: var(--primary); }
+        .copy { text-align: center; margin-top: 40px; color: var(--gray); font-size: 0.8rem; border-top: 1px solid var(--border); padding-top: 20px; }
     </style>
 </head>
 <body>
-    <nav><a href="index.html" class="logo">MedusaTools</a><a href="index.html" style="color:#aaa; text-decoration:none;">Back</a></nav>
-    <div class="container">
-        <h2 style="text-align:center; font-family:'Outfit';">💸 EMI Calculator</h2>
-        <label>Loan Amount</label>
-        <input type="number" id="amount" placeholder="e.g. 500000">
-        <label>Interest Rate (%)</label>
-        <input type="number" id="rate" placeholder="e.g. 10">
-        <label>Tenure (Years)</label>
-        <input type="number" id="years" placeholder="e.g. 5">
-        <button onclick="calculateEMI()">Calculate EMI</button>
-        <div class="result" id="output">0.00 / month</div>
+    <nav>
+        <a href="index.html" class="logo">MedusaTools</a>
+        <a href="index.html" style="color:#aaa; text-decoration:none;">Back to Home</a>
+    </nav>
+
+    <div class="main-wrapper">
+        
+        <div class="tool-box">
+            <h1>💸 EMI Calculator</h1>
+            <div class="input-group">
+                <label>Loan Amount (Principal)</label>
+                <input type="number" id="amount" placeholder="e.g. 500000">
+            </div>
+            <div class="input-group">
+                <label>Annual Interest Rate (%)</label>
+                <input type="number" id="rate" placeholder="e.g. 10">
+            </div>
+            <div class="input-group">
+                <label>Loan Tenure (Years)</label>
+                <input type="number" id="years" placeholder="e.g. 5">
+            </div>
+            <button onclick="calculateEMI()">Calculate EMI</button>
+            <div class="result" id="output">0.00 / month</div>
+        </div>
+
+        <div class="content-section">
+            <h2>How to use EMI Calculator?</h2>
+            <ul>
+                <li><strong>Step 1:</strong> Enter the total loan amount you wish to borrow.</li>
+                <li><strong>Step 2:</strong> Enter the annual interest rate offered by the bank.</li>
+                <li><strong>Step 3:</strong> Enter the duration (in years) for repayment.</li>
+                <li><strong>Step 4:</strong> Click "Calculate" to see your monthly installment instantly.</li>
+            </ul>
+            <p>This tool helps you plan your finances better before applying for a Home Loan, Car Loan, or Personal Loan.</p>
+        </div>
+
+        <div class="suggestions">
+            <h2>🔥 Try Other Tools</h2>
+            <div class="sugg-grid">
+                <div class="sugg-card"><a href="age-calculator.html">🎂 Age Calculator</a></div>
+                <div class="sugg-card"><a href="bmi-calculator.html">⚖️ BMI Calculator</a></div>
+                <div class="sugg-card"><a href="password-gen.html">🔐 Password Gen</a></div>
+            </div>
+        </div>
+
     </div>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3>MedusaSMM</h3>
+                <p style="color:var(--gray); font-size:0.9rem;">Premium digital utilities for speed and privacy.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms of Use</a></li>
+                    <li><a href="disclaimer.html">Disclaimer</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copy">&copy; 2024 MedusaSMM Tools. All rights reserved.</div>
+    </footer>
+
     <script>
         function calculateEMI() {
             let P = document.getElementById('amount').value;
             let R = document.getElementById('rate').value / 12 / 100;
             let N = document.getElementById('years').value * 12;
-            
             if(P && R && N) {
                 let emi = (P * R * Math.pow(1 + R, N)) / (Math.pow(1 + R, N) - 1);
                 document.getElementById('output').innerText = emi.toFixed(2) + " / month";
