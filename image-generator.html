@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
     <style>
         /* Shared CSS */
-        :root { --bg: #030014; --glass: rgba(255,255,255,0.05); --border: rgba(255,255,255,0.1); --primary: #d900ff; --text: #fff; --gray: #9ca3af; }
+        :root { --bg: #030014; --glass: rgba(255,255,255,0.05); --border: rgba(255,255,255,0.1); --primary: #d900ff; --text: #fff; --gray: #9ca3af; --danger: #ff4444; }
         body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; margin: 0; }
         
         nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
@@ -22,7 +22,7 @@
 
         button { width: 100%; padding: 18px; background: var(--primary); color: #fff; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; font-size: 1.1rem; transition: 0.3s; }
         button:hover { box-shadow: 0 0 20px var(--primary); transform: translateY(-2px); }
-        button:disabled { background: #555; cursor: not-allowed; }
+        button:disabled { background: #555; cursor: not-allowed; transform: none; box-shadow: none; }
         
         .image-container { 
             margin-top: 30px; 
@@ -46,7 +46,12 @@
 
         .download-btn { display: inline-block; margin-top: 20px; padding: 12px 25px; background: #fff; color: #000; text-decoration: none; font-weight: bold; border-radius: 5px; display: none; cursor: pointer; }
 
-        /* Content & Suggestions */
+        /* Error & Warning Box */
+        .status-msg { margin-top: 15px; padding: 10px; border-radius: 8px; display: none; font-weight: bold; }
+        .error { background: rgba(255, 68, 68, 0.2); color: #ff4444; border: 1px solid #ff4444; }
+        .warning { background: rgba(255, 187, 0, 0.2); color: #ffbb00; border: 1px solid #ffbb00; }
+
+        /* Content & Footer */
         .content-section { margin-top: 40px; color: var(--gray); line-height: 1.6; text-align: left; }
         .content-section h2 { color: #fff; font-family: 'Outfit'; margin-bottom: 15px; }
         .suggestions { margin-top: 50px; border-top: 1px solid var(--border); padding-top: 30px; }
@@ -56,10 +61,6 @@
         .sugg-card a { text-decoration: none; color: #fff; display: block; }
         
         footer { border-top: 1px solid var(--border); padding: 40px 5%; background: rgba(0,0,0,0.3); margin-top: auto; }
-        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
-        .footer-col h3 { color: #fff; margin-bottom: 15px; font-family: 'Outfit'; }
-        .footer-col ul { list-style: none; padding: 0; }
-        .footer-col li a { color: var(--gray); text-decoration: none; font-size: 0.9rem; display: block; margin-bottom: 8px; }
         .copy { text-align: center; margin-top: 40px; color: var(--gray); font-size: 0.8rem; border-top: 1px solid var(--border); padding-top: 20px; }
     </style>
 </head>
@@ -72,11 +73,13 @@
     <div class="main-wrapper">
         <div class="tool-box">
             <h1>🎨 AI Image Generator</h1>
-            <p style="color:gray; margin-bottom:20px;">Describe your imagination, and AI will draw it.</p>
+            <p style="color:gray; margin-bottom:20px;">Safe & Secure AI Art Generation.</p>
             
-            <input type="text" id="promptInput" placeholder="e.g. A futuristic cyberpunk city with neon lights...">
+            <input type="text" id="promptInput" placeholder="e.g. A futuristic cyberpunk city...">
             <button id="genBtn" onclick="generateImage()">✨ Generate Art</button>
             
+            <div id="statusBox" class="status-msg"></div>
+
             <div class="image-container">
                 <div class="loading" id="loader">
                     <div class="spinner"></div>
@@ -89,10 +92,13 @@
         </div>
 
         <div class="content-section">
-            <h2>Unlimited AI Generation</h2>
-            <p>Create stunning visuals without any daily limits. Perfect for wallpapers, social media posts, and creative inspiration.</p>
-            <h3>Pro Watermark:</h3>
-            <p>Images now include a clear branding badge of <strong>MedusaSMM Tools</strong>.</p>
+            <h2>Safety Guidelines</h2>
+            <p>To ensure a safe environment for everyone, we have a strict policy against inappropriate content.</p>
+            <h3>Rules:</h3>
+            <ul>
+                <li>Do not generate NSFW, violent, or hateful content.</li>
+                <li><strong>3 Strike Policy:</strong> If you use banned words 3 times, you will be suspended for 3 hours.</li>
+            </ul>
         </div>
 
         <div class="suggestions">
@@ -106,31 +112,71 @@
     </div>
 
     <footer>
-        <div class="footer-grid">
-            <div class="footer-col">
-                <h3>MedusaSMM</h3>
-                <p style="color:var(--gray); font-size:0.9rem;">Creative Tools for everyone.</p>
-            </div>
-            <div class="footer-col">
-                <h3>Legal</h3>
-                <ul>
-                    <li><a href="privacy.html">Privacy Policy</a></li>
-                    <li><a href="terms.html">Terms of Use</a></li>
-                    <li><a href="disclaimer.html">Disclaimer</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h3>Company</h3>
-                <ul>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-            </div>
-        </div>
         <div class="copy">&copy; 2024 MedusaSMM Tools. All rights reserved.</div>
     </footer>
 
     <script>
+        // --- SAFETY CONFIGURATION ---
+        // Aap yahan aur words add kar sakte hain
+        const bannedWords = ['nude', 'naked', 'sex', 'porn', 'xxx', 'blood', 'kill', 'murder', 'terrorist', 'drug', 'abuse', 'child'];
+        const MAX_STRIKES = 3;
+        const BAN_DURATION_MS = 3 * 60 * 60 * 1000; // 3 Hours in milliseconds
+
+        function checkSafety(prompt) {
+            let strikes = parseInt(localStorage.getItem('medusa_strikes') || '0');
+            let banTime = parseInt(localStorage.getItem('medusa_ban_time') || '0');
+            let currentTime = new Date().getTime();
+
+            // 1. Check if User is Banned
+            if (currentTime < banTime) {
+                let remaining = Math.ceil((banTime - currentTime) / (1000 * 60)); // Minutes left
+                showStatus(`⛔ You are suspended! Try again in ${remaining} minutes.`, 'error');
+                return false;
+            } else if (banTime > 0 && currentTime > banTime) {
+                // Ban expired, reset
+                localStorage.setItem('medusa_strikes', '0');
+                localStorage.setItem('medusa_ban_time', '0');
+                strikes = 0;
+            }
+
+            // 2. Check for Bad Words
+            let lowerPrompt = prompt.toLowerCase();
+            let foundBadWord = bannedWords.some(word => lowerPrompt.includes(word));
+
+            if (foundBadWord) {
+                strikes++;
+                localStorage.setItem('medusa_strikes', strikes);
+
+                if (strikes >= MAX_STRIKES) {
+                    // Ban the user
+                    let newBanTime = currentTime + BAN_DURATION_MS;
+                    localStorage.setItem('medusa_ban_time', newBanTime);
+                    showStatus(`🚫 Account Suspended for 3 Hours due to repeated policy violations.`, 'error');
+                } else {
+                    // Give Warning
+                    let left = MAX_STRIKES - strikes;
+                    showStatus(`⚠️ Warning! Inappropriate content detected. ${left} attempts remaining before suspension.`, 'warning');
+                }
+                return false;
+            }
+
+            // Safe to proceed
+            hideStatus();
+            return true;
+        }
+
+        function showStatus(msg, type) {
+            const box = document.getElementById('statusBox');
+            box.innerText = msg;
+            box.className = `status-msg ${type}`; // Apply 'error' or 'warning' class
+            box.style.display = 'block';
+        }
+
+        function hideStatus() {
+            document.getElementById('statusBox').style.display = 'none';
+        }
+
+        // --- IMAGE GENERATION LOGIC ---
         async function generateImage() {
             let prompt = document.getElementById('promptInput').value;
             let imgElement = document.getElementById('resultImg');
@@ -141,6 +187,11 @@
             if(!prompt) {
                 alert("Please write a description first!");
                 return;
+            }
+
+            // ** SAFETY CHECK RUN KAREIN **
+            if (!checkSafety(prompt)) {
+                return; // Stop function if unsafe or banned
             }
 
             // UI State: Loading
@@ -154,23 +205,18 @@
             let apiUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?n=${randomSeed}&width=800&height=800&model=flux`;
 
             try {
-                // Fetch the image as a Blob (File) directly to avoid CORS issues on Canvas
                 const response = await fetch(apiUrl);
                 const blob = await response.blob();
-                
-                // Create an image bitmap from the blob
                 const imageBitmap = await createImageBitmap(blob);
                 
-                // Create Canvas
                 let canvas = document.createElement('canvas');
                 let ctx = canvas.getContext('2d');
                 canvas.width = imageBitmap.width;
                 canvas.height = imageBitmap.height;
 
-                // Draw Image
                 ctx.drawImage(imageBitmap, 0, 0);
 
-                // --- WATERMARK LOGIC ---
+                // Watermark Logic
                 let text = "MedusaSMM Tools";
                 let fontSize = canvas.width / 25; 
                 let padding = 20;
@@ -178,7 +224,6 @@
                 ctx.font = `bold ${fontSize}px sans-serif`;
                 let textWidth = ctx.measureText(text).width;
                 
-                // Black Box Background
                 let boxX = canvas.width - textWidth - (padding * 2);
                 let boxY = canvas.height - fontSize - (padding * 1.5);
                 let boxWidth = textWidth + (padding * 2);
@@ -187,20 +232,16 @@
                 ctx.fillStyle = "rgba(0, 0, 0, 0.7)"; 
                 ctx.fillRect(boxX, boxY, boxWidth, boxHeight);
 
-                // White Text
                 ctx.fillStyle = "#ffffff";
                 ctx.textAlign = "left";
                 ctx.textBaseline = "middle";
                 let textX = boxX + padding;
                 let textY = boxY + (boxHeight / 2) + 4;
                 ctx.fillText(text, textX, textY);
-                // --- END WATERMARK ---
 
-                // Display Result
                 let watermarkedUrl = canvas.toDataURL("image/jpeg");
                 imgElement.src = watermarkedUrl;
                 
-                // On Image Load (Just to be safe)
                 imgElement.onload = function() {
                     loader.style.display = 'none';
                     imgElement.style.display = 'block';
@@ -212,7 +253,8 @@
 
             } catch (error) {
                 console.error(error);
-                loader.innerHTML = "<span style='color:red'>Error generating image. Server might be busy.</span>";
+                showStatus("Error generating image. Server might be busy.", "error");
+                loader.style.display = 'none';
                 genBtn.disabled = false;
                 genBtn.innerText = "✨ Generate Art";
             }
