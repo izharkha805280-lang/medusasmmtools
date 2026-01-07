@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BMI Calculator - MedusaSMM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #030014; --glass: rgba(255,255,255,0.05); --primary: #9d4edd; --text: #fff; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; margin: 0; }
+        nav { padding: 20px 5%; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; }
+        .logo { font-family: 'Outfit', sans-serif; font-size: 1.5rem; text-decoration: none; color: #fff; }
+        .container { max-width: 500px; margin: 50px auto; padding: 30px; background: var(--glass); border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); text-align: center; }
+        input { width: 100%; padding: 15px; margin: 10px 0; background: rgba(0,0,0,0.3); border: 1px solid #555; color: #fff; border-radius: 8px; outline:none; }
+        button { width: 100%; padding: 15px; background: var(--primary); color: #fff; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; margin-top: 10px; }
+        .result { margin-top: 25px; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 8px; }
+    </style>
+</head>
+<body>
+    <nav><a href="index.html" class="logo">MedusaTools</a><a href="index.html" style="color:#aaa; text-decoration:none;">Back</a></nav>
+    <div class="container">
+        <h2 style="font-family:'Outfit';">⚖️ BMI Calculator</h2>
+        <input type="number" id="weight" placeholder="Weight (kg)">
+        <input type="number" id="height" placeholder="Height (cm)">
+        <button onclick="calcBMI()">Calculate BMI</button>
+        <div class="result" id="output">Enter details above</div>
+    </div>
+    <script>
+        function calcBMI() {
+            let w = document.getElementById('weight').value;
+            let h = document.getElementById('height').value;
+            
+            if(w && h) {
+                let bmi = (w / ((h/100) * (h/100))).toFixed(1);
+                let status = "";
+                
+                if(bmi < 18.5) status = "Underweight";
+                else if(bmi < 25) status = "Normal";
+                else if(bmi < 30) status = "Overweight";
+                else status = "Obese";
+
+                document.getElementById('output').innerHTML = 
+                    `Your BMI is <strong>${bmi}</strong><br>Status: <span style="color:${status === 'Normal' ? '#0f0' : '#f00'}">${status}</span>`;
+            }
+        }
+    </script>
+</body>
+</html>
