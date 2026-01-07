@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - MedusaSMM Tools</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Outfit:wght@600;800&display=swap" rel="stylesheet">
+    <style>
+        /* --- CSS (Same as Home Page) --- */
+        :root { --bg-color: #030014; --glass-border: rgba(255, 255, 255, 0.08); --primary: #9d4edd; --text-white: #ffffff; --text-gray: #9ca3af; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--bg-color); font-family: 'Inter', sans-serif; color: var(--text-white); min-height: 100vh; display: flex; flex-direction: column; }
+        a { text-decoration: none; color: inherit; }
+        .glow-bg { position: fixed; top: -20%; left: 50%; transform: translateX(-50%); width: 800px; height: 800px; background: radial-gradient(circle, rgba(157, 78, 221, 0.15) 0%, rgba(0,0,0,0) 70%); z-index: -1; pointer-events: none; }
+        nav { display: flex; justify-content: space-between; padding: 25px 5%; border-bottom: 1px solid var(--glass-border); }
+        .logo { font-family: 'Outfit', sans-serif; font-size: 1.8rem; font-weight: 800; background: linear-gradient(90deg, #fff, #b8c1ec); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        /* --- Contact Form Specific CSS --- */
+        .content-container { max-width: 600px; margin: 60px auto; padding: 0 20px; flex: 1; text-align: center; }
+        h1 { font-family: 'Outfit', sans-serif; font-size: 3rem; margin-bottom: 10px; color: var(--primary); }
+        p.subtitle { color: var(--text-gray); margin-bottom: 40px; }
+
+        form { display: flex; flex-direction: column; gap: 20px; text-align: left; }
+        
+        label { font-size: 0.9rem; color: var(--text-white); margin-bottom: 5px; display: block; }
+        
+        input, textarea {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus, textarea:focus {
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        button.btn-submit {
+            padding: 15px;
+            background: var(--text-white);
+            color: #000;
+            font-weight: 700;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 1rem;
+            margin-top: 10px;
+        }
+
+        button.btn-submit:hover { transform: scale(1.02); box-shadow: 0 0 20px rgba(255, 255, 255, 0.3); }
+
+        footer { border-top: 1px solid var(--glass-border); padding: 40px; text-align: center; color: var(--text-gray); margin-top: auto; }
+    </style>
+</head>
+<body>
+    <div class="glow-bg"></div>
+    <nav>
+        <div class="logo">medusasmmTools</div>
+        <div><a href="index.html" style="color:var(--text-gray);">Back to Home</a></div>
+    </nav>
+
+    <div class="content-container">
+        <h1>Contact Us</h1>
+        <p class="subtitle">Have a question or suggestion? Send us a message.</p>
+
+        <form action="https://formsubmit.co/xiaozheng82828@gmail.com" method="POST">
+            
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_subject" value="New Message from MedusaSMM Website!">
+
+            <div>
+                <label>Your Name</label>
+                <input type="text" name="name" placeholder="John Doe" required>
+            </div>
+
+            <div>
+                <label>Email Address</label>
+                <input type="email" name="email" placeholder="john@example.com" required>
+            </div>
+
+            <div>
+                <label>Message</label>
+                <textarea name="message" rows="5" placeholder="Type your message here..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit">Send Message</button>
+        </form>
+        </div>
+
+    <footer>&copy; 2024 MedusaSMM Tools. All rights reserved.</footer>
+</body>
+</html>
