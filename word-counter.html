@@ -1,57 +1,126 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Word Counter - MedusaSMM</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Outfit:wght@600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        /* Reuse CSS from Password Gen for consistency */
-        :root { --bg-color: #030014; --glass-bg: rgba(255, 255, 255, 0.03); --glass-border: rgba(255, 255, 255, 0.08); --primary: #00b4d8; --text-white: #ffffff; --text-gray: #9ca3af; }
-        body { background-color: var(--bg-color); font-family: 'Inter', sans-serif; color: var(--text-white); display: flex; flex-direction: column; min-height: 100vh; margin: 0; }
-        .glow-bg { position: fixed; top: -20%; left: 50%; transform: translateX(-50%); width: 800px; height: 800px; background: radial-gradient(circle, rgba(0, 180, 216, 0.15) 0%, rgba(0,0,0,0) 70%); z-index: -1; pointer-events: none; }
-        nav { display: flex; justify-content: space-between; padding: 25px 5%; border-bottom: 1px solid var(--glass-border); }
-        .logo { font-family: 'Outfit', sans-serif; font-size: 1.8rem; font-weight: 800; color: #fff; text-decoration: none; }
+        /* Shared CSS */
+        :root { --bg: #030014; --glass: rgba(255,255,255,0.05); --border: rgba(255,255,255,0.1); --primary: #00b4d8; --text: #fff; --gray: #9ca3af; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; margin: 0; }
         
-        .tool-container { max-width: 800px; margin: 60px auto; padding: 40px; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 20px; }
-        h1 { font-family: 'Outfit', sans-serif; text-align: center; margin-bottom: 20px; }
-        textarea { width: 100%; height: 200px; background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border); color: #fff; padding: 15px; border-radius: 10px; resize: none; font-size: 1rem; margin-bottom: 20px; outline: none; }
+        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Outfit', sans-serif; font-size: 1.5rem; text-decoration: none; color: #fff; }
+        
+        .main-wrapper { flex: 1; padding: 40px 20px; width: 100%; max-width: 900px; margin: 0 auto; }
+        .tool-box { background: var(--glass); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px; }
+        h1 { font-family: 'Outfit'; color: var(--primary); margin-bottom: 20px; font-size: 2rem; text-align: center; }
+        
+        textarea { width: 100%; height: 250px; background: rgba(0,0,0,0.3); border: 1px solid var(--border); color: #fff; padding: 20px; border-radius: 10px; resize: none; font-size: 1.1rem; margin-bottom: 20px; outline: none; font-family: 'Inter', sans-serif; }
         textarea:focus { border-color: var(--primary); }
-        .stats { display: flex; justify-content: space-around; background: rgba(255,255,255,0.05); padding: 20px; border-radius: 10px; }
-        .stat-box { text-align: center; }
-        .stat-num { font-size: 2rem; font-weight: bold; color: var(--primary); display: block; }
-        .back-link { display: block; text-align: center; margin-top: 20px; color: var(--text-gray); text-decoration: none; }
+        
+        .stats { display: flex; justify-content: space-around; background: rgba(255,255,255,0.05); padding: 25px; border-radius: 10px; flex-wrap: wrap; gap: 20px; }
+        .stat-box { text-align: center; min-width: 100px; }
+        .stat-num { font-size: 2.5rem; font-weight: bold; color: var(--primary); display: block; margin-bottom: 5px; font-family: 'Outfit'; }
+        
+        .content-section { margin-top: 40px; color: var(--gray); line-height: 1.6; }
+        .content-section h2 { color: #fff; font-family: 'Outfit'; margin-bottom: 15px; }
+        .suggestions { margin-top: 50px; border-top: 1px solid var(--border); padding-top: 30px; }
+        .sugg-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px; }
+        .sugg-card { background: var(--glass); padding: 20px; border-radius: 10px; text-align: center; border: 1px solid var(--border); transition:0.3s; }
+        .sugg-card:hover { border-color: var(--primary); transform: translateY(-3px); }
+        .sugg-card a { text-decoration: none; color: #fff; display: block; }
+        
+        footer { border-top: 1px solid var(--border); padding: 40px 5%; background: rgba(0,0,0,0.3); margin-top: auto; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
+        .footer-col h3 { color: #fff; margin-bottom: 15px; font-family: 'Outfit'; }
+        .footer-col ul { list-style: none; padding: 0; }
+        .footer-col li a { color: var(--gray); text-decoration: none; font-size: 0.9rem; display: block; margin-bottom: 8px; }
+        .copy { text-align: center; margin-top: 40px; color: var(--gray); font-size: 0.8rem; border-top: 1px solid var(--border); padding-top: 20px; }
     </style>
 </head>
 <body>
-    <div class="glow-bg"></div>
     <nav>
-        <a href="index.html" class="logo">medusasmmTools</a>
-        <a href="index.html" style="color:#fff; text-decoration:none;">Back to Home</a>
+        <a href="index.html" class="logo">MedusaTools</a>
+        <a href="index.html" style="color:#aaa; text-decoration:none;">Back</a>
     </nav>
 
-    <div class="tool-container">
-        <h1>📝 Word & Character Counter</h1>
-        <textarea placeholder="Type or paste your content here..." oninput="count(this)"></textarea>
-        
-        <div class="stats">
-            <div class="stat-box">
-                <span class="stat-num" id="words">0</span>
-                <span>Words</span>
-            </div>
-            <div class="stat-box">
-                <span class="stat-num" id="chars">0</span>
-                <span>Characters</span>
+    <div class="main-wrapper">
+        <div class="tool-box">
+            <h1>📝 Word & Character Counter</h1>
+            <textarea placeholder="Start typing or paste your document here..." oninput="count(this)"></textarea>
+            
+            <div class="stats">
+                <div class="stat-box">
+                    <span class="stat-num" id="words">0</span>
+                    <span>Words</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-num" id="chars">0</span>
+                    <span>Characters</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-num" id="lines">0</span>
+                    <span>Lines</span>
+                </div>
             </div>
         </div>
-        <a href="index.html" class="back-link">← Go Back</a>
+
+        <div class="content-section">
+            <h2>About Word Counter</h2>
+            <p>This is a real-time text analysis tool. Whether you are writing an essay, a tweet, or a blog post, knowing your character count is essential.</p>
+            <h3>Common Character Limits:</h3>
+            <ul>
+                <li><strong>Twitter (X):</strong> 280 characters</li>
+                <li><strong>Instagram Bio:</strong> 150 characters</li>
+                <li><strong>Google SEO Title:</strong> 60 characters</li>
+                <li><strong>SMS Message:</strong> 160 characters</li>
+            </ul>
+        </div>
+
+        <div class="suggestions">
+            <h2>🔥 Recommended Tools</h2>
+            <div class="sugg-grid">
+                <div class="sugg-card"><a href="case-converter.html">🔠 Case Converter</a></div>
+                <div class="sugg-card"><a href="bmi-calculator.html">⚖️ BMI Calculator</a></div>
+                <div class="sugg-card"><a href="password-gen.html">🔐 Password Gen</a></div>
+            </div>
+        </div>
     </div>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3>MedusaSMM</h3>
+                <p style="color:var(--gray); font-size:0.9rem;">Tools for creators.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms of Use</a></li>
+                    <li><a href="disclaimer.html">Disclaimer</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copy">&copy; 2024 MedusaSMM Tools. All rights reserved.</div>
+    </footer>
 
     <script>
         function count(el) {
             let text = el.value.trim();
             document.getElementById('chars').innerText = el.value.length;
             document.getElementById('words').innerText = text.length > 0 ? text.split(/\s+/).length : 0;
+            document.getElementById('lines').innerText = text.length > 0 ? el.value.split("\n").length : 0;
         }
     </script>
 </body>
