@@ -35,7 +35,6 @@
         }
 
         a { text-decoration: none; color: inherit; transition: 0.3s; }
-        a:hover { color: var(--primary); }
         ul { list-style: none; }
 
         /* --- 2. BACKGROUND GLOW --- */
@@ -79,14 +78,8 @@
 
         /* --- 4. HERO SECTION --- */
         .hero {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            padding: 160px 20px 60px; /* Adjusted padding for better spacing */
             text-align: center;
-            padding: 0 20px;
-            margin-top: 60px;
         }
 
         .hero h1 {
@@ -95,6 +88,8 @@
             line-height: 1.1;
             margin-bottom: 25px;
             max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .text-gradient {
@@ -108,9 +103,78 @@
             font-size: 1.2rem;
             max-width: 600px;
             line-height: 1.6;
+            margin: 0 auto;
         }
 
-        /* --- 5. FOOTER --- */
+        /* --- 5. TOOLS GRID SECTION (ADDED) --- */
+        .tools-section {
+            padding: 40px 5% 100px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .tool-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 30px;
+            border-radius: 16px;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 40px -10px rgba(157, 78, 221, 0.2);
+        }
+
+        .tool-icon { font-size: 2rem; margin-bottom: 15px; }
+        
+        .tool-card h3 { 
+            font-family: 'Outfit', sans-serif; 
+            font-size: 1.3rem; 
+            margin-bottom: 10px; 
+            color: var(--text-white);
+        }
+        
+        .tool-card p { 
+            color: var(--text-gray); 
+            font-size: 0.9rem; 
+            margin-bottom: 20px; 
+            line-height: 1.5;
+        }
+
+        /* Open Tool Button Style */
+        .btn-link { 
+            display: inline-block; 
+            width: fit-content;
+            padding: 10px 20px; 
+            background: rgba(255,255,255,0.05); 
+            border-radius: 30px; 
+            font-size: 0.9rem; 
+            font-weight: 500; 
+            color: var(--secondary); 
+            border: 1px solid var(--glass-border); 
+        }
+
+        .btn-link:hover { 
+            background: var(--secondary); 
+            color: #000; 
+            box-shadow: 0 0 15px rgba(0, 180, 216, 0.4); 
+            border-color: var(--secondary);
+        }
+
+        /* --- 6. FOOTER --- */
         footer {
             border-top: 1px solid var(--glass-border);
             padding: 60px 5% 30px;
@@ -178,7 +242,7 @@
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="about.html">About Us</a></li>
-            <li><a href="#">Tools</a></li>
+            <li><a href="contact.html">Contact</a></li>
         </ul>
     </nav>
 
@@ -192,6 +256,57 @@
             A suite of premium digital utilities designed for speed, privacy, and efficiency. Experience the next level of web tools without limitations.
         </p>
     </header>
+
+    <section class="tools-section">
+        <div class="tools-grid">
+            
+            <div class="tool-card">
+                <div>
+                    <div class="tool-icon">🔐</div>
+                    <h3>Secure Pass Gen</h3>
+                    <p>Generate unbreakable, randomized passwords instantly for better security.</p>
+                </div>
+                <a href="password-gen.html" class="btn-link">Open Tool &rarr;</a>
+            </div>
+
+            <div class="tool-card">
+                <div>
+                    <div class="tool-icon">📝</div>
+                    <h3>Word Counter</h3>
+                    <p>Real-time analysis of words, characters, and reading time.</p>
+                </div>
+                <a href="word-counter.html" class="btn-link">Open Tool &rarr;</a>
+            </div>
+
+            <div class="tool-card">
+                <div>
+                    <div class="tool-icon">🤖</div>
+                    <h3>Binary Translator</h3>
+                    <p>Convert normal text into binary code (010101) instantly.</p>
+                </div>
+                <a href="binary-translator.html" class="btn-link">Open Tool &rarr;</a>
+            </div>
+
+            <div class="tool-card">
+                <div>
+                    <div class="tool-icon">🔠</div>
+                    <h3>Case Converter</h3>
+                    <p>Convert text to UPPERCASE, lowercase, or Title Case.</p>
+                </div>
+                <a href="case-converter.html" class="btn-link">Open Tool &rarr;</a>
+            </div>
+
+            <div class="tool-card">
+                <div>
+                    <div class="tool-icon">📱</div>
+                    <h3>My Device Info</h3>
+                    <p>View your Screen resolution, Browser info, and OS details.</p>
+                </div>
+                <a href="device-info.html" class="btn-link">Open Tool &rarr;</a>
+            </div>
+
+        </div>
+    </section>
 
     <footer>
         <div class="footer-container">
