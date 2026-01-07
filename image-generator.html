@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Image Generator - MedusaSMM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Shared CSS */
+        :root { --bg: #030014; --glass: rgba(255,255,255,0.05); --border: rgba(255,255,255,0.1); --primary: #d900ff; --text: #fff; --gray: #9ca3af; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; margin: 0; }
+        
+        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Outfit', sans-serif; font-size: 1.5rem; text-decoration: none; color: #fff; }
+        
+        .main-wrapper { flex: 1; padding: 40px 20px; width: 100%; max-width: 800px; margin: 0 auto; }
+        .tool-box { background: var(--glass); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px; text-align: center; }
+        h1 { font-family: 'Outfit'; color: var(--primary); margin-bottom: 20px; font-size: 2rem; }
+        
+        input { width: 100%; padding: 18px; background: rgba(0,0,0,0.3); border: 1px solid #444; color: #fff; border-radius: 8px; font-size: 1rem; margin-bottom: 15px; outline:none; }
+        input:focus { border-color: var(--primary); }
+
+        button { width: 100%; padding: 18px; background: var(--primary); color: #fff; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; font-size: 1.1rem; transition: 0.3s; }
+        button:hover { box-shadow: 0 0 20px var(--primary); transform: translateY(-2px); }
+        
+        /* Image Preview Area */
+        .image-container { 
+            margin-top: 30px; 
+            min-height: 300px; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            background: rgba(0,0,0,0.2); 
+            border-radius: 10px; 
+            border: 1px dashed var(--gray);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .image-container img { max-width: 100%; border-radius: 10px; display: none; box-shadow: 0 0 30px rgba(217, 0, 255, 0.3); }
+        .loading { display: none; color: var(--primary); font-family: 'Outfit'; font-size: 1.2rem; animation: pulse 1s infinite; }
+        
+        @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
+
+        .download-btn { display: inline-block; margin-top: 20px; padding: 12px 25px; background: #fff; color: #000; text-decoration: none; font-weight: bold; border-radius: 5px; display: none; cursor: pointer; }
+
+        /* Content & Suggestions */
+        .content-section { margin-top: 40px; color: var(--gray); line-height: 1.6; text-align: left; }
+        .content-section h2 { color: #fff; font-family: 'Outfit'; margin-bottom: 15px; }
+        .suggestions { margin-top: 50px; border-top: 1px solid var(--border); padding-top: 30px; }
+        .sugg-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 20px; }
+        .sugg-card { background: var(--glass); padding: 15px; border-radius: 10px; text-align: center; border: 1px solid var(--border); transition:0.3s; }
+        .sugg-card:hover { border-color: var(--primary); transform: translateY(-3px); }
+        .sugg-card a { text-decoration: none; color: #fff; display: block; }
+        
+        footer { border-top: 1px solid var(--border); padding: 40px 5%; background: rgba(0,0,0,0.3); margin-top: auto; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
+        .footer-col h3 { color: #fff; margin-bottom: 15px; font-family: 'Outfit'; }
+        .footer-col ul { list-style: none; padding: 0; }
+        .footer-col li a { color: var(--gray); text-decoration: none; font-size: 0.9rem; display: block; margin-bottom: 8px; }
+        .copy { text-align: center; margin-top: 40px; color: var(--gray); font-size: 0.8rem; border-top: 1px solid var(--border); padding-top: 20px; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="logo">MedusaTools</a>
+        <a href="index.html" style="color:#aaa; text-decoration:none;">Back</a>
+    </nav>
+
+    <div class="main-wrapper">
+        <div class="tool-box">
+            <h1>🎨 AI Image Generator</h1>
+            <p style="color:gray; margin-bottom:20px;">Describe your imagination, and AI will draw it.</p>
+            
+            <input type="text" id="promptInput" placeholder="e.g. A futuristic cyberpunk city with neon lights...">
+            <button onclick="generateImage()">✨ Generate Art</button>
+            
+            <div class="image-container">
+                <span class="loading" id="loader">Generating AI Art... Please wait...</span>
+                <img id="resultImg" src="" alt="AI Generated Image">
+            </div>
+
+            <a id="downloadLink" class="download-btn" download="medusa-art.jpg">Download with Watermark</a>
+        </div>
+
+        <div class="content-section">
+            <h2>Unlimited AI Generation</h2>
+            <p>Create stunning visuals without any daily limits. Perfect for wallpapers, social media posts, and creative inspiration.</p>
+            <h3>Watermark Included:</h3>
+            <p>All images generated will automatically have the <strong>MedusaSMM Tools</strong> watermark to protect your source.</p>
+        </div>
+
+        <div class="suggestions">
+            <h2>🔥 Try These Tools</h2>
+            <div class="sugg-grid">
+                <div class="sugg-card"><a href="image-compressor.html">📉 Image Compressor</a></div>
+                <div class="sugg-card"><a href="text-speech.html">🗣️ Text to Speech</a></div>
+                <div class="sugg-card"><a href="qr-generator.html">🔳 QR Generator</a></div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3>MedusaSMM</h3>
+                <p style="color:var(--gray); font-size:0.9rem;">Creative Tools for everyone.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms of Use</a></li>
+                    <li><a href="disclaimer.html">Disclaimer</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copy">&copy; 2024 MedusaSMM Tools. All rights reserved.</div>
+    </footer>
+
+    <script>
+        function generateImage() {
+            let prompt = document.getElementById('promptInput').value;
+            let imgElement = document.getElementById('resultImg');
+            let loader = document.getElementById('loader');
+            let downloadBtn = document.getElementById('downloadLink');
+
+            if(!prompt) {
+                alert("Please write a description first!");
+                return;
+            }
+
+            // UI Reset
+            imgElement.style.display = 'none';
+            downloadBtn.style.display = 'none';
+            loader.style.display = 'block';
+
+            // Random Seed for uniqueness
+            let randomSeed = Math.floor(Math.random() * 10000);
+            // Construct API URL
+            let apiUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?n=${randomSeed}`;
+
+            // Create a temporary image object to load and process
+            let tempImg = new Image();
+            tempImg.crossOrigin = "Anonymous"; // Important for editing canvas
+            tempImg.src = apiUrl;
+
+            tempImg.onload = function() {
+                // 1. Create Canvas
+                let canvas = document.createElement('canvas');
+                let ctx = canvas.getContext('2d');
+
+                // 2. Set Canvas Size to Image Size
+                canvas.width = tempImg.width;
+                canvas.height = tempImg.height;
+
+                // 3. Draw Image on Canvas
+                ctx.drawImage(tempImg, 0, 0);
+
+                // 4. Add Watermark Logic
+                let fontSize = canvas.width / 25; // Dynamic font size based on width
+                ctx.font = `bold ${fontSize}px Arial`;
+                ctx.fillStyle = "rgba(255, 255, 255, 0.7)"; // Whitish transparent
+                ctx.textAlign = "right";
+                ctx.shadowColor = "rgba(0,0,0,0.8)"; // Black shadow for visibility
+                ctx.shadowBlur = 4;
+                
+                // Draw Text (Bottom Right)
+                ctx.fillText("MedusaSMM Tools", canvas.width - 20, canvas.height - 20);
+
+                // 5. Convert Canvas to Data URL (The Final Image)
+                let watermarkedUrl = canvas.toDataURL("image/jpeg");
+
+                // 6. Display Result
+                imgElement.src = watermarkedUrl;
+                imgElement.style.display = 'block';
+                loader.style.display = 'none';
+
+                // 7. Update Download Button
+                downloadBtn.href = watermarkedUrl;
+                downloadBtn.style.display = 'inline-block';
+            };
+
+            tempImg.onerror = function() {
+                loader.innerText = "Error generating image. Try again.";
+            };
+        }
+    </script>
+</body>
+  </html>
