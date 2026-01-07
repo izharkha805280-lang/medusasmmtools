@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Device Info - MedusaSMM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Outfit:wght@600;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg-color: #030014; --glass-bg: rgba(255, 255, 255, 0.03); --glass-border: rgba(255, 255, 255, 0.08); --primary: #ff0055; --text-white: #ffffff; }
+        body { background-color: var(--bg-color); font-family: 'Inter', sans-serif; color: var(--text-white); margin: 0; min-height: 100vh; display: flex; flex-direction: column; }
+        nav { display: flex; justify-content: space-between; padding: 25px 5%; border-bottom: 1px solid var(--glass-border); }
+        .logo { font-family: 'Outfit', sans-serif; font-size: 1.8rem; font-weight: 800; color: #fff; text-decoration: none; }
+        .tool-container { max-width: 600px; margin: 60px auto; padding: 40px; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 20px; text-align: center; }
+        button { padding: 15px 40px; background: var(--primary); color: #fff; border: none; font-weight: bold; border-radius: 50px; cursor: pointer; font-size: 1.1rem; margin-bottom: 30px; }
+        .info-box { text-align: left; background: rgba(0,0,0,0.4); padding: 20px; border-radius: 10px; display: none; }
+        .info-item { margin-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 5px; }
+        .label { color: grey; font-size: 0.9rem; }
+        .value { color: #fff; font-weight: 500; float: right; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="logo">medusasmmTools</a>
+        <a href="index.html" style="color:#fff; text-decoration:none;">Back to Home</a>
+    </nav>
+    <div class="tool-container">
+        <h1 style="font-family:'Outfit', sans-serif;">📱 My Device Info</h1>
+        <p style="color:grey; margin-bottom:30px;">Check your screen resolution and browser details.</p>
+        
+        <button onclick="scan()">Scan My Device</button>
+        
+        <div class="info-box" id="result">
+            <div class="info-item"><span class="label">Screen Width</span> <span class="value" id="resW">-</span></div>
+            <div class="info-item"><span class="label">Screen Height</span> <span class="value" id="resH">-</span></div>
+            <div class="info-item"><span class="label">Pixel Depth</span> <span class="value" id="pix">-</span></div>
+            <div class="info-item"><span class="label">Platform</span> <span class="value" id="plat">-</span></div>
+            <div class="info-item"><span class="label">Browser Agent</span> <span class="value" id="agent" style="float:none; display:block; margin-top:5px; font-size:0.8rem;">-</span></div>
+        </div>
+        <a href="index.html" style="display:block; margin-top:20px; color:grey; text-decoration:none;">← Go Back</a>
+    </div>
+    <script>
+        function scan() {
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('resW').innerText = window.screen.width + 'px';
+            document.getElementById('resH').innerText = window.screen.height + 'px';
+            document.getElementById('pix').innerText = window.screen.colorDepth + '-bit';
+            document.getElementById('plat').innerText = navigator.platform;
+            document.getElementById('agent').innerText = navigator.userAgent;
+        }
+    </script>
+</body>
+</html>
