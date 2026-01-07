@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Case Converter - MedusaSMM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Outfit:wght@600;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg-color: #030014; --glass-bg: rgba(255, 255, 255, 0.03); --glass-border: rgba(255, 255, 255, 0.08); --primary: #ff9e00; --text-white: #ffffff; }
+        body { background-color: var(--bg-color); font-family: 'Inter', sans-serif; color: var(--text-white); margin: 0; min-height: 100vh; display: flex; flex-direction: column; }
+        nav { display: flex; justify-content: space-between; padding: 25px 5%; border-bottom: 1px solid var(--glass-border); }
+        .logo { font-family: 'Outfit', sans-serif; font-size: 1.8rem; font-weight: 800; color: #fff; text-decoration: none; }
+        .tool-container { max-width: 700px; margin: 60px auto; padding: 40px; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 20px; }
+        textarea { width: 100%; height: 150px; padding: 15px; background: rgba(0,0,0,0.3); border: 1px solid var(--glass-border); color: #fff; border-radius: 8px; margin-bottom: 20px; outline:none; resize: none; }
+        .btn-group { display: flex; gap: 10px; }
+        button { flex: 1; padding: 12px; background: rgba(255,255,255,0.1); border: 1px solid var(--glass-border); color: #fff; cursor: pointer; border-radius: 5px; transition: 0.3s; }
+        button:hover { background: var(--primary); color: #000; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="logo">medusasmmTools</a>
+        <a href="index.html" style="color:#fff; text-decoration:none;">Back to Home</a>
+    </nav>
+    <div class="tool-container">
+        <h1 style="text-align:center; font-family:'Outfit', sans-serif;">🔠 Case Converter</h1>
+        <textarea id="textInput" placeholder="Type or paste text here..."></textarea>
+        <div class="btn-group">
+            <button onclick="convert('upper')">UPPERCASE</button>
+            <button onclick="convert('lower')">lowercase</button>
+            <button onclick="convert('title')">Title Case</button>
+        </div>
+        <a href="index.html" style="display:block; text-align:center; margin-top:20px; color:grey; text-decoration:none;">← Go Back</a>
+    </div>
+    <script>
+        function convert(type) {
+            let el = document.getElementById('textInput');
+            if(type === 'upper') el.value = el.value.toUpperCase();
+            if(type === 'lower') el.value = el.value.toLowerCase();
+            if(type === 'title') el.value = el.value.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+        }
+    </script>
+</body>
+</html>
