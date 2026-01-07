@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EMI Calculator - MedusaSMM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #030014; --glass: rgba(255,255,255,0.05); --primary: #00ff9d; --text: #fff; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; margin: 0; }
+        nav { padding: 20px 5%; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; }
+        .logo { font-family: 'Outfit', sans-serif; font-size: 1.5rem; text-decoration: none; color: #fff; }
+        .container { max-width: 500px; margin: 50px auto; padding: 30px; background: var(--glass); border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); }
+        input { width: 100%; padding: 15px; margin: 10px 0; background: rgba(0,0,0,0.3); border: 1px solid #444; color: #fff; border-radius: 8px; outline: none; }
+        button { width: 100%; padding: 15px; background: var(--primary); color: #000; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; margin-top: 10px; }
+        .result { margin-top: 20px; text-align: center; font-size: 1.5rem; color: var(--primary); font-family: 'Outfit', sans-serif; }
+    </style>
+</head>
+<body>
+    <nav><a href="index.html" class="logo">MedusaTools</a><a href="index.html" style="color:#aaa; text-decoration:none;">Back</a></nav>
+    <div class="container">
+        <h2 style="text-align:center; font-family:'Outfit';">💸 EMI Calculator</h2>
+        <label>Loan Amount</label>
+        <input type="number" id="amount" placeholder="e.g. 500000">
+        <label>Interest Rate (%)</label>
+        <input type="number" id="rate" placeholder="e.g. 10">
+        <label>Tenure (Years)</label>
+        <input type="number" id="years" placeholder="e.g. 5">
+        <button onclick="calculateEMI()">Calculate EMI</button>
+        <div class="result" id="output">0.00 / month</div>
+    </div>
+    <script>
+        function calculateEMI() {
+            let P = document.getElementById('amount').value;
+            let R = document.getElementById('rate').value / 12 / 100;
+            let N = document.getElementById('years').value * 12;
+            
+            if(P && R && N) {
+                let emi = (P * R * Math.pow(1 + R, N)) / (Math.pow(1 + R, N) - 1);
+                document.getElementById('output').innerText = emi.toFixed(2) + " / month";
+            }
+        }
+    </script>
+</body>
+</html>
