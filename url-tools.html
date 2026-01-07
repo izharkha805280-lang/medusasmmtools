@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Cleaner & Shortener UI - MedusaSMM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Shared CSS */
+        :root { --bg: #030014; --glass: rgba(255,255,255,0.05); --border: rgba(255,255,255,0.1); --primary: #00ff9d; --text: #fff; --gray: #9ca3af; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; margin: 0; }
+        
+        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Outfit', sans-serif; font-size: 1.5rem; text-decoration: none; color: #fff; }
+        
+        .main-wrapper { flex: 1; padding: 40px 20px; width: 100%; max-width: 800px; margin: 0 auto; }
+        .tool-box { background: var(--glass); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px; }
+        h1 { font-family: 'Outfit'; text-align: center; color: var(--primary); margin-bottom: 20px; font-size: 2rem; }
+        
+        input { width: 100%; padding: 15px; background: rgba(0,0,0,0.3); border: 1px solid #444; color: #fff; border-radius: 8px; font-size: 1rem; margin-bottom: 15px; outline:none; }
+        button { width: 100%; padding: 16px; background: var(--primary); color: #000; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; transition: 0.3s; margin-bottom: 20px; }
+        button:hover { box-shadow: 0 0 15px var(--primary); }
+        
+        .result-box { background: #000; padding: 15px; border-radius: 8px; color: var(--primary); word-break: break-all; font-family: monospace; display:none; border: 1px dashed var(--primary); }
+        
+        .content-section { margin-top: 40px; color: var(--gray); line-height: 1.6; }
+        .content-section h2 { color: #fff; font-family: 'Outfit'; margin-bottom: 15px; }
+        .suggestions { margin-top: 50px; border-top: 1px solid var(--border); padding-top: 30px; }
+        .sugg-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 20px; }
+        .sugg-card { background: var(--glass); padding: 15px; border-radius: 10px; text-align: center; border: 1px solid var(--border); transition:0.3s; }
+        .sugg-card:hover { border-color: var(--primary); transform: translateY(-3px); }
+        .sugg-card a { text-decoration: none; color: #fff; }
+        
+        footer { border-top: 1px solid var(--border); padding: 40px 5%; background: rgba(0,0,0,0.3); margin-top: auto; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
+        .footer-col h3 { color: #fff; margin-bottom: 15px; }
+        .footer-col ul { list-style: none; padding: 0; }
+        .footer-col li a { color: var(--gray); text-decoration: none; display: block; margin-bottom: 8px; }
+        .copy { text-align: center; margin-top: 40px; color: var(--gray); font-size: 0.8rem; border-top: 1px solid var(--border); padding-top: 20px; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="logo">MedusaTools</a>
+        <a href="index.html" style="color:#aaa; text-decoration:none;">Back</a>
+    </nav>
+
+    <div class="main-wrapper">
+        <div class="tool-box">
+            <h1>🔗 Link Cleaner & Shortener UI</h1>
+            <p style="color:gray; margin-bottom:20px;">Paste a long URL to remove tracking parameters.</p>
+            
+            <input type="text" id="urlInput" placeholder="Paste URL here (e.g. https://site.com/?utm_source=fb)...">
+            <button onclick="cleanURL()">Clean Link</button>
+            
+            <div class="result-box" id="output"></div>
+        </div>
+
+        <div class="content-section">
+            <h2>About this Tool</h2>
+            <p>This tool helps you clean messy URLs by removing tracking tags (like UTM codes, Facebook IDs). While a full URL shortener requires a database, this "Link Cleaner" makes your links shorter and cleaner for sharing.</p>
+            <h3>Features:</h3>
+            <ul>
+                <li>Removes `utm_` parameters.</li>
+                <li>Removes `fbclid` and `gclid`.</li>
+                <li>Makes links safer to share.</li>
+            </ul>
+        </div>
+
+        <div class="suggestions">
+            <h2>🔥 Recommended Tools</h2>
+            <div class="sugg-grid">
+                <div class="sugg-card"><a href="qr-generator.html">🔳 QR Generator</a></div>
+                <div class="sugg-card"><a href="binary-translator.html">🤖 Binary Tool</a></div>
+                <div class="sugg-card"><a href="password-gen.html">🔐 Password Gen</a></div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3>MedusaSMM</h3>
+                <p style="color:var(--gray); font-size:0.9rem;">Clean web, clean tools.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Legal</h3>
+                <ul>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms of Use</a></li>
+                    <li><a href="disclaimer.html">Disclaimer</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copy">&copy; 2024 MedusaSMM Tools. All rights reserved.</div>
+    </footer>
+
+    <script>
+        function cleanURL() {
+            let input = document.getElementById('urlInput').value;
+            if(!input) return alert("Paste a URL first!");
+            
+            try {
+                let url = new URL(input);
+                // Remove common tracking params
+                const paramsToRemove = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'fbclid', 'gclid'];
+                paramsToRemove.forEach(p => url.searchParams.delete(p));
+                
+                let clean = url.toString();
+                let output = document.getElementById('output');
+                output.style.display = 'block';
+                output.innerText = clean;
+            } catch(e) {
+                alert("Invalid URL format. Please include http:// or https://");
+            }
+        }
+    </script>
+</body>
+</html>
