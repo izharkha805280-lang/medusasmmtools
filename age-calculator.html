@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Age Calculator - MedusaSMM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #030014; --glass: rgba(255,255,255,0.05); --primary: #ff0055; --text: #fff; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; margin: 0; }
+        nav { padding: 20px 5%; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: space-between; }
+        .logo { font-family: 'Outfit', sans-serif; font-size: 1.5rem; text-decoration: none; color: #fff; }
+        .container { max-width: 500px; margin: 50px auto; padding: 30px; background: var(--glass); border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); text-align: center; }
+        input { width: 100%; padding: 15px; margin: 20px 0; background: #fff; color: #000; border-radius: 8px; border: none; }
+        button { padding: 15px 40px; background: var(--primary); color: #fff; font-weight: bold; border: none; border-radius: 50px; cursor: pointer; }
+        .result { margin-top: 30px; font-size: 1.2rem; line-height: 1.6; color: #ddd; }
+        .highlight { color: var(--primary); font-size: 1.5rem; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <nav><a href="index.html" class="logo">MedusaTools</a><a href="index.html" style="color:#aaa; text-decoration:none;">Back</a></nav>
+    <div class="container">
+        <h2 style="font-family:'Outfit';">🎂 Age Calculator</h2>
+        <p>Select your Date of Birth</p>
+        <input type="date" id="dob">
+        <button onclick="calculateAge()">Check Age</button>
+        <div class="result" id="output"></div>
+    </div>
+    <script>
+        function calculateAge() {
+            let dob = new Date(document.getElementById('dob').value);
+            let today = new Date();
+            
+            if(isNaN(dob.getTime())) return;
+
+            let years = today.getFullYear() - dob.getFullYear();
+            let months = today.getMonth() - dob.getMonth();
+            let days = today.getDate() - dob.getDate();
+
+            if (months < 0 || (months === 0 && days < 0)) {
+                years--;
+                months += 12;
+            }
+            if (days < 0) {
+                let prevMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+                days += prevMonth.getDate();
+                months--;
+            }
+
+            document.getElementById('output').innerHTML = 
+                `You are <span class="highlight">${years}</span> Years, <br> 
+                 <span class="highlight">${months}</span> Months, and <br> 
+                 <span class="highlight">${days}</span> Days old.`;
+        }
+    </script>
+</body>
+</html>
