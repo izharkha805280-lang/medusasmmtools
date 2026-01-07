@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Compressor - MedusaSMM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Shared CSS */
+        :root { --bg: #030014; --glass: rgba(255,255,255,0.05); --border: rgba(255,255,255,0.1); --primary: #00ff9d; --text: #fff; --gray: #9ca3af; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; margin: 0; }
+        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Outfit', sans-serif; font-size: 1.5rem; text-decoration: none; color: #fff; }
+        
+        .main-wrapper { flex: 1; padding: 40px 20px; width: 100%; max-width: 800px; margin: 0 auto; }
+        .tool-box { background: var(--glass); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px; text-align: center; }
+        h1 { font-family: 'Outfit'; color: var(--primary); margin-bottom: 20px; }
+        
+        input[type="file"] { margin-bottom: 20px; color: #fff; }
+        .controls { margin: 20px 0; display: none; }
+        label { color: var(--gray); display: block; margin-bottom: 10px; }
+        input[type="range"] { width: 100%; accent-color: var(--primary); cursor: pointer; }
+        
+        button { padding: 15px 30px; background: var(--primary); color: #000; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; margin-top: 10px; }
+        
+        .preview-area { margin-top: 30px; display: none; gap: 20px; flex-wrap: wrap; justify-content: center; }
+        .img-box { border: 1px solid var(--border); padding: 10px; border-radius: 10px; width: 100%; max-width: 300px; }
+        .img-box img { max-width: 100%; border-radius: 5px; }
+        .size-tag { display: block; margin-top: 10px; color: var(--primary); font-family: monospace; }
+        
+        .content-section { margin-top: 40px; color: var(--gray); line-height: 1.6; text-align: left; }
+        .content-section h2 { color: #fff; font-family: 'Outfit'; margin-bottom: 15px; }
+        
+        .suggestions { margin-top: 50px; border-top: 1px solid var(--border); padding-top: 30px; }
+        .sugg-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 20px; }
+        .sugg-card { background: var(--glass); padding: 15px; border-radius: 10px; text-align: center; border: 1px solid var(--border); transition:0.3s; }
+        .sugg-card:hover { border-color: var(--primary); transform: translateY(-3px); }
+        .sugg-card a { text-decoration: none; color: #fff; display:block; }
+        
+        footer { border-top: 1px solid var(--border); padding: 40px 5%; background: rgba(0,0,0,0.3); margin-top: auto; }
+        .copy { text-align: center; color: var(--gray); font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="logo">MedusaTools</a>
+        <a href="index.html" style="color:#aaa; text-decoration:none;">Back</a>
+    </nav>
+
+    <div class="main-wrapper">
+        <div class="tool-box">
+            <h1>📉 Image Compressor</h1>
+            <p style="color:gray; margin-bottom:20px;">Reduce file size quickly directly in browser.</p>
+            
+            <input type="file" id="uploadFile" accept="image/*">
+            
+            <div class="controls" id="controls">
+                <label>Compression Quality: <span id="qValue">0.6</span> (Lower = Smaller Size)</label>
+                <input type="range" id="quality" min="0.1" max="1.0" step="0.1" value="0.6" oninput="document.getElementById('qValue').innerText = this.value">
+                <button onclick="compressImage()">Compress Now</button>
+            </div>
+
+            <div class="preview-area" id="previewArea">
+                <div class="img-box">
+                    <p>Original</p>
+                    <img id="originalImg" src="">
+                    <span class="size-tag" id="origSize">0 KB</span>
+                </div>
+                <div class="img-box">
+                    <p>Compressed</p>
+                    <img id="compressedImg" src="">
+                    <span class="size-tag" id="compSize">0 KB</span>
+                    <a id="downloadBtn" download="compressed-medusa.jpg" style="display:inline-block; margin-top:10px; color:#fff; text-decoration:underline;">Download</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>About Image Compressor</h2>
+            <p>This tool allows you to reduce the file size of your images (JPEG/PNG) without needing to upload them to a server. Everything happens on your device.</p>
+            <h3>How to use:</h3>
+            <ul>
+                <li>Click "Choose File" and select an image.</li>
+                <li>Adjust the quality slider (Lower number = smaller size but lower quality).</li>
+                <li>Click "Compress Now".</li>
+                <li>Download your new lightweight image.</li>
+            </ul>
+        </div>
+
+        <div class="suggestions">
+            <h2>🔥 Recommended Tools</h2>
+            <div class="sugg-grid">
+                <div class="sugg-card"><a href="image-converter.html">🖼️ Image Converter</a></div>
+                <div class="sugg-card"><a href="qr-generator.html">🔳 QR Generator</a></div>
+                <div class="sugg-card"><a href="url-tools.html">🔗 URL Cleaner</a></div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="copy">&copy; 2024 MedusaSMM Tools. All rights reserved.</div>
+    </footer>
+
+    <script>
+        const fileInput = document.getElementById('uploadFile');
+        const controls = document.getElementById('controls');
+        
+        fileInput.addEventListener('change', function() {
+            if(this.files && this.files[0]) {
+                controls.style.display = 'block';
+                let reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('originalImg').src = e.target.result;
+                    document.getElementById('origSize').innerText = (fileInput.files[0].size / 1024).toFixed(2) + ' KB';
+                }
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+
+        function compressImage() {
+            const file = fileInput.files[0];
+            const quality = parseFloat(document.getElementById('quality').value);
+            const reader = new FileReader();
+            
+            reader.readAsDataURL(file);
+            reader.onload = function(event) {
+                const img = new Image();
+                img.src = event.target.result;
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    ctx.drawImage(img, 0, 0);
+                    
+                    const dataUrl = canvas.toDataURL('image/jpeg', quality);
+                    
+                    document.getElementById('previewArea').style.display = 'flex';
+                    document.getElementById('compressedImg').src = dataUrl;
+                    document.getElementById('downloadBtn').href = dataUrl;
+                    
+                    // Estimate size
+                    const head = 'data:image/jpeg;base64,';
+                    const size = Math.round((dataUrl.length - head.length) * 3 / 4) / 1024;
+                    document.getElementById('compSize').innerText = size.toFixed(2) + ' KB';
+                }
+            }
+        }
+    </script>
+</body>
+                  </html>
