@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Format ugly HTML code instantly. Free Online HTML Beautifier to make code readable with proper indentation.">
+    <meta name="keywords" content="html formatter, html beautifier, format html online, clean html code, html pretty print">
+    <title>HTML Formatter - MedusaSMM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #030014; --glass: rgba(255,255,255,0.05); --border: rgba(255,255,255,0.1); --primary: #00ff9d; --text: #fff; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; margin: 0; }
+        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Outfit', sans-serif; font-size: 1.5rem; text-decoration: none; color: #fff; }
+        .main-wrapper { flex: 1; padding: 40px 20px; width: 100%; max-width: 900px; margin: 0 auto; text-align: center; }
+        
+        .container { display: flex; gap: 20px; height: 400px; flex-wrap: wrap; }
+        textarea { flex: 1; height: 100%; background: rgba(0,0,0,0.3); border: 1px solid #444; color: #fff; padding: 15px; border-radius: 8px; font-family: monospace; resize: none; min-width: 300px; }
+        
+        .controls { margin: 20px 0; }
+        button { padding: 15px 30px; background: var(--primary); color: #000; font-weight: bold; border: none; border-radius: 50px; cursor: pointer; margin: 0 10px; }
+
+        footer { border-top: 1px solid var(--border); padding: 40px 5%; margin-top: auto; text-align: center; color: gray; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+    <nav><a href="index.html" class="logo">MedusaTools</a><a href="index.html" style="color:#aaa;">Back</a></nav>
+    <div class="main-wrapper">
+        <h1 style="font-family:'Outfit';">📝 HTML Formatter</h1>
+        <div class="controls">
+            <button onclick="formatHTML()">✨ Beautify HTML</button>
+            <button onclick="clearAll()" style="background:#ff4444; color:#fff;">🗑 Clear</button>
+        </div>
+        
+        <div class="container">
+            <textarea id="inputHTML" placeholder="Paste ugly HTML here..."></textarea>
+            <textarea id="outputHTML" placeholder="Beautiful code will appear here..." readonly></textarea>
+        </div>
+    </div>
+    <footer>&copy; 2024 MedusaSMM Tools.</footer>
+
+    <script>
+        function formatHTML() {
+            let html = document.getElementById('inputHTML').value;
+            let tab = '\t';
+            let result = '';
+            let indent= '';
+            
+            html.split(/>\s*</).forEach(function(element) {
+                if (element.match( /^\/\w/ )) {
+                    indent = indent.substring(tab.length);
+                }
+                result += indent + '<' + element + '>\r\n';
+                if (element.match( /^<?\w[^>]*[^\/]$/ ) && !element.startsWith("input") && !element.startsWith("img") && !element.startsWith("br")) { 
+                    indent += tab;              
+                }
+            });
+            document.getElementById('outputHTML').value = result.substring(1, result.length-3);
+        }
+
+        function clearAll() {
+            document.getElementById('inputHTML').value = "";
+            document.getElementById('outputHTML').value = "";
+        }
+    </script>
+</body>
+</html>
