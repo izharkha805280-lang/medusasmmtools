@@ -226,7 +226,49 @@
             color: var(--text-gray);
             font-size: 0.8rem;
         }
+        /* Search Bar Styles */
+        .search-container {
+            text-align: center;
+            margin: 30px auto;
+            max-width: 600px;
+            position: relative;
+        }
+        
+        #searchBox {
+            width: 90%;
+            padding: 18px 50px 18px 25px; /* Right padding for icon */
+            border-radius: 50px;
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            font-size: 1.1rem;
+            outline: none;
+            backdrop-filter: blur(10px);
+            transition: 0.3s;
+        }
+        
+        #searchBox:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(0, 255, 157, 0.2);
+            background: rgba(0, 0, 0, 0.4);
+        }
 
+        .search-icon {
+            position: absolute;
+            right: 40px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+            pointer-events: none;
+        }
+
+        .no-results {
+            text-align: center;
+            color: var(--gray);
+            margin-top: 20px;
+            display: none;
+            font-size: 1.2rem;
+        }
         /* Responsive */
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.8rem; }
