@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Minify JavaScript code online. Compress JS files to reduce load time and optimize website performance.">
+    <meta name="keywords" content="js minifier, javascript compressor, minify js online, reduce js size, script optimizer">
+    <title>JS Minifier - MedusaSMM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #030014; --glass: rgba(255,255,255,0.05); --border: rgba(255,255,255,0.1); --primary: #ff9e00; --text: #fff; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; margin: 0; }
+        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Outfit', sans-serif; font-size: 1.5rem; text-decoration: none; color: #fff; }
+        .main-wrapper { flex: 1; padding: 40px 20px; width: 100%; max-width: 800px; margin: 0 auto; text-align: center; }
+        
+        textarea { width: 100%; height: 200px; background: rgba(0,0,0,0.3); border: 1px solid #444; color: #fff; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-family: monospace; }
+        button { padding: 15px 30px; background: var(--primary); color: #000; font-weight: bold; border: none; border-radius: 50px; cursor: pointer; }
+        
+        footer { border-top: 1px solid var(--border); padding: 40px 5%; margin-top: auto; text-align: center; color: gray; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+    <nav><a href="index.html" class="logo">MedusaTools</a><a href="index.html" style="color:#aaa;">Back</a></nav>
+    <div class="main-wrapper">
+        <h1 style="font-family:'Outfit'; margin-bottom:20px;">📜 JS Minifier</h1>
+        <p style="color:gray; margin-bottom:20px;">Paste JavaScript below to compress it.</p>
+        
+        <textarea id="inputJS" placeholder="function hello() { alert('Hi'); }"></textarea>
+        <button onclick="minifyJS()">Compress JS</button>
+        
+        <h3 style="margin-top:20px;">Minified Output:</h3>
+        <textarea id="outputJS" readonly></textarea>
+    </div>
+    <footer>&copy; 2024 MedusaSMM Tools.</footer>
+
+    <script>
+        function minifyJS() {
+            let js = document.getElementById('inputJS').value;
+            // Simple regex minification logic (removes comments and extra spaces)
+            js = js.replace(/\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/gm, '$1') // Remove comments
+                   .replace(/\s+/g, ' ') // Remove whitespace
+                   .replace(/^\s+|\s+$/, '') // Trim
+                   .replace(/\s*([=,;{}()<>+\-*/])\s*/g, '$1'); // Clean around symbols
+            document.getElementById('outputJS').value = js;
+        }
+    </script>
+</body>
+</html>
