@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="description" content="Generate beautiful and random color palettes for your design projects. Get Hex color codes instantly for Web Design and UI/UX.">
+<meta name="keywords" content="color palette generator, random color scheme, hex code generator, web design colors, color combination tool, ui design palette, html color picker, color matcher">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Palette Generator - MedusaSMM</title>
+    <meta name="description" content="Generate random color palettes for your design projects instantly. Copy Hex codes with one click.">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #030014; --glass: rgba(255,255,255,0.05); --border: rgba(255,255,255,0.1); --primary: #d900ff; --text: #fff; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; margin: 0; }
+        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Outfit', sans-serif; font-size: 1.5rem; text-decoration: none; color: #fff; }
+        .main-wrapper { flex: 1; padding: 40px 20px; width: 100%; max-width: 800px; margin: 0 auto; text-align: center; }
+        
+        .palette-container { display: flex; height: 300px; border-radius: 15px; overflow: hidden; margin: 30px 0; border: 1px solid var(--border); flex-wrap: wrap; }
+        .color-box { flex: 1; min-width: 60px; height: 100%; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 20px; cursor: pointer; transition: 0.2s; }
+        .color-box:hover { flex: 1.2; }
+        .hex-code { background: rgba(0,0,0,0.5); padding: 5px 10px; border-radius: 5px; color: #fff; font-family: monospace; font-weight: bold; }
+
+        button { padding: 15px 40px; background: var(--primary); color: #fff; font-weight: bold; border: none; border-radius: 50px; cursor: pointer; font-size: 1.1rem; }
+    </style>
+</head>
+<body>
+    <nav><a href="index.html" class="logo">MedusaTools</a><a href="index.html" style="color:#aaa;">Back</a></nav>
+    <div class="main-wrapper">
+        <h1 style="font-family:'Outfit';">🎨 Color Palette Generator</h1>
+        <p style="color:gray;">Click on a color code to copy.</p>
+        
+        <div class="palette-container" id="container"></div>
+        
+        <button onclick="genPalette()">🔄 Generate New Palette</button>
+    </div>
+    <footer style="text-align:center; padding:20px; color:gray; font-size:0.8rem;">&copy; 2024 MedusaSMM Tools.</footer>
+
+    <script>
+        function genColor() {
+            let chars = "0123456789ABCDEF";
+            let color = "#";
+            for (let i = 0; i < 6; i++) { color += chars[Math.floor(Math.random() * 16)]; }
+            return color;
+        }
+
+        function genPalette() {
+            const container = document.getElementById('container');
+            container.innerHTML = "";
+            for(let i=0; i<5; i++) {
+                let color = genColor();
+                let div = document.createElement('div');
+                div.className = 'color-box';
+                div.style.background = color;
+                div.innerHTML = `<span class="hex-code">${color}</span>`;
+                div.onclick = function() {
+                    navigator.clipboard.writeText(color);
+                    alert("Copied: " + color);
+                }
+                container.appendChild(div);
+            }
+        }
+        genPalette(); // Run on load
+    </script>
+</body>
+</html>
