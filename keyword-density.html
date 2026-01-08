@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Check keyword density of your text. Find most repeated words to optimize SEO content. Free Keyword Counter tool.">
+    <meta name="keywords" content="keyword density checker, seo content tool, word frequency counter, text analyzer, repeat word finder">
+    <title>Keyword Density Checker - MedusaSMM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #030014; --glass: rgba(255,255,255,0.05); --border: rgba(255,255,255,0.1); --primary: #ff0055; --text: #fff; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; margin: 0; }
+        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Outfit', sans-serif; font-size: 1.5rem; text-decoration: none; color: #fff; }
+        .main-wrapper { flex: 1; padding: 40px 20px; width: 100%; max-width: 800px; margin: 0 auto; text-align: center; }
+        
+        textarea { width: 100%; height: 200px; background: rgba(0,0,0,0.3); border: 1px solid #444; color: #fff; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
+        button { padding: 15px 30px; background: var(--primary); color: #fff; font-weight: bold; border: none; border-radius: 50px; cursor: pointer; }
+
+        .result-table { width: 100%; margin-top: 20px; border-collapse: collapse; display:none; }
+        .result-table th, .result-table td { padding: 10px; border: 1px solid var(--border); text-align: left; }
+        .result-table th { background: rgba(255,255,255,0.1); color: var(--primary); }
+        
+        footer { border-top: 1px solid var(--border); padding: 40px 5%; margin-top: auto; text-align: center; color: gray; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+    <nav><a href="index.html" class="logo">MedusaTools</a><a href="index.html" style="color:#aaa;">Back</a></nav>
+    <div class="main-wrapper">
+        <h1 style="font-family:'Outfit'; margin-bottom:20px;">📊 Keyword Density Checker</h1>
+        <p style="color:gray; margin-bottom:20px;">Paste your article to find repeated words.</p>
+        
+        <textarea id="inputText" placeholder="Paste your text here..."></textarea>
+        <button onclick="checkDensity()">Check Density</button>
+        
+        <table class="result-table" id="resTable">
+            <thead><tr><th>Keyword</th><th>Count</th><th>Density (%)</th></tr></thead>
+            <tbody id="tableBody"></tbody>
+        </table>
+    </div>
+    <footer>&copy; 2024 MedusaSMM Tools.</footer>
+
+    <script>
+        function checkDensity() {
+            let text = document.getElementById('inputText').value.toLowerCase();
+            // Remove punctuation and split
+            let words = text.replace(/[^\w\s]/g, '').split(/\s+/).filter(w => w.length > 2);
+            let totalWords = words.length;
+            
+            let counts = {};
+            words.forEach(word => { counts[word] = (counts[word] || 0) + 1; });
+            
+            // Convert to array and sort
+            let sorted = Object.keys(counts).map(key => {
+                return { word: key, count: counts[key] };
+            }).sort((a, b) => b.count - a.count);
+
+            // Display Top 10
+            let tbody = document.getElementById('tableBody');
+            tbody.innerHTML = "";
+            
+            sorted.slice(0, 10).forEach(item => {
+                let percent = ((item.count / totalWords) * 100).toFixed(2);
+                let row = `<tr><td>${item.word}</td><td>${item.count}</td><td>${percent}%</td></tr>`;
+                tbody.innerHTML += row;
+            });
+            document.getElementById('resTable').style.display = "table";
+        }
+    </script>
+</body>
+</html>
