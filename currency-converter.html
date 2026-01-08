@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Free Currency Converter. Convert USD to INR, EUR to USD, and more with live exchange rates.">
-    <meta name="keywords" content="currency converter, exchange rate calculator, usd to inr, money converter, forex rates">
-    <title>Currency Converter - MedusaSMM</title>
+    <meta name="description" content="Free Live Currency Converter. Convert USD to INR, EUR to USD, and more instantly using real-time exchange rates.">
+    <meta name="keywords" content="currency converter, exchange rate calculator, usd to inr, money converter, forex rates, medusasmm tools">
+    <title>Currency Converter - MedusaSMM Tools</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root { --bg: #030014; --glass: rgba(255,255,255,0.05); --border: rgba(255,255,255,0.1); --primary: #00b4d8; --text: #fff; }
@@ -15,28 +15,38 @@
         .main-wrapper { flex: 1; padding: 40px 20px; width: 100%; max-width: 600px; margin: 0 auto; text-align: center; }
         
         .converter-box { display: flex; gap: 10px; margin-bottom: 15px; align-items: center; }
-        input, select { flex: 1; padding: 15px; background: rgba(0,0,0,0.3); border: 1px solid #444; color: #fff; border-radius: 8px; }
+        input, select { flex: 1; padding: 15px; background: rgba(0,0,0,0.3); border: 1px solid #444; color: #fff; border-radius: 8px; font-size: 1rem; }
         
         .result { font-size: 2rem; color: var(--primary); font-family: 'Outfit'; margin: 20px 0; }
-        button { width: 100%; padding: 15px; background: var(--primary); color: #000; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; }
+        button { width: 100%; padding: 15px; background: var(--primary); color: #000; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; transition:0.3s; }
+        button:hover { opacity: 0.9; }
+
+        .content-section { text-align: left; margin-top: 50px; padding: 20px; background: rgba(255,255,255,0.02); border-radius: 10px; }
+        .content-section h2 { color: var(--primary); font-family: 'Outfit'; }
         
+        .more-tools { margin-top: 50px; border-top: 1px solid var(--border); padding-top: 30px; }
+        .grid-suggestions { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 20px; }
+        .suggestion-card { background: var(--glass); padding: 15px; border-radius: 10px; text-decoration: none; color: #fff; border: 1px solid var(--border); }
+        .suggestion-card:hover { border-color: var(--primary); }
+
         footer { border-top: 1px solid var(--border); padding: 40px 5%; margin-top: auto; text-align: center; color: gray; font-size: 0.8rem; }
     </style>
 </head>
 <body>
-    <nav><a href="index.html" class="logo">MedusaTools</a><a href="index.html" style="color:#aaa;">Back</a></nav>
+    <nav><a href="index.html" class="logo">MedusaSMM Tools</a><a href="index.html" style="color:#aaa;">Back</a></nav>
     <div class="main-wrapper">
         <h1 style="font-family:'Outfit'; margin-bottom:20px;">💱 Currency Converter</h1>
         
         <div class="converter-box">
-            <input type="number" id="amount" value="1" oninput="convert()">
+            <input type="number" id="amount" value="1" oninput="convert()" placeholder="Amount">
             <select id="from" onchange="convert()">
-                <option value="USD">USD 🇺🇸</option>
-                <option value="INR">INR 🇮🇳</option>
-                <option value="EUR">EUR 🇪🇺</option>
-                <option value="GBP">GBP 🇬🇧</option>
-                <option value="AED">AED 🇦🇪</option>
-                <option value="PKR">PKR 🇵🇰</option>
+                <option value="USD">USD ($)</option>
+                <option value="INR">INR (₹)</option>
+                <option value="EUR">EUR (€)</option>
+                <option value="GBP">GBP (£)</option>
+                <option value="AED">AED (د.إ)</option>
+                <option value="PKR">PKR (₨)</option>
+                <option value="JPY">JPY (¥)</option>
             </select>
         </div>
 
@@ -44,19 +54,38 @@
 
         <div class="converter-box">
             <select id="to" onchange="convert()">
-                <option value="INR" selected>INR 🇮🇳</option>
-                <option value="USD">USD 🇺🇸</option>
-                <option value="EUR">EUR 🇪🇺</option>
-                <option value="GBP">GBP 🇬🇧</option>
-                <option value="AED">AED 🇦🇪</option>
+                <option value="INR" selected>INR (₹)</option>
+                <option value="USD">USD ($)</option>
+                <option value="EUR">EUR (€)</option>
+                <option value="GBP">GBP (£)</option>
+                <option value="AED">AED (د.إ)</option>
+                <option value="CAD">CAD ($)</option>
             </select>
         </div>
 
         <div class="result" id="result">0.00</div>
         <button onclick="convert()">🔄 Refresh Rate</button>
-        <p style="color:gray; font-size:0.8rem; margin-top:10px;">Rates are updated daily.</p>
+        <p style="color:gray; font-size:0.8rem; margin-top:10px;">Rates are updated automatically.</p>
+
+        <div class="content-section">
+            <h2>Features</h2>
+            <ul>
+                <li><strong>Live Rates:</strong> Get real-time exchange rates for global currencies.</li>
+                <li><strong>Instant Conversion:</strong> No need to reload, just type and see the value.</li>
+                <li><strong>Multi-Currency:</strong> Supports major currencies like USD, INR, EUR, GBP.</li>
+            </ul>
+        </div>
+
+        <div class="more-tools">
+            <h3>Other Converters</h3>
+            <div class="grid-suggestions">
+                <a href="unit-converter.html" class="suggestion-card">⚖️ Unit Converter</a>
+                <a href="binary-translator.html" class="suggestion-card">🤖 Binary Tool</a>
+                <a href="gst-calculator.html" class="suggestion-card">🧾 GST Calc</a>
+            </div>
+        </div>
     </div>
-    <footer>&copy; 2024 MedusaSMM Tools.</footer>
+    <footer>&copy; 2026 MedusaSMM Tools. All rights reserved.</footer>
 
     <script>
         async function convert() {
@@ -65,7 +94,7 @@
             let to = document.getElementById('to').value;
             let resBox = document.getElementById('result');
 
-            if(amount === "") return;
+            if(amount === "" || amount < 0) return;
 
             resBox.innerText = "Loading...";
 
@@ -78,7 +107,7 @@
                 
                 resBox.innerText = `${total} ${to}`;
             } catch(e) {
-                resBox.innerText = "Error fetching rates";
+                resBox.innerText = "Check Internet";
             }
         }
         convert(); // Init
