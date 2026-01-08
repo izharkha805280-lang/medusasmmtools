@@ -1,132 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="description" content="Create a live countdown timer for any date or event. Animated countdown clock for birthdays, new year, and deadlines.">
-<meta name="keywords" content="countdown timer, online timer, countdown clock, days until calculator, event timer, live countdown wallpaper, time remaining calculator">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Animated Timer - MedusaSMM</title>
+    <meta name="description" content="Create a live countdown timer for any date. Track days, hours, minutes, and seconds left for events, birthdays, or new year.">
+    <meta name="keywords" content="countdown timer, online timer, countdown clock, days until calculator, event timer">
+    <title>Countdown Timer - MedusaSMM Tools</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        /* Shared CSS */
-        :root { --bg: #030014; --glass: rgba(255,255,255,0.05); --border: rgba(255,255,255,0.1); --primary: #ff9e00; --text: #fff; --gray: #9ca3af; }
-        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; margin: 0; }
-        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Outfit', sans-serif; font-size: 1.5rem; text-decoration: none; color: #fff; }
-        .main-wrapper { flex: 1; padding: 40px 20px; width: 100%; max-width: 800px; margin: 0 auto; }
-        .tool-box { background: var(--glass); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px; text-align: center; }
-        h1 { font-family: 'Outfit'; color: var(--primary); margin-bottom: 20px; font-size: 2rem; }
+        :root { --bg: #050510; --card-bg: rgba(255,255,255,0.03); --border: rgba(255,255,255,0.1); --primary: #00ff9d; --text: #fff; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
         
-        input { width: 100%; padding: 16px; background: #fff; color: #000; border-radius: 8px; border: none; font-size: 1.1rem; margin-bottom: 20px; }
-        button { width: 100%; padding: 18px; background: var(--primary); color: #000; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; font-size: 1.1rem; }
+        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: rgba(5,5,16,0.9); }
+        .logo { font-family: 'Outfit'; font-size: 1.5rem; color: #fff; text-decoration: none; font-weight: 700; }
         
-        /* Animation Section */
-        .timer-display { display: flex; justify-content: center; gap: 15px; margin-top: 40px; flex-wrap: wrap; }
-        .time-box { background: rgba(0,0,0,0.5); padding: 15px; border-radius: 10px; width: 80px; border: 1px solid var(--primary); }
-        .number { font-size: 2rem; font-family: 'Outfit'; display: block; animation: pulse 1s infinite; }
-        .label { font-size: 0.7rem; color: #aaa; text-transform: uppercase; margin-top: 5px; display: block; }
-        @media(min-width: 600px) { .time-box { width: 100px; } .number { font-size: 3rem; } }
+        .main-wrapper { width: 100%; max-width: 800px; margin: 40px auto; padding: 0 20px; text-align: center; flex: 1; }
+        
+        .timer-display { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 40px 0; }
+        .time-box { background: var(--card-bg); padding: 20px; border-radius: 10px; border: 1px solid var(--border); }
+        .number { font-size: 2.5rem; font-family: 'Outfit'; color: var(--primary); display: block; }
+        .label { font-size: 0.9rem; color: #aaa; }
+        
+        input { padding: 15px; border-radius: 8px; border: 1px solid #444; background: rgba(0,0,0,0.3); color: #fff; width: 100%; margin-bottom: 15px; }
+        button { width: 100%; padding: 15px; background: var(--primary); color: #000; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; transition: 0.3s; }
+        button:hover { opacity: 0.9; }
 
-        @keyframes pulse {
-            0% { transform: scale(1); text-shadow: 0 0 10px rgba(255, 158, 0, 0.5); }
-            50% { transform: scale(1.05); text-shadow: 0 0 20px rgba(255, 158, 0, 0.8); }
-            100% { transform: scale(1); text-shadow: 0 0 10px rgba(255, 158, 0, 0.5); }
-        }
+        @media(max-width: 600px) { .timer-display { grid-template-columns: repeat(2, 1fr); } }
 
-        /* Suggestions & Footer */
-        .suggestions { margin-top: 50px; border-top: 1px solid var(--border); padding-top: 30px; }
-        .sugg-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px; }
-        .sugg-card { background: var(--glass); padding: 20px; border-radius: 10px; text-align: center; border: 1px solid var(--border); }
-        .sugg-card:hover { border-color: var(--primary); }
-        .sugg-card a { text-decoration: none; color: #fff; display: block; }
-        
-        footer { border-top: 1px solid var(--border); padding: 40px 5%; background: rgba(0,0,0,0.3); margin-top: auto; }
-        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
-        .footer-col h3 { color: #fff; margin-bottom: 15px; font-family: 'Outfit'; }
-        .footer-col ul { list-style: none; padding: 0; }
-        .footer-col li a { color: var(--gray); text-decoration: none; font-size: 0.9rem; display: block; margin-bottom: 8px; }
-        .copy { text-align: center; margin-top: 40px; color: var(--gray); font-size: 0.8rem; border-top: 1px solid var(--border); padding-top: 20px; }
+        .content-section { text-align: left; margin-top: 50px; padding: 25px; background: var(--card-bg); border-radius: 15px; border: 1px solid var(--border); }
+        .content-section h2 { color: var(--primary); font-family: 'Outfit'; margin-bottom: 15px; }
+
+        .more-tools { margin-top: 50px; border-top: 1px solid var(--border); padding-top: 30px; }
+        .grid-suggestions { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 20px; }
+        .suggestion-card { background: var(--card-bg); padding: 15px; border-radius: 10px; text-decoration: none; color: #fff; border: 1px solid var(--border); }
+        .suggestion-card:hover { border-color: var(--primary); }
+
+        footer { border-top: 1px solid var(--border); padding: 40px; text-align: center; color: gray; font-size: 0.9rem; margin-top: auto; }
     </style>
 </head>
 <body>
-    <nav>
-        <a href="index.html" class="logo">MedusaTools</a>
-        <a href="index.html" style="color:#aaa; text-decoration:none;">Back</a>
-    </nav>
+    <nav><a href="index.html" class="logo">MedusaTools</a><a href="index.html" style="color:#aaa;">Back</a></nav>
+    
     <div class="main-wrapper">
-        <div class="tool-box">
-            <h1>⏳ Animated Countdown</h1>
-            <p style="margin-bottom:20px; color:gray;">Pick a future date and time</p>
-            <input type="datetime-local" id="target">
-            <button onclick="startTimer()">Start Countdown</button>
+        <h1 style="font-family:'Outfit'; margin-bottom:20px;">⏳ Countdown Timer</h1>
+        
+        <label style="display:block; text-align:left; color:#aaa; margin-bottom:5px;">Select Target Date:</label>
+        <input type="datetime-local" id="targetDate">
+        <button onclick="startTimer()">Start Countdown</button>
 
-            <div class="timer-display" id="display" style="display:none;">
-                <div class="time-box"><span class="number" id="d">0</span><span class="label">Days</span></div>
-                <div class="time-box"><span class="number" id="h">0</span><span class="label">Hours</span></div>
-                <div class="time-box"><span class="number" id="m">0</span><span class="label">Mins</span></div>
-                <div class="time-box"><span class="number" id="s">0</span><span class="label">Secs</span></div>
-            </div>
+        <div class="timer-display" id="display">
+            <div class="time-box"><span class="number" id="days">0</span><span class="label">Days</span></div>
+            <div class="time-box"><span class="number" id="hours">0</span><span class="label">Hours</span></div>
+            <div class="time-box"><span class="number" id="minutes">0</span><span class="label">Mins</span></div>
+            <div class="time-box"><span class="number" id="seconds">0</span><span class="label">Secs</span></div>
         </div>
 
-        <div class="suggestions">
-            <h2>🔥 More Tools</h2>
-            <div class="sugg-grid">
-                <div class="sugg-card"><a href="age-calculator.html">🎂 Age Calculator</a></div>
-                <div class="sugg-card"><a href="qr-generator.html">🔳 QR Generator</a></div>
-                <div class="sugg-card"><a href="binary-translator.html">🤖 Binary Tool</a></div>
+        <div class="content-section">
+            <h2>Features</h2>
+            <ul>
+                <li>Track time left for birthdays, exams, or holidays.</li>
+                <li>Live update every second.</li>
+                <li>Works on Mobile and Desktop.</li>
+            </ul>
+        </div>
+
+        <div class="more-tools">
+            <h3>Time Tools</h3>
+            <div class="grid-suggestions">
+                <a href="age-calculator.html" class="suggestion-card">🎂 Age Calc</a>
+                <a href="speed-test.html" class="suggestion-card">🚀 Speed Test</a>
+                <a href="tasbeeh-counter.html" class="suggestion-card">📿 Tasbeeh</a>
             </div>
         </div>
     </div>
-
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-col">
-                <h3>MedusaSMM</h3>
-                <p style="color:var(--gray); font-size:0.9rem;">Time is precious, use it well.</p>
-            </div>
-            <div class="footer-col">
-                <h3>Legal</h3>
-                <ul>
-                    <li><a href="privacy.html">Privacy Policy</a></li>
-                    <li><a href="terms.html">Terms of Use</a></li>
-                    <li><a href="disclaimer.html">Disclaimer</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h3>Company</h3>
-                <ul>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="copy">&copy; 2024 MedusaSMM Tools. All rights reserved.</div>
-    </footer>
+    
+    <footer>&copy; 2026 MedusaSMM Tools. All rights reserved.</footer>
 
     <script>
         let interval;
         function startTimer() {
-            let val = document.getElementById('target').value;
-            if(!val) return alert("Please pick a date!");
-            let target = new Date(val).getTime();
+            let input = document.getElementById('targetDate').value;
+            if(!input) return alert("Please select a date!");
             
-            document.getElementById('display').style.display = 'flex';
+            let target = new Date(input).getTime();
+            
             clearInterval(interval);
-
-            interval = setInterval(() => {
+            interval = setInterval(function() {
                 let now = new Date().getTime();
-                let dist = target - now;
+                let distance = target - now;
 
-                if (dist < 0) {
+                if (distance < 0) {
                     clearInterval(interval);
-                    document.getElementById('display').innerHTML = "<h2 style='color:#ff9e00'>TIME UP!</h2>";
+                    document.getElementById("display").innerHTML = "<h2 style='grid-column: span 4; color: #00ff9d;'>Time's Up!</h2>";
                     return;
                 }
 
-                document.getElementById('d').innerText = Math.floor(dist / (1000 * 60 * 60 * 24));
-                document.getElementById('h').innerText = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                document.getElementById('m').innerText = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
-                document.getElementById('s').innerText = Math.floor((dist % (1000 * 60)) / 1000);
+                let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById("days").innerText = days;
+                document.getElementById("hours").innerText = hours;
+                document.getElementById("minutes").innerText = minutes;
+                document.getElementById("seconds").innerText = seconds;
             }, 1000);
         }
     </script>
