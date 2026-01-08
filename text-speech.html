@@ -1,161 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="description" content="Convert text to human-like voice speech online. Listen to your text in male or female voices. Free Text-to-Speech (TTS) tool by MedusaSMM.">
-<meta name="keywords" content="text to speech online, free tts converter, read text aloud, voice generator from text, robot voice generator, text to audio converter free, online reader tool, speech synthesis">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Text to Speech - MedusaSMM</title>
+    <meta name="description" content="Convert text to human-like voice speech online. Free Text-to-Speech tool. Listen to your text instantly.">
+    <meta name="keywords" content="text to speech, tts online, read aloud text, voice generator free, convert text to audio, medusasmm">
+    <title>Text to Speech - MedusaSMM Tools</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        /* Shared CSS */
-        :root { --bg: #030014; --glass: rgba(255,255,255,0.05); --border: rgba(255,255,255,0.1); --primary: #00ff9d; --text: #fff; --gray: #9ca3af; }
-        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; margin: 0; }
-        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Outfit', sans-serif; font-size: 1.5rem; text-decoration: none; color: #fff; }
+        :root { --bg: #050510; --card-bg: rgba(255,255,255,0.03); --border: rgba(255,255,255,0.1); --primary: #00ff9d; --text: #fff; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
         
-        .main-wrapper { flex: 1; padding: 40px 20px; width: 100%; max-width: 700px; margin: 0 auto; }
-        .tool-box { background: var(--glass); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px; }
-        h1 { font-family: 'Outfit'; text-align: center; color: var(--primary); margin-bottom: 20px; font-size: 2rem; }
+        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: rgba(5,5,16,0.9); }
+        .logo { font-family: 'Outfit'; font-size: 1.5rem; color: #fff; text-decoration: none; font-weight: 700; }
         
-        textarea { width: 100%; height: 150px; padding: 15px; background: rgba(0,0,0,0.3); border: 1px solid #444; color: #fff; border-radius: 8px; font-size: 1rem; margin-bottom: 15px; outline:none; resize:none; font-family: 'Inter'; }
+        .main-wrapper { width: 100%; max-width: 800px; margin: 40px auto; padding: 0 20px; text-align: center; flex: 1; }
         
-        select { width: 100%; padding: 15px; background: rgba(0,0,0,0.3); border: 1px solid #444; color: #fff; border-radius: 8px; margin-bottom: 15px; outline:none; cursor: pointer; }
+        textarea { width: 100%; height: 200px; background: rgba(0,0,0,0.3); border: 1px solid #444; color: #fff; padding: 15px; border-radius: 10px; margin-bottom: 20px; font-size: 1.1rem; resize: vertical; }
         
-        button { width: 100%; padding: 18px; background: var(--primary); color: #000; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; font-size: 1.1rem; transition: 0.3s; margin-bottom: 10px; }
-        button:hover { box-shadow: 0 0 15px var(--primary); }
-        
-        .content-section { margin-top: 40px; color: var(--gray); line-height: 1.6; }
-        .content-section h2 { color: #fff; font-family: 'Outfit'; margin-bottom: 15px; }
-        
-        .suggestions { margin-top: 50px; border-top: 1px solid var(--border); padding-top: 30px; }
-        .sugg-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 20px; }
-        .sugg-card { background: var(--glass); padding: 15px; border-radius: 10px; text-align: center; border: 1px solid var(--border); transition:0.3s; }
-        .sugg-card:hover { border-color: var(--primary); transform: translateY(-3px); }
-        .sugg-card a { text-decoration: none; color: #fff; display: block; }
-        
-        footer { border-top: 1px solid var(--border); padding: 40px 5%; background: rgba(0,0,0,0.3); margin-top: auto; }
-        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
-        .footer-col h3 { color: #fff; margin-bottom: 15px; font-family: 'Outfit'; }
-        .footer-col ul { list-style: none; padding: 0; }
-        .footer-col li a { color: var(--gray); text-decoration: none; font-size: 0.9rem; display: block; margin-bottom: 8px; }
-        .copy { text-align: center; margin-top: 40px; color: var(--gray); font-size: 0.8rem; border-top: 1px solid var(--border); padding-top: 20px; }
+        select { padding: 10px; border-radius: 5px; background: #222; color: #fff; border: 1px solid #444; margin-bottom: 20px; max-width: 100%; }
+
+        button { padding: 15px 40px; background: var(--primary); color: #000; font-weight: bold; border: none; border-radius: 50px; cursor: pointer; transition: 0.3s; font-size: 1.1rem; margin-right: 10px; }
+        button:hover { transform: translateY(-3px); }
+        .stop-btn { background: #ff4444; color: #fff; }
+
+        .content-section { text-align: left; margin-top: 50px; padding: 25px; background: var(--card-bg); border-radius: 15px; border: 1px solid var(--border); }
+        .content-section h2 { color: var(--primary); font-family: 'Outfit'; margin-bottom: 15px; }
+
+        .more-tools { margin-top: 50px; border-top: 1px solid var(--border); padding-top: 30px; }
+        .grid-suggestions { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 20px; }
+        .suggestion-card { background: var(--card-bg); padding: 15px; border-radius: 10px; text-decoration: none; color: #fff; border: 1px solid var(--border); transition: 0.3s; }
+        .suggestion-card:hover { border-color: var(--primary); }
+
+        footer { border-top: 1px solid var(--border); padding: 40px; text-align: center; color: gray; font-size: 0.9rem; margin-top: auto; }
     </style>
 </head>
 <body>
-    <nav>
-        <a href="index.html" class="logo">MedusaTools</a>
-        <a href="index.html" style="color:#aaa; text-decoration:none;">Back</a>
-    </nav>
-
+    <nav><a href="index.html" class="logo">MedusaTools</a><a href="index.html" style="color:#aaa;">Back</a></nav>
+    
     <div class="main-wrapper">
-        <div class="tool-box">
-            <h1>🗣️ Text to Speech</h1>
-            <p style="color:gray; margin-bottom:20px; text-align:center;">Type anything and listen to it.</p>
-            
-            <textarea id="textInput" placeholder="Type something here (e.g. Hello, welcome to Medusa Tools)..."></textarea>
-            
-            <select id="voiceSelect">
-                <option value="">Select Voice...</option>
-            </select>
-
-            <button onclick="speakText()">🔊 Play Audio</button>
-            <button onclick="stopText()" style="background: transparent; color: #fff; border: 1px solid #fff;">⏹ Stop</button>
+        <h1 style="font-family:'Outfit'; margin-bottom:20px;">🗣️ Text to Speech</h1>
+        
+        <textarea id="text" placeholder="Type something here to listen..."></textarea>
+        
+        <select id="voices"><option>Loading Voices...</option></select>
+        <br>
+        
+        <div>
+            <button onclick="speak()">▶ Play</button>
+            <button class="stop-btn" onclick="stop()">⏹ Stop</button>
         </div>
 
         <div class="content-section">
-            <h2>About this Tool</h2>
-            <p>This tool uses the advanced <strong>Web Speech API</strong> built into your browser to convert written text into spoken words. It works offline and supports multiple accents depending on your device.</p>
-            <h3>How to use:</h3>
+            <h2>How to Use?</h2>
+            <p style="color:#ccc;">Convert written text into spoken words.</p>
             <ul>
-                <li>Type or paste your text in the box.</li>
-                <li>Select a voice (Male/Female/Robotic) from the list.</li>
-                <li>Click "Play Audio" to listen.</li>
+                <li>Enter your text in the box.</li>
+                <li>Select a voice (if available on your device).</li>
+                <li>Click <strong>Play</strong> to listen.</li>
             </ul>
         </div>
 
-        <div class="suggestions">
-            <h2>🔥 Recommended Tools</h2>
-            <div class="sugg-grid">
-                <div class="sugg-card"><a href="word-counter.html">📝 Word Counter</a></div>
-                <div class="sugg-card"><a href="binary-translator.html">🤖 Binary Tool</a></div>
-                <div class="sugg-card"><a href="qr-generator.html">🔳 QR Generator</a></div>
+        <div class="more-tools">
+            <h3>Text Tools</h3>
+            <div class="grid-suggestions">
+                <a href="text-reverser.html" class="suggestion-card">↩️ Text Reverser</a>
+                <a href="word-counter.html" class="suggestion-card">📝 Word Counter</a>
+                <a href="binary-translator.html" class="suggestion-card">🤖 Binary Tool</a>
             </div>
         </div>
     </div>
-
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-col">
-                <h3>MedusaSMM</h3>
-                <p style="color:var(--gray); font-size:0.9rem;">Advanced Web Utilities.</p>
-            </div>
-            <div class="footer-col">
-                <h3>Legal</h3>
-                <ul>
-                    <li><a href="privacy.html">Privacy Policy</a></li>
-                    <li><a href="terms.html">Terms of Use</a></li>
-                    <li><a href="disclaimer.html">Disclaimer</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h3>Company</h3>
-                <ul>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="copy">&copy; 2024 MedusaSMM Tools. All rights reserved.</div>
-    </footer>
+    
+    <footer>&copy; 2026 MedusaSMM Tools. All rights reserved.</footer>
 
     <script>
         let synth = window.speechSynthesis;
-        let voiceSelect = document.getElementById("voiceSelect");
+        let voiceSelect = document.getElementById("voices");
         let voices = [];
 
-        function loadVoices() {
+        function populateVoices() {
             voices = synth.getVoices();
-            voiceSelect.innerHTML = '';
+            voiceSelect.innerHTML = "";
             voices.forEach((voice, i) => {
-                let option = document.createElement('option');
-                option.value = i;
+                let option = document.createElement("option");
                 option.textContent = `${voice.name} (${voice.lang})`;
+                option.setAttribute("data-lang", voice.lang);
+                option.setAttribute("data-name", voice.name);
                 voiceSelect.appendChild(option);
             });
         }
-
-        // Load voices when ready
-        loadVoices();
+        
+        populateVoices();
         if (speechSynthesis.onvoiceschanged !== undefined) {
-            speechSynthesis.onvoiceschanged = loadVoices;
+            speechSynthesis.onvoiceschanged = populateVoices;
         }
 
-        function speakText() {
+        function speak() {
             if (synth.speaking) {
-                console.error('Already speaking...');
+                console.error("speechSynthesis.speaking");
                 return;
             }
-            let text = document.getElementById('textInput').value;
-            if (text !== '') {
-                let utterThis = new SpeechSynthesisUtterance(text);
-                let selectedOption = voiceSelect.value;
+            if (document.getElementById("text").value !== "") {
+                let utterThis = new SpeechSynthesisUtterance(document.getElementById("text").value);
+                let selectedOption = voiceSelect.selectedOptions[0].getAttribute("data-name");
                 
-                // Select specific voice
-                if(selectedOption) {
-                    utterThis.voice = voices[selectedOption];
+                for (let i = 0; i < voices.length; i++) {
+                    if (voices[i].name === selectedOption) {
+                        utterThis.voice = voices[i];
+                    }
                 }
-
                 synth.speak(utterThis);
-            } else {
-                alert("Please write something first!");
             }
         }
-
-        function stopText() {
-            if (synth.speaking) {
-                synth.cancel();
-            }
+        function stop() {
+            synth.cancel();
         }
     </script>
 </body>
