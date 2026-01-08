@@ -3,50 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Free Meta Tag Generator for SEO. Create Title, Description, and Keyword tags for your website instantly.">
+    <meta name="description" content="Free Meta Tag Generator for SEO. Create Title, Description, and Keyword tags for your website instantly. Boost your Google rankings.">
     <meta name="keywords" content="meta tag generator, seo tool, create meta tags, html meta tag builder, website seo tags">
-    <title>Meta Tag Generator - MedusaSMM</title>
+    <title>Meta Tag Generator - MedusaSMM Tools</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #030014; --glass: rgba(255,255,255,0.05); --border: rgba(255,255,255,0.1); --primary: #00ff9d; --text: #fff; }
-        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; margin: 0; }
-        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Outfit', sans-serif; font-size: 1.5rem; text-decoration: none; color: #fff; }
-        .main-wrapper { flex: 1; padding: 40px 20px; width: 100%; max-width: 800px; margin: 0 auto; text-align: center; }
+        :root { --bg: #050510; --card-bg: rgba(255,255,255,0.03); --border: rgba(255,255,255,0.1); --primary: #00ff9d; --text: #fff; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
         
-        input, textarea { width: 100%; padding: 15px; background: rgba(0,0,0,0.3); border: 1px solid #444; color: #fff; border-radius: 8px; margin-bottom: 15px; font-family: 'Inter'; }
-        label { display: block; text-align: left; margin-bottom: 5px; color: var(--primary); }
+        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: rgba(5,5,16,0.9); }
+        .logo { font-family: 'Outfit'; font-size: 1.5rem; color: #fff; text-decoration: none; font-weight: 700; }
         
-        .code-box { background: #111; padding: 20px; border-radius: 10px; text-align: left; font-family: monospace; color: #0f0; border: 1px solid var(--border); white-space: pre-wrap; }
+        .main-wrapper { width: 100%; max-width: 800px; margin: 40px auto; padding: 0 20px; text-align: center; flex: 1; }
         
-        button { padding: 15px 30px; background: var(--primary); color: #000; font-weight: bold; border: none; border-radius: 50px; cursor: pointer; margin-top: 20px; }
+        input, textarea { width: 100%; padding: 15px; background: rgba(0,0,0,0.3); border: 1px solid #444; color: #fff; border-radius: 10px; margin-bottom: 15px; font-family: 'Inter'; }
+        label { display: block; text-align: left; margin-bottom: 5px; color: var(--primary); font-weight: 600; }
         
-        footer { border-top: 1px solid var(--border); padding: 40px 5%; margin-top: auto; text-align: center; color: gray; font-size: 0.8rem; }
+        .code-box { background: #000; padding: 20px; border-radius: 10px; text-align: left; font-family: monospace; color: #00ff9d; border: 1px solid var(--border); white-space: pre-wrap; font-size: 0.9rem; }
+        
+        button { padding: 15px 30px; background: var(--primary); color: #000; font-weight: bold; border: none; border-radius: 50px; cursor: pointer; margin-top: 20px; transition: 0.3s; }
+        button:hover { box-shadow: 0 0 20px rgba(0, 255, 157, 0.4); }
+
+        .content-section { text-align: left; margin-top: 50px; padding: 25px; background: var(--card-bg); border-radius: 15px; border: 1px solid var(--border); }
+        .content-section h2 { color: var(--primary); font-family: 'Outfit'; margin-bottom: 15px; }
+
+        .more-tools { margin-top: 50px; border-top: 1px solid var(--border); padding-top: 30px; }
+        .grid-suggestions { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 20px; }
+        .suggestion-card { background: var(--card-bg); padding: 15px; border-radius: 10px; text-decoration: none; color: #fff; border: 1px solid var(--border); transition: 0.3s; }
+        .suggestion-card:hover { border-color: var(--primary); }
+
+        footer { border-top: 1px solid var(--border); padding: 40px; text-align: center; color: gray; font-size: 0.9rem; margin-top: auto; }
     </style>
 </head>
 <body>
     <nav><a href="index.html" class="logo">MedusaTools</a><a href="index.html" style="color:#aaa;">Back</a></nav>
+    
     <div class="main-wrapper">
         <h1 style="font-family:'Outfit'; margin-bottom:20px;">🏷️ Meta Tag Generator</h1>
         
         <label>Site Title:</label>
         <input type="text" id="siteTitle" placeholder="e.g. MedusaSMM Tools" oninput="genTags()">
         
-        <label>Site Description:</label>
-        <textarea id="siteDesc" placeholder="e.g. Best free online tools..." oninput="genTags()"></textarea>
+        <label>Site Description (Max 160 chars):</label>
+        <textarea id="siteDesc" placeholder="e.g. Best free online tools..." oninput="genTags()" rows="3"></textarea>
         
-        <label>Keywords (Separate with commas):</label>
+        <label>Keywords (Comma separated):</label>
         <input type="text" id="siteKeys" placeholder="e.g. tools, seo, free" oninput="genTags()">
         
         <label>Author:</label>
         <input type="text" id="siteAuthor" placeholder="e.g. Medusa Team" oninput="genTags()">
 
-        <h3>Your Code:</h3>
+        <h3>Generated Code:</h3>
         <div class="code-box" id="output">
 </div>
         <button onclick="copyCode()">📋 Copy Code</button>
+
+        <div class="content-section">
+            <h2>Why are Meta Tags Important?</h2>
+            <p style="color:#ccc;">Meta tags tell Google and other search engines what your website is about. </p>
+            <ul>
+                <li><strong>Title:</strong> The blue link text on Google.</li>
+                <li><strong>Description:</strong> The short summary under the link.</li>
+                <li><strong>Keywords:</strong> Help search engines categorize your site.</li>
+            </ul>
+        </div>
+
+        <div class="more-tools">
+            <h3>SEO Tools</h3>
+            <div class="grid-suggestions">
+                <a href="keyword-density.html" class="suggestion-card">📊 Keyword Check</a>
+                <a href="dns-lookup.html" class="suggestion-card">🌐 DNS Lookup</a>
+                <a href="seo-analyzer.html" class="suggestion-card">🧐 SEO Analyzer</a>
+            </div>
+        </div>
     </div>
-    <footer>&copy; 2024 MedusaSMM Tools.</footer>
+    
+    <footer>&copy; 2026 MedusaSMM Tools. All rights reserved.</footer>
 
     <script>
         function genTags() {
@@ -67,8 +100,9 @@
         
         function copyCode() {
             let text = document.getElementById('output').innerText;
+            if(!text) return;
             navigator.clipboard.writeText(text);
-            alert("Code copied!");
+            alert("Code copied to clipboard!");
         }
         genTags();
     </script>
