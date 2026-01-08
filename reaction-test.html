@@ -3,25 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Test your reflexes with this simple Reaction Time Test. Click as soon as the color changes to Green.">
+    <meta name="description" content="Test your reflexes with this simple Reaction Time Test. Click as soon as the color changes to Green. Challenge your friends.">
     <meta name="keywords" content="reaction time test, reflex test, click speed test, human benchmark reaction, reaction speed game">
-    <title>Reaction Time Test - MedusaSMM</title>
+    <title>Reaction Time Test - MedusaSMM Tools</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #030014; --glass: rgba(255,255,255,0.05); --border: rgba(255,255,255,0.1); --text: #fff; }
-        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; margin: 0; user-select: none; }
-        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Outfit', sans-serif; font-size: 1.5rem; text-decoration: none; color: #fff; }
+        :root { --bg: #050510; --card-bg: rgba(255,255,255,0.03); --border: rgba(255,255,255,0.1); --text: #fff; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; display: flex; flex-direction: column; user-select: none; overflow-x: hidden; }
         
-        .game-area { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; cursor: pointer; text-align: center; padding: 20px; transition: background 0.2s; }
+        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: rgba(5,5,16,0.9); z-index:10; }
+        .logo { font-family: 'Outfit'; font-size: 1.5rem; color: #fff; text-decoration: none; font-weight: 700; }
+        
+        .game-area { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; cursor: pointer; text-align: center; padding: 20px; transition: background 0.2s; width: 100%; }
         
         .waiting { background: #ce2e2e; } /* Red */
         .ready { background: #2e8bce; } /* Blue */
-        .go { background: #2ece56; } /* Green */
+        .go { background: #2ece56; color:#000; } /* Green */
         
         h1 { font-family: 'Outfit'; font-size: 3rem; margin: 0; }
         p { font-size: 1.2rem; opacity: 0.8; }
         .hidden { display: none; }
+
+        footer { border-top: 1px solid var(--border); padding: 40px; text-align: center; color: gray; font-size: 0.9rem; margin-top: auto; }
     </style>
 </head>
 <body>
@@ -43,6 +47,8 @@
             <p>Click to try again</p>
         </div>
     </div>
+    
+    <footer>&copy; 2026 MedusaSMM Tools. All rights reserved.</footer>
 
     <script>
         const box = document.getElementById('gameBox');
@@ -51,13 +57,12 @@
 
         function handleClick() {
             if (gameState === 'start' || gameState === 'result') {
-                // Start Game
                 gameState = 'waiting';
                 box.className = 'game-area waiting';
                 hideAll();
                 document.getElementById('waitMsg').style.display = 'block';
                 
-                let randomTime = Math.floor(Math.random() * 2000) + 2000; // 2-4 seconds
+                let randomTime = Math.floor(Math.random() * 2000) + 2000;
                 timer = setTimeout(() => {
                     gameState = 'go';
                     box.className = 'game-area go';
@@ -67,16 +72,14 @@
                 }, randomTime);
             } 
             else if (gameState === 'waiting') {
-                // Clicked too early
                 clearTimeout(timer);
                 gameState = 'result';
-                box.className = 'game-area ready'; // Back to blue
+                box.className = 'game-area ready';
                 hideAll();
                 document.getElementById('resultMsg').style.display = 'block';
                 document.getElementById('timeDisplay').innerText = "Too Early!";
             } 
             else if (gameState === 'go') {
-                // Successful click
                 endTime = Date.now();
                 gameState = 'result';
                 box.className = 'game-area ready';
