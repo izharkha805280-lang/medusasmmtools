@@ -300,7 +300,57 @@
             A suite of premium digital utilities designed for speed, privacy, and efficiency. Experience the next level of web tools without limitations.
         </p>
     </header>
+<div class="search-container">
+        <input type="text" id="searchBox" placeholder="Search for tools (e.g. WiFi, Speed, AI)..." onkeyup="filterTools()">
+        <span class="search-icon">🔍</span>
+    </div>
 
+    <p id="noResults" class="no-results">❌ No tools found matching your search.</p>
+
+    ```
+
+---
+
+### Step 3: JavaScript Add Karein (Kaam karne ke liye)
+Apni `index.html` ke sabse niche, `</body>` tag ke just pehle, `<script>` tag ke andar yeh function add karein:
+
+```javascript
+    <script>
+        function filterTools() {
+            // 1. User ne kya type kiya wo nikalo
+            let input = document.getElementById('searchBox').value.toUpperCase();
+            
+            // 2. Saare tool cards select karo
+            let cards = document.getElementsByClassName('tool-card');
+            let hasResults = false;
+
+            // 3. Har card ko check karo
+            for (let i = 0; i < cards.length; i++) {
+                let h3 = cards[i].getElementsByTagName("h3")[0];
+                let p = cards[i].getElementsByTagName("p")[0];
+                
+                // Text content check karo (Title aur Description dono mein)
+                if (h3 || p) {
+                    let textValue = (h3.textContent || h3.innerText) + " " + (p.textContent || p.innerText);
+                    
+                    if (textValue.toUpperCase().indexOf(input) > -1) {
+                        cards[i].style.display = ""; // Dikhao
+                        hasResults = true;
+                    } else {
+                        cards[i].style.display = "none"; // Chupao
+                    }
+                }
+            }
+
+            // 4. Agar kuch nahi mila to message dikhao
+            let noResMsg = document.getElementById('noResults');
+            if (!hasResults) {
+                noResMsg.style.display = "block";
+            } else {
+                noResMsg.style.display = "none";
+            }
+        }
+    </script>
     <section class="tools-section">
         <div class="tools-grid">
             
