@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="description" content="Find your Public IP Address, Location, ISP, and City details instantly. A free tool to detect your network information and IP geolocation.">
+<meta name="keywords" content="what is my ip, check ip address, my ip location, ip tracker, find my ip, check isp provider, public ip checker, my ip details, show my ip">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Find your public IP Address, Location, ISP, and City details instantly for free.">
+    <meta name="keywords" content="what is my ip, check ip address, my ip location, ip tracker, medusa ip tool">
+    <title>What is My IP - MedusaSMM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #030014; --glass: rgba(255,255,255,0.05); --border: rgba(255,255,255,0.1); --primary: #00b4d8; --text: #fff; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; margin: 0; }
+        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Outfit', sans-serif; font-size: 1.5rem; text-decoration: none; color: #fff; }
+        .main-wrapper { flex: 1; padding: 40px 20px; width: 100%; max-width: 700px; margin: 0 auto; text-align: center; }
+        .tool-box { background: var(--glass); border: 1px solid var(--border); border-radius: 20px; padding: 40px; }
+        
+        .ip-display { font-size: 2.5rem; font-family: 'Outfit'; color: var(--primary); margin: 20px 0; word-break: break-all; }
+        .details-box { text-align: left; margin-top: 30px; background: rgba(0,0,0,0.3); padding: 20px; border-radius: 10px; }
+        .detail-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .label { color: gray; }
+        
+        button { padding: 12px 25px; background: #fff; color: #000; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <nav><a href="index.html" class="logo">MedusaTools</a><a href="index.html" style="color:#aaa;">Back</a></nav>
+    <div class="main-wrapper">
+        <div class="tool-box">
+            <h1>📍 Your IP Address</h1>
+            <div class="ip-display" id="ip">Loading...</div>
+            <button onclick="fetchIP()">🔄 Refresh Data</button>
+
+            <div class="details-box" id="details" style="display:none;">
+                <div class="detail-row"><span class="label">ISP (Provider)</span><span id="isp">-</span></div>
+                <div class="detail-row"><span class="label">City</span><span id="city">-</span></div>
+                <div class="detail-row"><span class="label">Country</span><span id="country">-</span></div>
+                <div class="detail-row"><span class="label">Region</span><span id="region">-</span></div>
+            </div>
+        </div>
+    </div>
+    <footer style="text-align:center; padding:20px; color:gray; font-size:0.8rem;">&copy; 2024 MedusaSMM Tools.</footer>
+
+    <script>
+        async function fetchIP() {
+            document.getElementById('ip').innerText = "Fetching...";
+            try {
+                // Using Free IP API
+                let response = await fetch('https://ipapi.co/json/');
+                let data = await response.json();
+                
+                document.getElementById('ip').innerText = data.ip;
+                document.getElementById('isp').innerText = data.org;
+                document.getElementById('city').innerText = data.city;
+                document.getElementById('country').innerText = data.country_name;
+                document.getElementById('region').innerText = data.region;
+                document.getElementById('details').style.display = 'block';
+            } catch (e) {
+                document.getElementById('ip').innerText = "Error fetching IP";
+            }
+        }
+        fetchIP(); // Run on load
+    </script>
+</body>
+</html>
