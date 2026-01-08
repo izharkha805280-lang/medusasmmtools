@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="description" content="Check your internet download speed instantly. Test your WiFi or Mobile Data connection speed in Mbps for free without installing any app.">
+<meta name="keywords" content="internet speed test, wifi speed check, check net speed, download speed test, broadband speed checker, online connection test, fast internet test, network speed meter">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Check your internet download speed instantly with MedusaSMM Speed Test. Fast and accurate.">
+    <meta name="keywords" content="internet speed test, wifi speed check, check net speed, download speed test, online connection test">
+    <title>Internet Speed Test - MedusaSMM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Shared CSS */
+        :root { --bg: #030014; --glass: rgba(255,255,255,0.05); --border: rgba(255,255,255,0.1); --primary: #00ff9d; --text: #fff; --gray: #9ca3af; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; margin: 0; }
+        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Outfit', sans-serif; font-size: 1.5rem; text-decoration: none; color: #fff; }
+        .main-wrapper { flex: 1; padding: 40px 20px; width: 100%; max-width: 600px; margin: 0 auto; text-align: center; }
+        .tool-box { background: var(--glass); border: 1px solid var(--border); border-radius: 20px; padding: 40px; }
+        
+        .gauge { width: 200px; height: 100px; background: rgba(255,255,255,0.1); border-radius: 100px 100px 0 0; margin: 0 auto; position: relative; overflow: hidden; }
+        .needle { width: 100px; height: 5px; background: var(--primary); position: absolute; bottom: 0; left: 50%; transform-origin: left; transform: rotate(0deg); transition: 0.5s; }
+        
+        .speed-val { font-size: 3rem; font-family: 'Outfit'; margin-top: 20px; color: var(--primary); }
+        .unit { font-size: 1rem; color: var(--gray); }
+
+        button { padding: 15px 40px; background: var(--primary); color: #000; font-weight: bold; border: none; border-radius: 50px; cursor: pointer; font-size: 1.2rem; margin-top: 30px; }
+        button:disabled { opacity: 0.5; cursor: wait; }
+
+        footer { border-top: 1px solid var(--border); padding: 40px 5%; background: rgba(0,0,0,0.3); margin-top: auto; text-align:center; color:gray; font-size:0.8rem; }
+    </style>
+</head>
+<body>
+    <nav><a href="index.html" class="logo">MedusaTools</a><a href="index.html" style="color:#aaa;">Back</a></nav>
+    <div class="main-wrapper">
+        <div class="tool-box">
+            <h1 style="font-family:'Outfit'; margin-bottom:30px;">🚀 Net Speed Test</h1>
+            
+            <div class="gauge"><div class="needle" id="needle"></div></div>
+            <div class="speed-val" id="speed">0.00</div>
+            <div class="unit">Mbps (Download)</div>
+
+            <button id="startBtn" onclick="startTest()">Start Test</button>
+            <p id="status" style="margin-top:20px; color:gray;">Click start to check speed.</p>
+        </div>
+    </div>
+    <footer>&copy; 2024 MedusaSMM Tools.</footer>
+
+    <script>
+        function startTest() {
+            let btn = document.getElementById('startBtn');
+            let status = document.getElementById('status');
+            let needle = document.getElementById('needle');
+            let display = document.getElementById('speed');
+
+            btn.disabled = true;
+            status.innerText = "Testing... Please wait...";
+            needle.style.transform = `rotate(10deg)`;
+
+            let startTime, endTime;
+            let downloadSize = 500000; // Approx bytes
+            let imageAddr = "https://upload.wikimedia.org/wikipedia/commons/3/3a/Cat03.jpg?n=" + Math.random(); 
+
+            let download = new Image();
+            
+            download.onload = function () {
+                endTime = (new Date()).getTime();
+                showResults();
+            }
+
+            startTime = (new Date()).getTime();
+            download.src = imageAddr;
+
+            function showResults() {
+                let duration = (endTime - startTime) / 1000;
+                let bitsLoaded = downloadSize * 8;
+                let speedBps = bitsLoaded / duration;
+                let speedKbps = speedBps / 1024;
+                let speedMbps = (speedKbps / 1024).toFixed(2);
+
+                display.innerText = speedMbps;
+                status.innerText = "Test Complete!";
+                btn.disabled = false;
+
+                // Animate Needle
+                let angle = Math.min(180, (speedMbps * 2)); // Simple logic for gauge
+                needle.style.transform = `rotate(${angle}deg)`;
+            }
+        }
+    </script>
+</body>
+</html>
