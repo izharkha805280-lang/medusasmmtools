@@ -4,44 +4,81 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Free DNS Lookup Tool. Check A, MX, NS, and TXT records for any domain name instantly using Google DNS API.">
-    <meta name="keywords" content="dns lookup, check dns records, domain ip checker, mx record checker, ns lookup, whois dns">
-    <title>DNS Lookup - MedusaSMM</title>
+    <meta name="keywords" content="dns lookup, check dns records, domain ip checker, mx record checker, ns lookup, whois dns, medusasmm">
+    <title>DNS Lookup - MedusaSMM Tools</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #030014; --glass: rgba(255,255,255,0.05); --border: rgba(255,255,255,0.1); --primary: #d900ff; --text: #fff; }
-        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; margin: 0; }
-        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Outfit', sans-serif; font-size: 1.5rem; text-decoration: none; color: #fff; }
-        .main-wrapper { flex: 1; padding: 40px 20px; width: 100%; max-width: 800px; margin: 0 auto; text-align: center; }
+        :root { --bg: #050510; --card-bg: rgba(255,255,255,0.03); --border: rgba(255,255,255,0.1); --primary: #d900ff; --text: #fff; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
         
-        input { width: 70%; padding: 15px; background: rgba(0,0,0,0.3); border: 1px solid #444; color: #fff; border-radius: 8px; margin-right: 10px; }
-        select { padding: 15px; background: #222; color: #fff; border: 1px solid #444; border-radius: 8px; }
-        button { padding: 15px 30px; background: var(--primary); color: #fff; font-weight: bold; border: none; border-radius: 50px; cursor: pointer; margin-top: 20px; }
+        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: rgba(5,5,16,0.9); }
+        .logo { font-family: 'Outfit'; font-size: 1.5rem; color: #fff; text-decoration: none; font-weight: 700; }
+        
+        .main-wrapper { width: 100%; max-width: 800px; margin: 40px auto; padding: 0 20px; text-align: center; flex: 1; }
+        
+        .input-group { display: flex; gap: 10px; margin-bottom: 20px; }
+        input { flex: 2; padding: 15px; background: rgba(0,0,0,0.3); border: 1px solid #444; color: #fff; border-radius: 10px; }
+        select { flex: 1; padding: 15px; background: #222; color: #fff; border: 1px solid #444; border-radius: 10px; }
+        
+        button { width: 100%; padding: 15px; background: var(--primary); color: #fff; font-weight: bold; border: none; border-radius: 10px; cursor: pointer; transition: 0.3s; }
+        button:hover { box-shadow: 0 0 20px rgba(217, 0, 255, 0.4); }
 
-        .result-box { text-align: left; background: rgba(255,255,255,0.05); padding: 20px; border-radius: 10px; margin-top: 30px; font-family: monospace; white-space: pre-wrap; display: none; }
+        .result-box { text-align: left; background: var(--card-bg); padding: 25px; border-radius: 15px; margin-top: 30px; font-family: monospace; white-space: pre-wrap; display: none; border: 1px solid var(--border); color: #00ff9d; }
 
-        footer { border-top: 1px solid var(--border); padding: 40px 5%; margin-top: auto; text-align: center; color: gray; font-size: 0.8rem; }
+        .content-section { text-align: left; margin-top: 50px; padding: 25px; background: var(--card-bg); border-radius: 15px; border: 1px solid var(--border); }
+        .content-section h2 { color: var(--primary); font-family: 'Outfit'; margin-bottom: 15px; }
+
+        .more-tools { margin-top: 50px; border-top: 1px solid var(--border); padding-top: 30px; }
+        .grid-suggestions { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 20px; }
+        .suggestion-card { background: var(--card-bg); padding: 15px; border-radius: 10px; text-decoration: none; color: #fff; border: 1px solid var(--border); transition: 0.3s; }
+        .suggestion-card:hover { border-color: var(--primary); }
+
+        footer { border-top: 1px solid var(--border); padding: 40px; text-align: center; color: gray; font-size: 0.9rem; margin-top: auto; }
     </style>
 </head>
 <body>
     <nav><a href="index.html" class="logo">MedusaTools</a><a href="index.html" style="color:#aaa;">Back</a></nav>
+    
     <div class="main-wrapper">
         <h1 style="font-family:'Outfit'; margin-bottom:20px;">🌐 DNS Lookup</h1>
-        <p style="color:gray; margin-bottom:20px;">Enter domain name (e.g. google.com) to check records.</p>
+        <p style="color:#aaa; margin-bottom:20px;">Check domain records (A, MX, NS) instantly.</p>
         
-        <input type="text" id="domain" placeholder="google.com">
-        <select id="type">
-            <option value="A">A (IP Address)</option>
-            <option value="MX">MX (Mail)</option>
-            <option value="NS">NS (Nameserver)</option>
-            <option value="TXT">TXT (Text)</option>
-        </select>
-        <br>
-        <button onclick="checkDNS()">Check Records</button>
+        <div class="input-group">
+            <input type="text" id="domain" placeholder="google.com">
+            <select id="type">
+                <option value="A">A (IP Address)</option>
+                <option value="MX">MX (Mail)</option>
+                <option value="NS">NS (Nameserver)</option>
+                <option value="TXT">TXT (Text)</option>
+                <option value="CNAME">CNAME (Alias)</option>
+            </select>
+        </div>
+        
+        <button onclick="checkDNS()">🔍 Check Records</button>
         
         <div class="result-box" id="output">Fetching data...</div>
+
+        <div class="content-section">
+            <h2>Understanding DNS Records</h2>
+            <ul>
+                <li><strong>A Record:</strong> Shows the IP address where the domain is hosted.</li>
+                <li><strong>MX Record:</strong> Shows which email provider the domain uses.</li>
+                <li><strong>NS Record:</strong> Shows the nameservers (e.g., Cloudflare, GoDaddy).</li>
+            </ul>
+        </div>
+
+        <div class="more-tools">
+            <h3>Webmaster Tools</h3>
+            <div class="grid-suggestions">
+                <a href="my-ip.html" class="suggestion-card">📍 What's My IP</a>
+                <a href="meta-tag-gen.html" class="suggestion-card">🏷️ Meta Tag Gen</a>
+                <a href="seo-analyzer.html" class="suggestion-card">🧐 SEO Analyzer</a>
+            </div>
+        </div>
     </div>
-    <footer>&copy; 2024 MedusaSMM Tools.</footer>
+    
+    <footer>&copy; 2026 MedusaSMM Tools. All rights reserved.</footer>
 
     <script>
         async function checkDNS() {
@@ -55,7 +92,6 @@
             output.innerText = "Scanning DNS...";
 
             try {
-                // Using Google DNS API (Free & Public)
                 let response = await fetch(`https://dns.google/resolve?name=${domain}&type=${type}`);
                 let data = await response.json();
                 
