@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Calculate GST easily. Add or remove GST from amount. Supports 5%, 12%, 18%, and 28% tax slabs.">
+    <meta name="keywords" content="gst calculator, gst tax calculator, calculate gst inclusive, gst exclusive calculator, india tax tool">
+    <title>GST Calculator - MedusaSMM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #030014; --glass: rgba(255,255,255,0.05); --border: rgba(255,255,255,0.1); --primary: #ff9e00; --text: #fff; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; margin: 0; }
+        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Outfit', sans-serif; font-size: 1.5rem; text-decoration: none; color: #fff; }
+        .main-wrapper { flex: 1; padding: 40px 20px; width: 100%; max-width: 600px; margin: 0 auto; text-align: center; }
+        
+        input, select { width: 100%; padding: 15px; background: rgba(0,0,0,0.3); border: 1px solid #444; color: #fff; border-radius: 8px; margin-bottom: 15px; }
+        .btn-group { display: flex; gap: 10px; margin-bottom: 20px; }
+        button { flex: 1; padding: 15px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        .add-gst { background: #00ff9d; color: #000; }
+        .remove-gst { background: #ff4444; color: #fff; }
+
+        .result-box { background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; text-align: left; }
+        .res-row { display: flex; justify-content: space-between; margin-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 5px; }
+        .total { font-size: 1.5rem; color: var(--primary); font-weight: bold; border: none; }
+        
+        footer { border-top: 1px solid var(--border); padding: 40px 5%; margin-top: auto; text-align: center; color: gray; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+    <nav><a href="index.html" class="logo">MedusaTools</a><a href="index.html" style="color:#aaa;">Back</a></nav>
+    <div class="main-wrapper">
+        <h1 style="font-family:'Outfit'; margin-bottom:20px;">🧾 GST Calculator</h1>
+        
+        <label style="display:block; text-align:left; color:gray;">Amount:</label>
+        <input type="number" id="amount" placeholder="e.g. 1000">
+        
+        <label style="display:block; text-align:left; color:gray;">Tax Percentage (%):</label>
+        <select id="tax">
+            <option value="5">5%</option>
+            <option value="12">12%</option>
+            <option value="18" selected>18%</option>
+            <option value="28">28%</option>
+        </select>
+
+        <div class="btn-group">
+            <button class="add-gst" onclick="calcGST('add')">+ Add GST</button>
+            <button class="remove-gst" onclick="calcGST('remove')">- Remove GST</button>
+        </div>
+
+        <div class="result-box">
+            <div class="res-row"><span>Net Amount:</span><span id="netAmount">0.00</span></div>
+            <div class="res-row"><span>GST Amount:</span><span id="gstAmount">0.00</span></div>
+            <div class="res-row total"><span>Total:</span><span id="totalAmount">0.00</span></div>
+        </div>
+    </div>
+    <footer>&copy; 2024 MedusaSMM Tools.</footer>
+
+    <script>
+        function calcGST(type) {
+            let amount = parseFloat(document.getElementById('amount').value);
+            let tax = parseFloat(document.getElementById('tax').value);
+            
+            if(!amount) return alert("Please enter amount");
+
+            let gstAmt, total, net;
+
+            if (type === 'add') {
+                gstAmt = (amount * tax) / 100;
+                total = amount + gstAmt;
+                net = amount;
+            } else {
+                total = amount;
+                net = amount / (1 + (tax / 100));
+                gstAmt = total - net;
+            }
+
+            document.getElementById('netAmount').innerText = net.toFixed(2);
+            document.getElementById('gstAmount').innerText = gstAmt.toFixed(2);
+            document.getElementById('totalAmount').innerText = total.toFixed(2);
+        }
+    </script>
+</body>
+</html>
