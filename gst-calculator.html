@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Calculate GST easily. Add or remove GST from amount. Supports 5%, 12%, 18%, and 28% tax slabs.">
-    <meta name="keywords" content="gst calculator, gst tax calculator, calculate gst inclusive, gst exclusive calculator, india tax tool">
-    <title>GST Calculator - MedusaSMM</title>
+    <meta name="description" content="Calculate GST easily online. Add or remove GST from amount. Supports 5%, 12%, 18%, and 28% tax slabs for Indian businesses.">
+    <meta name="keywords" content="gst calculator, gst tax calculator, calculate gst inclusive, gst exclusive calculator, india tax tool, medusasmm">
+    <title>GST Calculator - MedusaSMM Tools</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root { --bg: #030014; --glass: rgba(255,255,255,0.05); --border: rgba(255,255,255,0.1); --primary: #ff9e00; --text: #fff; }
@@ -14,25 +14,35 @@
         .logo { font-family: 'Outfit', sans-serif; font-size: 1.5rem; text-decoration: none; color: #fff; }
         .main-wrapper { flex: 1; padding: 40px 20px; width: 100%; max-width: 600px; margin: 0 auto; text-align: center; }
         
-        input, select { width: 100%; padding: 15px; background: rgba(0,0,0,0.3); border: 1px solid #444; color: #fff; border-radius: 8px; margin-bottom: 15px; }
+        input, select { width: 100%; padding: 15px; background: rgba(0,0,0,0.3); border: 1px solid #444; color: #fff; border-radius: 8px; margin-bottom: 15px; font-size: 1rem; }
         .btn-group { display: flex; gap: 10px; margin-bottom: 20px; }
-        button { flex: 1; padding: 15px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        button { flex: 1; padding: 15px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        button:hover { transform: translateY(-2px); }
         .add-gst { background: #00ff9d; color: #000; }
         .remove-gst { background: #ff4444; color: #fff; }
 
         .result-box { background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; text-align: left; }
         .res-row { display: flex; justify-content: space-between; margin-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 5px; }
         .total { font-size: 1.5rem; color: var(--primary); font-weight: bold; border: none; }
+
+        .content-section { text-align: left; margin-top: 50px; padding: 20px; background: rgba(255,255,255,0.02); border-radius: 10px; }
+        .content-section h2 { color: var(--primary); font-family: 'Outfit'; }
+        .content-section ul { padding-left: 20px; color: #ccc; line-height: 1.6; }
+
+        .more-tools { margin-top: 50px; border-top: 1px solid var(--border); padding-top: 30px; }
+        .grid-suggestions { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 20px; }
+        .suggestion-card { background: var(--glass); padding: 15px; border-radius: 10px; text-decoration: none; color: #fff; border: 1px solid var(--border); transition: 0.3s; }
+        .suggestion-card:hover { border-color: var(--primary); }
         
         footer { border-top: 1px solid var(--border); padding: 40px 5%; margin-top: auto; text-align: center; color: gray; font-size: 0.8rem; }
     </style>
 </head>
 <body>
-    <nav><a href="index.html" class="logo">MedusaTools</a><a href="index.html" style="color:#aaa;">Back</a></nav>
+    <nav><a href="index.html" class="logo">MedusaSMM Tools</a><a href="index.html" style="color:#aaa;">Back</a></nav>
     <div class="main-wrapper">
         <h1 style="font-family:'Outfit'; margin-bottom:20px;">🧾 GST Calculator</h1>
         
-        <label style="display:block; text-align:left; color:gray;">Amount:</label>
+        <label style="display:block; text-align:left; color:gray;">Amount (₹):</label>
         <input type="number" id="amount" placeholder="e.g. 1000">
         
         <label style="display:block; text-align:left; color:gray;">Tax Percentage (%):</label>
@@ -44,8 +54,8 @@
         </select>
 
         <div class="btn-group">
-            <button class="add-gst" onclick="calcGST('add')">+ Add GST</button>
-            <button class="remove-gst" onclick="calcGST('remove')">- Remove GST</button>
+            <button class="add-gst" onclick="calcGST('add')">+ Add GST (Inclusive)</button>
+            <button class="remove-gst" onclick="calcGST('remove')">- Remove GST (Exclusive)</button>
         </div>
 
         <div class="result-box">
@@ -53,8 +63,30 @@
             <div class="res-row"><span>GST Amount:</span><span id="gstAmount">0.00</span></div>
             <div class="res-row total"><span>Total:</span><span id="totalAmount">0.00</span></div>
         </div>
+
+        <div class="content-section">
+            <h2>About GST Calculator</h2>
+            <p style="color:#ccc;">This free tool helps you calculate Goods and Service Tax (GST) for Indian goods and services. You can easily find out the net price and gross price.</p>
+            <h3>How to Use?</h3>
+            <ul>
+                <li>Enter the basic Amount.</li>
+                <li>Select the GST Slab (5%, 12%, 18%, 28%).</li>
+                <li>Click <strong>Add GST</strong> to add tax to the price.</li>
+                <li>Click <strong>Remove GST</strong> to subtract tax from the total price.</li>
+            </ul>
+        </div>
+
+        <div class="more-tools">
+            <h3>Use Finance Tools</h3>
+            <div class="grid-suggestions">
+                <a href="emi-calculator.html" class="suggestion-card">💸 EMI Calculator</a>
+                <a href="discount-calculator.html" class="suggestion-card">🏷️ Discount Calc</a>
+                <a href="currency-converter.html" class="suggestion-card">💱 Currency Rate</a>
+            </div>
+        </div>
+
     </div>
-    <footer>&copy; 2024 MedusaSMM Tools.</footer>
+    <footer>&copy; 2026 MedusaSMM Tools. All rights reserved.</footer>
 
     <script>
         function calcGST(type) {
