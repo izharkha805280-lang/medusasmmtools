@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Create Memes online for free. Upload image, add top and bottom text, and download instantly. No watermark.">
-    <meta name="keywords" content="meme generator, create meme online, meme maker, add text to image, funny meme creator">
-    <title>Meme Generator - MedusaSMM</title>
+    <meta name="description" content="Create funny Memes online for free. Upload image, add custom text on top and bottom, and download without watermark.">
+    <meta name="keywords" content="meme generator, create meme online, meme maker, add text to image, funny meme creator, medusa tools">
+    <title>Meme Generator - MedusaSMM Tools</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root { --bg: #030014; --glass: rgba(255,255,255,0.05); --border: rgba(255,255,255,0.1); --primary: #d900ff; --text: #fff; }
@@ -16,30 +16,67 @@
         
         input { width: 100%; padding: 15px; background: rgba(0,0,0,0.3); border: 1px solid #444; color: #fff; border-radius: 8px; margin-bottom: 15px; }
         
-        canvas { max-width: 100%; border: 1px solid var(--border); border-radius: 10px; margin-top: 20px; }
-        button { width: 100%; padding: 15px; background: var(--primary); color: #fff; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; margin-top: 15px; }
+        canvas { max-width: 100%; border: 1px solid var(--border); border-radius: 10px; margin-top: 20px; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
+        button { width: 100%; padding: 15px; background: var(--primary); color: #fff; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; margin-top: 15px; transition:0.3s; }
+        button:hover { transform: scale(1.02); }
+
+        .content-section { text-align: left; margin-top: 50px; padding: 20px; background: rgba(255,255,255,0.02); border-radius: 10px; }
+        .content-section h2 { color: var(--primary); font-family: 'Outfit'; }
+        .more-tools { margin-top: 50px; border-top: 1px solid var(--border); padding-top: 30px; }
+        .grid-suggestions { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 20px; }
+        .suggestion-card { background: var(--glass); padding: 15px; border-radius: 10px; text-decoration: none; color: #fff; border: 1px solid var(--border); }
+        .suggestion-card:hover { border-color: var(--primary); }
 
         footer { border-top: 1px solid var(--border); padding: 40px 5%; margin-top: auto; text-align: center; color: gray; font-size: 0.8rem; }
     </style>
 </head>
 <body>
-    <nav><a href="index.html" class="logo">MedusaTools</a><a href="index.html" style="color:#aaa;">Back</a></nav>
+    <nav><a href="index.html" class="logo">MedusaSMM Tools</a><a href="index.html" style="color:#aaa;">Back</a></nav>
     <div class="main-wrapper">
         <h1 style="font-family:'Outfit'; margin-bottom:20px;">🐸 Meme Generator</h1>
         
         <input type="file" id="imageInput" accept="image/*">
-        <input type="text" id="topText" placeholder="Top Text" oninput="drawMeme()">
-        <input type="text" id="bottomText" placeholder="Bottom Text" oninput="drawMeme()">
+        <input type="text" id="topText" placeholder="Top Text (e.g. ME WHEN)" oninput="drawMeme()">
+        <input type="text" id="bottomText" placeholder="Bottom Text (e.g. THE CODE WORKS)" oninput="drawMeme()">
         
         <canvas id="memeCanvas"></canvas>
-        <button onclick="downloadMeme()">Download Meme</button>
+        <button onclick="downloadMeme()">⬇️ Download Meme</button>
+
+        <div class="content-section">
+            <h2>How to make a Meme?</h2>
+            <p style="color:#ccc;">Creating memes is easy with MedusaSMM Tools. Just follow these steps:</p>
+            <ul>
+                <li>Upload an image from your device.</li>
+                <li>Type text for the Top and Bottom of the image.</li>
+                <li>The tool will automatically adjust the font size.</li>
+                <li>Click <strong>Download Meme</strong> to save it instantly.</li>
+            </ul>
+        </div>
+
+        <div class="more-tools">
+            <h3>Try Media Tools</h3>
+            <div class="grid-suggestions">
+                <a href="image-compressor.html" class="suggestion-card">📉 Image Compressor</a>
+                <a href="yt-thumbnail.html" class="suggestion-card">📺 YT Thumbnail</a>
+                <a href="screen-recorder.html" class="suggestion-card">🎥 Screen Recorder</a>
+            </div>
+        </div>
     </div>
-    <footer>&copy; 2024 MedusaSMM Tools.</footer>
+    <footer>&copy; 2026 MedusaSMM Tools. All rights reserved.</footer>
 
     <script>
         const canvas = document.getElementById('memeCanvas');
         const ctx = canvas.getContext('2d');
         let image;
+
+        // Default Canvas Setup (Empty)
+        canvas.width = 500;
+        canvas.height = 300;
+        ctx.fillStyle = '#111';
+        ctx.fillRect(0,0,500,300);
+        ctx.fillStyle = 'gray';
+        ctx.font = '20px Arial';
+        ctx.fillText("Upload Image to Start", 150, 150);
 
         document.getElementById('imageInput').addEventListener('change', function(e) {
             const reader = new FileReader();
@@ -60,30 +97,32 @@
             
             ctx.drawImage(image, 0, 0);
             
-            ctx.font = `bold ${canvas.width / 10}px Impact`;
+            // Text Styles
+            let fontSize = canvas.width / 10;
+            ctx.font = `bold ${fontSize}px Impact`;
             ctx.fillStyle = 'white';
             ctx.strokeStyle = 'black';
-            ctx.lineWidth = canvas.width / 150;
+            ctx.lineWidth = fontSize / 15;
             ctx.textAlign = 'center';
 
             let top = document.getElementById('topText').value.toUpperCase();
             let bottom = document.getElementById('bottomText').value.toUpperCase();
 
-            // Top Text
+            // Draw Top Text
             ctx.textBaseline = 'top';
-            ctx.fillText(top, canvas.width / 2, 20);
             ctx.strokeText(top, canvas.width / 2, 20);
+            ctx.fillText(top, canvas.width / 2, 20);
 
-            // Bottom Text
+            // Draw Bottom Text
             ctx.textBaseline = 'bottom';
-            ctx.fillText(bottom, canvas.width / 2, canvas.height - 20);
             ctx.strokeText(bottom, canvas.width / 2, canvas.height - 20);
+            ctx.fillText(bottom, canvas.width / 2, canvas.height - 20);
         }
 
         function downloadMeme() {
-            if(!image) return alert("Upload an image first!");
+            if(!image) return alert("Please upload an image first!");
             const link = document.createElement('a');
-            link.download = 'my-meme.png';
+            link.download = 'meme-medusasmm.png';
             link.href = canvas.toDataURL();
             link.click();
         }
