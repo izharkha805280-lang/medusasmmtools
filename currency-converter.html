@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free Currency Converter. Convert USD to INR, EUR to USD, and more with live exchange rates.">
+    <meta name="keywords" content="currency converter, exchange rate calculator, usd to inr, money converter, forex rates">
+    <title>Currency Converter - MedusaSMM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #030014; --glass: rgba(255,255,255,0.05); --border: rgba(255,255,255,0.1); --primary: #00b4d8; --text: #fff; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; margin: 0; }
+        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Outfit', sans-serif; font-size: 1.5rem; text-decoration: none; color: #fff; }
+        .main-wrapper { flex: 1; padding: 40px 20px; width: 100%; max-width: 600px; margin: 0 auto; text-align: center; }
+        
+        .converter-box { display: flex; gap: 10px; margin-bottom: 15px; align-items: center; }
+        input, select { flex: 1; padding: 15px; background: rgba(0,0,0,0.3); border: 1px solid #444; color: #fff; border-radius: 8px; }
+        
+        .result { font-size: 2rem; color: var(--primary); font-family: 'Outfit'; margin: 20px 0; }
+        button { width: 100%; padding: 15px; background: var(--primary); color: #000; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; }
+        
+        footer { border-top: 1px solid var(--border); padding: 40px 5%; margin-top: auto; text-align: center; color: gray; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+    <nav><a href="index.html" class="logo">MedusaTools</a><a href="index.html" style="color:#aaa;">Back</a></nav>
+    <div class="main-wrapper">
+        <h1 style="font-family:'Outfit'; margin-bottom:20px;">💱 Currency Converter</h1>
+        
+        <div class="converter-box">
+            <input type="number" id="amount" value="1" oninput="convert()">
+            <select id="from" onchange="convert()">
+                <option value="USD">USD 🇺🇸</option>
+                <option value="INR">INR 🇮🇳</option>
+                <option value="EUR">EUR 🇪🇺</option>
+                <option value="GBP">GBP 🇬🇧</option>
+                <option value="AED">AED 🇦🇪</option>
+                <option value="PKR">PKR 🇵🇰</option>
+            </select>
+        </div>
+
+        <div style="font-size:1.5rem;">⬇️</div>
+
+        <div class="converter-box">
+            <select id="to" onchange="convert()">
+                <option value="INR" selected>INR 🇮🇳</option>
+                <option value="USD">USD 🇺🇸</option>
+                <option value="EUR">EUR 🇪🇺</option>
+                <option value="GBP">GBP 🇬🇧</option>
+                <option value="AED">AED 🇦🇪</option>
+            </select>
+        </div>
+
+        <div class="result" id="result">0.00</div>
+        <button onclick="convert()">🔄 Refresh Rate</button>
+        <p style="color:gray; font-size:0.8rem; margin-top:10px;">Rates are updated daily.</p>
+    </div>
+    <footer>&copy; 2024 MedusaSMM Tools.</footer>
+
+    <script>
+        async function convert() {
+            let amount = document.getElementById('amount').value;
+            let from = document.getElementById('from').value;
+            let to = document.getElementById('to').value;
+            let resBox = document.getElementById('result');
+
+            if(amount === "") return;
+
+            resBox.innerText = "Loading...";
+
+            try {
+                // Free API for exchange rates
+                let response = await fetch(`https://api.exchangerate-api.com/v4/latest/${from}`);
+                let data = await response.json();
+                let rate = data.rates[to];
+                let total = (amount * rate).toFixed(2);
+                
+                resBox.innerText = `${total} ${to}`;
+            } catch(e) {
+                resBox.innerText = "Error fetching rates";
+            }
+        }
+        convert(); // Init
+    </script>
+</body>
+</html>
