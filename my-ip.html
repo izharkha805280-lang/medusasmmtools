@@ -1,53 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="description" content="Find your Public IP Address, Location, ISP, and City details instantly. A free tool to detect your network information and IP geolocation.">
-<meta name="keywords" content="what is my ip, check ip address, my ip location, ip tracker, find my ip, check isp provider, public ip checker, my ip details, show my ip">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Find your public IP Address, Location, ISP, and City details instantly for free.">
-    <meta name="keywords" content="what is my ip, check ip address, my ip location, ip tracker, medusa ip tool">
-    <title>What is My IP - MedusaSMM</title>
+    <meta name="description" content="Find your Public IP Address, Location, ISP, and City details instantly. A free tool to detect your network information and IP geolocation.">
+    <meta name="keywords" content="what is my ip, check ip address, my ip location, ip tracker, find my ip, check isp provider, medusasmm">
+    <title>What's My IP - MedusaSMM Tools</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #030014; --glass: rgba(255,255,255,0.05); --border: rgba(255,255,255,0.1); --primary: #00b4d8; --text: #fff; }
-        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; margin: 0; }
-        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Outfit', sans-serif; font-size: 1.5rem; text-decoration: none; color: #fff; }
-        .main-wrapper { flex: 1; padding: 40px 20px; width: 100%; max-width: 700px; margin: 0 auto; text-align: center; }
-        .tool-box { background: var(--glass); border: 1px solid var(--border); border-radius: 20px; padding: 40px; }
+        :root { --bg: #050510; --card-bg: rgba(255,255,255,0.03); --border: rgba(255,255,255,0.1); --primary: #00b4d8; --text: #fff; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
+        
+        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: rgba(5,5,16,0.9); }
+        .logo { font-family: 'Outfit'; font-size: 1.5rem; color: #fff; text-decoration: none; font-weight: 700; }
+        
+        .main-wrapper { width: 100%; max-width: 800px; margin: 40px auto; padding: 0 20px; text-align: center; flex: 1; }
+        
+        .tool-box { background: var(--card-bg); border: 1px solid var(--border); border-radius: 20px; padding: 40px; margin-bottom: 30px; }
         
         .ip-display { font-size: 2.5rem; font-family: 'Outfit'; color: var(--primary); margin: 20px 0; word-break: break-all; }
-        .details-box { text-align: left; margin-top: 30px; background: rgba(0,0,0,0.3); padding: 20px; border-radius: 10px; }
+        .details-box { text-align: left; margin-top: 30px; background: rgba(0,0,0,0.3); padding: 20px; border-radius: 10px; display: none; }
         .detail-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
         .label { color: gray; }
         
-        button { padding: 12px 25px; background: #fff; color: #000; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; margin-top: 20px; }
+        button { padding: 15px 30px; background: #fff; color: #000; border: none; border-radius: 50px; cursor: pointer; font-weight: bold; margin-top: 20px; transition: 0.3s; }
+        button:hover { background: var(--primary); }
+
+        .content-section { text-align: left; margin-top: 50px; padding: 25px; background: var(--card-bg); border-radius: 15px; border: 1px solid var(--border); }
+        .content-section h2 { color: var(--primary); font-family: 'Outfit'; margin-bottom: 15px; }
+
+        .more-tools { margin-top: 50px; border-top: 1px solid var(--border); padding-top: 30px; }
+        .grid-suggestions { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 20px; }
+        .suggestion-card { background: var(--card-bg); padding: 15px; border-radius: 10px; text-decoration: none; color: #fff; border: 1px solid var(--border); transition: 0.3s; }
+        .suggestion-card:hover { border-color: var(--primary); }
+
+        footer { border-top: 1px solid var(--border); padding: 40px; text-align: center; color: gray; font-size: 0.9rem; margin-top: auto; }
     </style>
 </head>
 <body>
     <nav><a href="index.html" class="logo">MedusaTools</a><a href="index.html" style="color:#aaa;">Back</a></nav>
+    
     <div class="main-wrapper">
         <div class="tool-box">
-            <h1>📍 Your IP Address</h1>
+            <h1 style="font-family:'Outfit';">📍 Your IP Address</h1>
             <div class="ip-display" id="ip">Loading...</div>
             <button onclick="fetchIP()">🔄 Refresh Data</button>
 
-            <div class="details-box" id="details" style="display:none;">
+            <div class="details-box" id="details">
                 <div class="detail-row"><span class="label">ISP (Provider)</span><span id="isp">-</span></div>
                 <div class="detail-row"><span class="label">City</span><span id="city">-</span></div>
                 <div class="detail-row"><span class="label">Country</span><span id="country">-</span></div>
                 <div class="detail-row"><span class="label">Region</span><span id="region">-</span></div>
             </div>
         </div>
+
+        <div class="content-section">
+            <h2>Why check your IP?</h2>
+            <ul>
+                <li>To verify if your VPN is working.</li>
+                <li>To see what location websites detect for you.</li>
+                <li>To check your Internet Service Provider (ISP) details.</li>
+            </ul>
+        </div>
+
+        <div class="more-tools">
+            <h3>Utility Tools</h3>
+            <div class="grid-suggestions">
+                <a href="speed-test.html" class="suggestion-card">🚀 Speed Test</a>
+                <a href="device-info.html" class="suggestion-card">📱 Device Info</a>
+                <a href="dns-lookup.html" class="suggestion-card">🌐 DNS Lookup</a>
+            </div>
+        </div>
     </div>
-    <footer style="text-align:center; padding:20px; color:gray; font-size:0.8rem;">&copy; 2024 MedusaSMM Tools.</footer>
+    
+    <footer>&copy; 2026 MedusaSMM Tools. All rights reserved.</footer>
 
     <script>
         async function fetchIP() {
             document.getElementById('ip').innerText = "Fetching...";
             try {
-                // Using Free IP API
                 let response = await fetch('https://ipapi.co/json/');
                 let data = await response.json();
                 
