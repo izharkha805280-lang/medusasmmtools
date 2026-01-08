@@ -1,750 +1,502 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="description" content="MedusaSMM Tools - Access 18+ Premium Free Online Tools. AI Image Generator, EMI Calculator, Text to Speech, Image Compressor, and more. No Login Required.">
-<meta name="keywords" content="medusasmm, free online tools, best web utilities, ai tools free, digital marketing tools, productivity tools, online calculator suite, free internet tools, medusa tools website, fast web tools">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MedusaSMM Tools</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Outfit:wght@600;800&display=swap" rel="stylesheet">
-
+    <meta name="description" content="MedusaSMM Tools - Ultimate collection of 40+ Free Online Tools. Use AI, SEO, Calculation, and Utility tools instantly without login.">
+    <meta name="keywords" content="free online tools, medusasmm, web tools, seo tools, calculators, converters, ai tools">
+    <title>MedusaSMM Tools - Premium Online Utilities</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        /* --- 1. VARIABLES & RESET --- */
+        /* --- PREMIUM CSS SYSTEM (Mobile Fixed) --- */
         :root {
-            --bg-color: #030014;
-            --glass-bg: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --primary: #9d4edd;
-            --secondary: #00b4d8;
-            --text-white: #ffffff;
-            --text-gray: #9ca3af;
-            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+            --bg: #050510;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --primary: #00ff9d;
+            --accent: #00b4d8;
+            --text: #ffffff;
+            --text-muted: #94a3b8;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            background-color: var(--bg-color);
+            background-color: var(--bg);
+            background-image: radial-gradient(circle at 10% 20%, rgba(0, 255, 157, 0.05) 0%, transparent 40%),
+                              radial-gradient(circle at 90% 80%, rgba(0, 180, 216, 0.05) 0%, transparent 40%);
+            color: var(--text);
             font-family: 'Inter', sans-serif;
-            color: var(--text-white);
-            overflow-x: hidden;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
+            overflow-x: hidden; /* Fixes right side overflow */
         }
 
-        a { text-decoration: none; color: inherit; transition: 0.3s; }
-        ul { list-style: none; }
-
-        /* --- 2. BACKGROUND GLOW --- */
-        .glow-bg {
-            position: fixed;
-            top: -20%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 800px;
-            height: 800px;
-            background: radial-gradient(circle, rgba(157, 78, 221, 0.15) 0%, rgba(0,0,0,0) 70%);
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        /* --- 3. NAVBAR --- */
+        /* Navbar */
         nav {
+            padding: 20px 5%;
+            border-bottom: 1px solid var(--card-border);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 25px 5%;
-            width: 100%;
-            position: absolute;
+            backdrop-filter: blur(10px);
+            position: sticky;
             top: 0;
-            z-index: 10;
+            z-index: 100;
+            background: rgba(5, 5, 16, 0.8);
         }
-
-        .logo {
-            font-family: 'Outfit', sans-serif;
-            font-size: 1.8rem;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            background: linear-gradient(90deg, #fff, #b8c1ec);
+        .logo { 
+            font-family: 'Outfit', sans-serif; 
+            font-size: 1.8rem; 
+            font-weight: 800; 
+            background: linear-gradient(90deg, var(--primary), var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            text-decoration: none;
         }
 
-        .nav-links { display: flex; gap: 40px; }
-        .nav-links a { color: var(--text-gray); font-size: 0.95rem; }
-        .nav-links a:hover { color: var(--text-white); }
-
-        /* --- 4. HERO SECTION --- */
+        /* Hero Section */
         .hero {
-            padding: 160px 20px 60px; /* Adjusted padding for better spacing */
             text-align: center;
+            padding: 60px 20px 40px;
         }
+        .hero h1 { font-family: 'Outfit'; font-size: 2.5rem; margin-bottom: 10px; }
+        .hero p { color: var(--text-muted); font-size: 1.1rem; }
 
-        .hero h1 {
-            font-family: 'Outfit', sans-serif;
-            font-size: 4.5rem;
-            line-height: 1.1;
-            margin-bottom: 25px;
-            max-width: 900px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .text-gradient {
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero p {
-            color: var(--text-gray);
-            font-size: 1.2rem;
+        /* Search Bar */
+        .search-container {
             max-width: 600px;
-            line-height: 1.6;
-            margin: 0 auto;
+            margin: 30px auto;
+            position: relative;
+            padding: 0 15px; /* Mobile Padding */
+        }
+        #searchBox {
+            width: 100%;
+            padding: 16px 25px;
+            border-radius: 50px;
+            border: 1px solid var(--card-border);
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.3s;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+        #searchBox:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 25px rgba(0, 255, 157, 0.15);
         }
 
-        /* --- 5. TOOLS GRID SECTION (ADDED) --- */
-        .tools-section {
-            padding: 40px 5% 100px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
+        /* Grid Layout */
         .tools-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            padding: 20px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
+        /* Tool Card */
         .tool-card {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            padding: 30px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
             border-radius: 16px;
-            transition: 0.3s;
-            position: relative;
-            overflow: hidden;
+            padding: 25px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: var(--text);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            position: relative;
+            overflow: hidden;
         }
-
         .tool-card:hover {
             transform: translateY(-5px);
             border-color: var(--primary);
-            box-shadow: 0 10px 40px -10px rgba(157, 78, 221, 0.2);
-        }
-
-        .tool-icon { font-size: 2rem; margin-bottom: 15px; }
-        
-        .tool-card h3 { 
-            font-family: 'Outfit', sans-serif; 
-            font-size: 1.3rem; 
-            margin-bottom: 10px; 
-            color: var(--text-white);
-        }
-        
-        .tool-card p { 
-            color: var(--text-gray); 
-            font-size: 0.9rem; 
-            margin-bottom: 20px; 
-            line-height: 1.5;
-        }
-
-        /* Open Tool Button Style */
-        .btn-link { 
-            display: inline-block; 
-            width: fit-content;
-            padding: 10px 20px; 
-            background: rgba(255,255,255,0.05); 
-            border-radius: 30px; 
-            font-size: 0.9rem; 
-            font-weight: 500; 
-            color: var(--secondary); 
-            border: 1px solid var(--glass-border); 
-        }
-
-        .btn-link:hover { 
-            background: var(--secondary); 
-            color: #000; 
-            box-shadow: 0 0 15px rgba(0, 180, 216, 0.4); 
-            border-color: var(--secondary);
-        }
-
-        /* --- 6. FOOTER --- */
-        footer {
-            border-top: 1px solid var(--glass-border);
-            padding: 60px 5% 30px;
-            background: rgba(0,0,0,0.2);
-            backdrop-filter: blur(10px);
-            margin-top: auto;
-        }
-
-        .footer-container {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 40px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .footer-brand h2 {
-            font-family: 'Outfit', sans-serif;
-            font-size: 1.5rem;
-            color: var(--text-white);
-            margin-bottom: 10px;
-        }
-
-        .footer-brand p {
-            color: var(--text-gray);
-            font-size: 0.9rem;
-            max-width: 300px;
-        }
-
-        .footer-column h3 {
-            color: var(--text-white);
-            font-family: 'Outfit', sans-serif;
-            margin-bottom: 20px;
-            font-size: 1.1rem;
-        }
-
-        .footer-column ul li { margin-bottom: 12px; }
-        .footer-column ul li a { color: var(--text-gray); font-size: 0.9rem; }
-        .footer-column ul li a:hover { color: var(--secondary); padding-left: 5px; }
-
-        .copyright {
-            text-align: center;
-            margin-top: 50px;
-            padding-top: 20px;
-            border-top: 1px solid var(--glass-border);
-            color: var(--text-gray);
-            font-size: 0.8rem;
-        }
-        /* Search Bar Styles */
-        .search-container {
-            text-align: center;
-            margin: 30px auto;
-            max-width: 600px;
-            position: relative;
-        }
-        
-        #searchBox {
-            width: 90%;
-            padding: 18px 50px 18px 25px; /* Right padding for icon */
-            border-radius: 50px;
-            border: 1px solid var(--border);
             background: rgba(255, 255, 255, 0.05);
-            color: #fff;
-            font-size: 1.1rem;
-            outline: none;
-            backdrop-filter: blur(10px);
-            transition: 0.3s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
+        .tool-icon { font-size: 2.5rem; margin-bottom: 15px; }
+        .tool-card h3 { font-family: 'Outfit'; margin-bottom: 8px; font-size: 1.2rem; }
+        .tool-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; margin-bottom: 20px; }
         
-        #searchBox:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 20px rgba(0, 255, 157, 0.2);
-            background: rgba(0, 0, 0, 0.4);
+        .btn-link {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
-        .search-icon {
-            position: absolute;
-            right: 40px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 1.2rem;
-            pointer-events: none;
-        }
-
-        .no-results {
+        /* Footer */
+        footer {
             text-align: center;
-            color: var(--gray);
-            margin-top: 20px;
-            display: none;
-            font-size: 1.2rem;
+            padding: 40px;
+            border-top: 1px solid var(--card-border);
+            margin-top: 60px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
         }
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.8rem; }
-            .nav-links { display: none; }
-            .footer-container { flex-direction: column; }
+        .footer-links a { color: var(--text-muted); margin: 0 10px; text-decoration: none; }
+        .footer-links a:hover { color: var(--primary); }
+
+        /* Mobile Fixes */
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 2rem; }
+            .tools-grid { grid-template-columns: 1fr; padding: 20px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="glow-bg"></div>
-
     <nav>
-        <div class="logo">medusasmmTools</div>
-        <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
+        <a href="index.html" class="logo">MedusaTools</a>
+        <a href="contact.html" style="color:var(--text-muted); text-decoration:none;">Contact</a>
     </nav>
 
-    <header class="hero">
-        <h1>
-            Unlock Digital Power <br>
-            With <span class="text-gradient">Medusa Tools</span>
-        </h1>
-        
-        <p>
-            A suite of premium digital utilities designed for speed, privacy, and efficiency. Experience the next level of web tools without limitations.
-        </p>
-    </header>
-<div class="search-container">
-        <input type="text" id="searchBox" placeholder="Search for tools (e.g. WiFi, Speed, AI)..." onkeyup="filterTools()">
-        <span class="search-icon">🔍</span>
+    <div class="hero">
+        <h1>All-in-One Digital Toolkit</h1>
+        <p>Premium tools for developers, creators, and everyone.</p>
     </div>
 
-    <p id="noResults" class="no-results">❌ No tools found matching your search.</p>
+    <div class="search-container">
+        <input type="text" id="searchBox" placeholder="🔍 Search tools (e.g. Age, Speed, PDF)..." onkeyup="filterTools()">
+    </div>
+    
+    <p id="noResults" style="text-align:center; display:none; color:var(--text-muted);">❌ No tools found.</p>
+
+    <div class="tools-grid">
+        
+        <a href="age-calculator.html" class="tool-card">
+            <div class="tool-icon">🎂</div>
+            <h3>Age Calculator</h3>
+            <p>Calculate your exact age in Years, Months, and Days instantly.</p>
+            <span class="btn-link">Open Tool &rarr;</span>
+        </a>
+
+        <a href="binary-translator.html" class="tool-card">
+            <div class="tool-icon">🤖</div>
+            <h3>Binary Translator</h3>
+            <p>Translate text to binary code (010101) and back.</p>
+            <span class="btn-link">Open Tool &rarr;</span>
+        </a>
+
+        <a href="bmi-calculator.html" class="tool-card">
+            <div class="tool-icon">⚖️</div>
+            <h3>BMI Calculator</h3>
+            <p>Check your Body Mass Index and health status easily.</p>
+            <span class="btn-link">Open Tool &rarr;</span>
+        </a>
+
+        <a href="case-converter.html" class="tool-card">
+            <div class="tool-icon">🔠</div>
+            <h3>Case Converter</h3>
+            <p>Convert text to Uppercase, Lowercase, and Title Case.</p>
+            <span class="btn-link">Open Tool &rarr;</span>
+        </a>
+
+        <a href="color-palette.html" class="tool-card">
+            <div class="tool-icon">🎨</div>
+            <h3>Color Palette</h3>
+            <p>Generate beautiful color schemes for your designs.</p>
+            <span class="btn-link">Open Tool &rarr;</span>
+        </a>
+
+        <a href="currency-converter.html" class="tool-card">
+            <div class="tool-icon">💱</div>
+            <h3>Currency Converter</h3>
+            <p>Live exchange rates for USD, INR, EUR, and more.</p>
+            <span class="btn-link">Open Tool &rarr;</span>
+        </a>
+
+        <a href="countdown.html" class="tool-card">
+            <div class="tool-icon">⏳</div>
+            <h3>Countdown Timer</h3>
+            <p>Create a live countdown for any date or event.</p>
+            <span class="btn-link">Open Tool &rarr;</span>
+        </a>
+
+        <a href="device-info.html" class="tool-card">
+            <div class="tool-icon">📱</div>
+            <h3>Device Info</h3>
+            <p>Check screen resolution and browser details.</p>
+            <span class="btn-link">Open Tool &rarr;</span>
+        </a>
+
+        <a href="discount-calculator.html" class="tool-card">
+            <div class="tool-icon">🏷️</div>
+            <h3>Discount Calculator</h3>
+            <p>Find the final price after discount percentage.</p>
+            <span class="btn-link">Open Tool &rarr;</span>
+        </a>
+
+        <a href="dns-lookup.html" class="tool-card">
+            <div class="tool-icon">🌐</div>
+            <h3>DNS Lookup</h3>
+            <p>Check A, MX, and NS records for any domain.</p>
+            <span class="btn-link">Open Tool &rarr;</span>
+        </a>
+
+        <a href="duplicate-remover.html" class="tool-card">
+            <div class="tool-icon">🧹</div>
+            <h3>Duplicate Remover</h3>
+            <p>Remove repeated lines from text lists instantly.</p>
+            <span class="btn-link">Open Tool &rarr;</span>
+        </a>
+
+        <a href="emi-calculator.html" class="tool-card">
+            <div class="tool-icon">💸</div>
+            <h3>EMI Calculator</h3>
+            <p>Calculate monthly loan EMI for Home or Car loans.</p>
+            <span class="btn-link">Open Tool &rarr;</span>
+        </a>
+
+        <a href="gst-calculator.html" class="tool-card">
+            <div class="tool-icon">🧾</div>
+            <h3>GST Calculator</h3>
+            <p>Add or remove GST tax from any amount.</p>
+            <span class="btn-link">Open Tool &rarr;</span>
+        </a>
+
+        <a href="html-formatter.html" class="tool-card">
+            <div class="tool-icon">📝</div>
+            <h3>HTML Formatter</h3>
+            <p>Beautify and clean ugly HTML code.</p>
+            <span class="btn-link">Open Tool &rarr;</span>
+        </a>
+
+        <a href="image-compressor.html" class="tool-card">
+            <div class="tool-icon">📉</div>
+            <h3>Image Compressor</h3>
+            <p>Reduce image size (MB to KB) without quality loss.</p>
+            <span class="btn-link">Open Tool &rarr;</span>
+        </a>
+
+        <a href="image-converter.html" class="tool-card">
+            <div class="tool-icon">🖼️</div>
+            <h3>Image Converter</h3>
+            <p>Convert JPG to PNG, WEBP, and other formats.</p>
+            <span class="btn-link">Open Tool &rarr;</span>
+        </a>
+
+        <a href="image-generator.html" class="tool-card">
+            <div class="tool-icon">✨</div>
+            <h3>AI Image Gen</h3>
+            <p>Create stunning AI art from text prompts for free.</p>
+            <span class="btn-link">Open Tool &rarr;</span>
+        </a>
+
+        <a href="js-minifier.html" class="tool-card">
+            <div class="tool-icon">📜</div>
+            <h3>JS Minifier</h3>
+            <p>Compress JavaScript code for faster websites.</p>
+            <span class="btn-link">Open Tool &rarr;</span>
+        </a>
+
+        <a href="json-formatter.html" class="tool-card">
+            <div class="tool-icon">💻</div>
+            <h3>JSON Formatter</h3>
+            <p>Validate and beautify JSON data.</p>
+            <span class="btn-link">Open Tool &rarr;</span>
+        </a>
+
+        <a href="keyword-density.html" class="tool-card">
+            <div class="tool-icon">📊</div>
+            <h3>Keyword Density</h3>
+            <p>Check word frequency for SEO content.</p>
+            <span class="btn-link">Open Tool &rarr;</span>
+        </a>
+
+        <a href="lorem-ipsum.html" class="tool-card">
+            <div class="tool-icon">📄</div>
+            <h3>Lorem Ipsum</h3>
+            <p>Generate dummy text for design placeholders.</p>
+            <span class="btn-link">Open Tool &rarr;</span>
+        </a>
+
+        <a href="meme-generator.html" class="tool-card">
+            <div class="tool-icon">🐸</div>
+            <h3>Meme Generator</h3>
+            <p>Create funny memes with custom text.</p>
+            <span class="btn-link">Open Tool &rarr;</span>
+        </a>
+
+        <a href="meta-tag-gen.html" class="tool-card">
+            <div class="tool-icon">🏷️</div>
+            <h3>Meta Tag Gen</h3>
+            <p>Create SEO meta tags for your website.</p>
+            <span class="btn-link">Open Tool &rarr;</span>
+        </a>
+
+        <a href="my-ip.html" class="tool-card">
+            <div class="tool-icon">📍</div>
+            <h3>What's My IP</h3>
+            <p>Check public IP address and location.</p>
+            <span class="btn-link">Open Tool &rarr;</span>
+        </a>
+
+        <a href="password-checker.html" class="tool-card">
+            <div class="tool-icon">🛡️</div>
+            <h3>Pass Strength</h3>
+            <p>Test how secure your password really is.</p>
+            <span class="btn-link">Open Tool &rarr;</span>
+        </a>
+
+        <a href="password-gen.html" class="tool-card">
+            <div class="tool-icon">🔐</div>
+            <h3>Password Gen</h3>
+            <p>Create strong, random, and secure passwords.</p>
+            <span class="btn-link">Open Tool &rarr;</span>
+        </a>
+
+        <a href="qr-generator.html" class="tool-card">
+            <div class="tool-icon">📷</div>
+            <h3>QR Generator</h3>
+            <p>Create QR codes for Links, WiFi, and Text.</p>
+            <span class="btn-link">Open Tool &rarr;</span>
+        </a>
+
+        <a href="reaction-test.html" class="tool-card">
+            <div class="tool-icon">⚡</div>
+            <h3>Reaction Test</h3>
+            <p>Test your brain reflexes and click speed.</p>
+            <span class="btn-link">Open Tool &rarr;</span>
+        </a>
+
+        <a href="screen-recorder.html" class="tool-card">
+            <div class="tool-icon">🎥</div>
+            <h3>Screen Recorder</h3>
+            <p>Record browser screen video without software.</p>
+            <span class="btn-link">Open Tool &rarr;</span>
+        </a>
+
+        <a href="secret-message.html" class="tool-card">
+            <div class="tool-icon">🤫</div>
+            <h3>Secret Message</h3>
+            <p>Encrypt text into emojis for hidden chats.</p>
+            <span class="btn-link">Open Tool &rarr;</span>
+        </a>
+
+        <a href="seo-analyzer.html" class="tool-card">
+            <div class="tool-icon">🧐</div>
+            <h3>SEO Analyzer</h3>
+            <p>Check HTML code for SEO errors.</p>
+            <span class="btn-link">Open Tool &rarr;</span>
+        </a>
+
+        <a href="signature-maker.html" class="tool-card">
+            <div class="tool-icon">✍️</div>
+            <h3>Signature Maker</h3>
+            <p>Draw digital signatures and download PNG.</p>
+            <span class="btn-link">Open Tool &rarr;</span>
+        </a>
+
+        <a href="speed-test.html" class="tool-card">
+            <div class="tool-icon">🚀</div>
+            <h3>Speed Test</h3>
+            <p>Check your internet download speed.</p>
+            <span class="btn-link">Open Tool &rarr;</span>
+        </a>
+
+        <a href="tasbeeh-counter.html" class="tool-card">
+            <div class="tool-icon">📿</div>
+            <h3>Tasbeeh Counter</h3>
+            <p>Digital counter for prayers and mantras.</p>
+            <span class="btn-link">Open Tool &rarr;</span>
+        </a>
+
+        <a href="text-repeater.html" class="tool-card">
+            <div class="tool-icon">🔁</div>
+            <h3>Text Repeater</h3>
+            <p>Repeat text 1000 times for messages.</p>
+            <span class="btn-link">Open Tool &rarr;</span>
+        </a>
+
+        <a href="text-reverser.html" class="tool-card">
+            <div class="tool-icon">↩️</div>
+            <h3>Text Reverser</h3>
+            <p>Flip text backwards instantly.</p>
+            <span class="btn-link">Open Tool &rarr;</span>
+        </a>
+
+        <a href="text-speech.html" class="tool-card">
+            <div class="tool-icon">🗣️</div>
+            <h3>Text to Speech</h3>
+            <p>Convert text into human-like voice audio.</p>
+            <span class="btn-link">Open Tool &rarr;</span>
+        </a>
+
+        <a href="unit-converter.html" class="tool-card">
+            <div class="tool-icon">⚖️</div>
+            <h3>Unit Converter</h3>
+            <p>Convert Weight, Length, and Temperature.</p>
+            <span class="btn-link">Open Tool &rarr;</span>
+        </a>
+
+        <a href="url-encoder.html" class="tool-card">
+            <div class="tool-icon">🔗</div>
+            <h3>URL Encoder</h3>
+            <p>Encode and Decode URLs safely.</p>
+            <span class="btn-link">Open Tool &rarr;</span>
+        </a>
+
+        <a href="word-counter.html" class="tool-card">
+            <div class="tool-icon">📝</div>
+            <h3>Word Counter</h3>
+            <p>Count words and characters in real-time.</p>
+            <span class="btn-link">Open Tool &rarr;</span>
+        </a>
+
+        <a href="yt-thumbnail.html" class="tool-card">
+            <div class="tool-icon">📺</div>
+            <h3>YT Thumbnail</h3>
+            <p>Download YouTube thumbnails in HD.</p>
+            <span class="btn-link">Open Tool &rarr;</span>
+        </a>
+
+        <a href="zakat-calculator.html" class="tool-card">
+            <div class="tool-icon">🌙</div>
+            <h3>Zakat Calculator</h3>
+            <p>Calculate Zakat on assets and gold.</p>
+            <span class="btn-link">Open Tool &rarr;</span>
+        </a>
+    </div>
+
+    <footer>
+        <div class="footer-links">
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+            <a href="privacy.html">Privacy</a>
+            <a href="terms.html">Terms</a>
+            <a href="disclaimer.html">Disclaimer</a>
+        </div>
+        <br>
+        <p>&copy; 2026 MedusaSMM Tools. All rights reserved.</p>
+    </footer>
 
     <script>
         function filterTools() {
-            // 1. User ne kya type kiya wo nikalo
             let input = document.getElementById('searchBox').value.toUpperCase();
-            
-            // 2. Saare tool cards select karo
             let cards = document.getElementsByClassName('tool-card');
             let hasResults = false;
 
-            // 3. Har card ko check karo
             for (let i = 0; i < cards.length; i++) {
                 let h3 = cards[i].getElementsByTagName("h3")[0];
                 let p = cards[i].getElementsByTagName("p")[0];
-                
-                // Text content check karo (Title aur Description dono mein)
-                if (h3 || p) {
-                    let textValue = (h3.textContent || h3.innerText) + " " + (p.textContent || p.innerText);
-                    
-                    if (textValue.toUpperCase().indexOf(input) > -1) {
-                        cards[i].style.display = ""; // Dikhao
-                        hasResults = true;
-                    } else {
-                        cards[i].style.display = "none"; // Chupao
-                    }
+                let textValue = (h3.textContent || h3.innerText) + " " + (p.textContent || p.innerText);
+
+                if (textValue.toUpperCase().indexOf(input) > -1) {
+                    cards[i].style.display = "flex";
+                    hasResults = true;
+                } else {
+                    cards[i].style.display = "none";
                 }
             }
-
-            // 4. Agar kuch nahi mila to message dikhao
-            let noResMsg = document.getElementById('noResults');
-            if (!hasResults) {
-                noResMsg.style.display = "block";
-            } else {
-                noResMsg.style.display = "none";
-            }
+            document.getElementById('noResults').style.display = hasResults ? "none" : "block";
         }
     </script>
-    <section class="tools-section">
-        <div class="tools-grid">
-            
-            <div class="tool-card">
-                <div>
-                    <div class="tool-icon">🔐</div>
-                    <h3>Secure Pass Gen</h3>
-                    <p>Generate unbreakable, randomized passwords instantly for better security.</p>
-                </div>
-                <a href="password-gen.html" class="btn-link">Open Tool &rarr;</a>
-            </div>
-
-            <div class="tool-card">
-                <div>
-                    <div class="tool-icon">📝</div>
-                    <h3>Word Counter</h3>
-                    <p>Real-time analysis of words, characters, and reading time.</p>
-                </div>
-                <a href="word-counter.html" class="btn-link">Open Tool &rarr;</a>
-            </div>
-
-            <div class="tool-card">
-                <div>
-                    <div class="tool-icon">🤖</div>
-                    <h3>Binary Translator</h3>
-                    <p>Convert normal text into binary code (010101) instantly.</p>
-                </div>
-                <a href="binary-translator.html" class="btn-link">Open Tool &rarr;</a>
-            </div>
-
-            <div class="tool-card">
-                <div>
-                    <div class="tool-icon">🔠</div>
-                    <h3>Case Converter</h3>
-                    <p>Convert text to UPPERCASE, lowercase, or Title Case.</p>
-                </div>
-                <a href="case-converter.html" class="btn-link">Open Tool &rarr;</a>
-            </div>
-
-            <div class="tool-card">
-                <div>
-                    <div class="tool-icon">📱</div>
-                    <h3>My Device Info</h3>
-                    <p>View your Screen resolution, Browser info, and OS details.</p>
-                </div>
-                <a href="device-info.html" class="btn-link">Open Tool &rarr;</a>
-            </div>
-            <div class="tool-card">
-                <div>
-                    <div class="tool-icon">💸</div>
-                    <h3>EMI Calculator</h3>
-                    <p>Calculate Loan EMI quickly with interest and tenure details.</p>
-                </div>
-                <a href="emi-calculator.html" class="btn-link">Open Tool &rarr;</a>
-            </div>
-
-            <div class="tool-card">
-                <div>
-                    <div class="tool-icon">🎂</div>
-                    <h3>Age Calculator</h3>
-                    <p>Get your exact age in Years, Months, and Days instantly.</p>
-                </div>
-                <a href="age-calculator.html" class="btn-link">Open Tool &rarr;</a>
-            </div>
-
-            <div class="tool-card">
-                <div>
-                    <div class="tool-icon">🔳</div>
-                    <h3>QR Code Generator</h3>
-                    <p>Create custom QR codes for any link, text, or email.</p>
-                </div>
-                <a href="qr-generator.html" class="btn-link">Open Tool &rarr;</a>
-            </div>
-
-            <div class="tool-card">
-                <div>
-                    <div class="tool-icon">⚖️</div>
-                    <h3>BMI Calculator</h3>
-                    <p>Check your Body Mass Index and health status easily.</p>
-                </div>
-                <a href="bmi-calculator.html" class="btn-link">Open Tool &rarr;</a>
-            </div>
-
-            <div class="tool-card">
-                <div>
-                    <div class="tool-icon">⏳</div>
-                    <h3>Animated Timer</h3>
-                    <p>Set a target date and watch the live countdown animation.</p>
-                </div>
-                <a href="countdown.html" class="btn-link">Open Tool &rarr;</a>
-            </div>
-            <div class="tool-card">
-                <div>
-                    <div class="tool-icon">🌙</div>
-                    <h3>Zakat Calculator</h3>
-                    <p>Calculate your Islamic Zakat accurately based on assets.</p>
-                </div>
-                <a href="zakat-calculator.html" class="btn-link">Open Tool &rarr;</a>
-            </div>
-
-            <div class="tool-card">
-                <div>
-                    <div class="tool-icon">📿</div>
-                    <h3>Digital Tasbeeh</h3>
-                    <p>Digital counter for your daily Dhikr and Mantras.</p>
-                </div>
-                <a href="tasbeeh-counter.html" class="btn-link">Open Tool &rarr;</a>
-            </div>
-
-            <div class="tool-card">
-                <div>
-                    <div class="tool-icon">🔄</div>
-                    <h3>Unit Converter</h3>
-                    <p>Convert Length, Weight, and Temperature instantly.</p>
-                </div>
-                <a href="unit-converter.html" class="btn-link">Open Tool &rarr;</a>
-            </div>
-
-            <div class="tool-card">
-                <div>
-                    <div class="tool-icon">🗣️</div>
-                    <h3>Text to Speech</h3>
-                    <p>Convert your written text into human-like voice speech.</p>
-                </div>
-                <a href="text-speech.html" class="btn-link">Open Tool &rarr;</a>
-            </div>
-            <div class="tool-card">
-                <div>
-                    <div class="tool-icon">📉</div>
-                    <h3>Image Compressor</h3>
-                    <p>Reduce image size (KB/MB) without losing much quality.</p>
-                </div>
-                <a href="image-compressor.html" class="btn-link">Open Tool &rarr;</a>
-            </div>
-
-            <div class="tool-card">
-                <div>
-                    <div class="tool-icon">🖼️</div>
-                    <h3>Image Converter</h3>
-                    <p>Convert images to JPG, PNG, or WEBP format instantly.</p>
-                </div>
-                <a href="image-converter.html" class="btn-link">Open Tool &rarr;</a>
-            </div>
-
-            <div class="tool-card">
-                <div>
-                    <div class="tool-icon">🎨</div>
-                    <h3>AI Image Generator</h3>
-                    <p>Turn text into amazing AI-generated art instantly.</p>
-                </div>
-                <a href="image-generator.html" class="btn-link">Open Tool &rarr;</a>
-            </div>
-
-            <div class="tool-card">
-                <div>
-                    <div class="tool-icon">🏷️</div>
-                    <h3>Discount Calculator</h3>
-                    <p>Calculate final price and savings after discount percentage.</p>
-                </div>
-                <a href="discount-calculator.html" class="btn-link">Open Tool &rarr;</a>
-            </div>
-            <div class="tool-card">
-                <div>
-                    <div class="tool-icon">🚀</div>
-                    <h3>Net Speed Test</h3>
-                    <p>Check your internet download speed instantly.</p>
-                </div>
-                <a href="speed-test.html" class="btn-link">Open Tool &rarr;</a>
-            </div>
-
-            <div class="tool-card">
-                <div>
-                    <div class="tool-icon">📍</div>
-                    <h3>What is My IP</h3>
-                    <p>Check your public IP address and location details.</p>
-                </div>
-                <a href="my-ip.html" class="btn-link">Open Tool &rarr;</a>
-            </div>
-
-            <div class="tool-card">
-                <div>
-                    <div class="tool-icon">✍️</div>
-                    <h3>Signature Maker</h3>
-                    <p>Draw your digital signature and download as PNG.</p>
-                </div>
-                <a href="signature-maker.html" class="btn-link">Open Tool &rarr;</a>
-            </div>
-
-            <div class="tool-card">
-                <div>
-                    <div class="tool-icon">🎨</div>
-                    <h3>Color Palette</h3>
-                    <p>Generate beautiful color combinations for designs.</p>
-                </div>
-                <a href="color-palette.html" class="btn-link">Open Tool &rarr;</a>
-            </div>
-            <div class="tool-card">
-                <div>
-                    <div class="tool-icon">📄</div>
-                    <h3>Lorem Ipsum Gen</h3>
-                    <p>Generate dummy text for your web design projects.</p>
-                </div>
-                <a href="lorem-ipsum.html" class="btn-link">Open Tool &rarr;</a>
-            </div>
-
-            <div class="tool-card">
-                <div>
-                    <div class="tool-icon">🧹</div>
-                    <h3>Duplicate Remover</h3>
-                    <p>Remove duplicate lines from your text lists instantly.</p>
-                </div>
-                <a href="duplicate-remover.html" class="btn-link">Open Tool &rarr;</a>
-            </div>
-
-            <div class="tool-card">
-                <div>
-                    <div class="tool-icon">↩️</div>
-                    <h3>Text Reverser</h3>
-                    <p>Flip your text backwards or reverse words easily.</p>
-                </div>
-                <a href="text-reverser.html" class="btn-link">Open Tool &rarr;</a>
-            </div>
-
-            <div class="tool-card">
-                <div>
-                    <div class="tool-icon">🛡️</div>
-                    <h3>Password Checker</h3>
-                    <p>Test how strong and secure your password really is.</p>
-                </div>
-                <a href="password-checker.html" class="btn-link">Open Tool &rarr;</a>
-            </div>
-            <div class="tool-card">
-                <div>
-                    <div class="tool-icon">🎥</div>
-                    <h3>Screen Recorder</h3>
-                    <p>Record your screen video without any watermark.</p>
-                </div>
-                <a href="screen-recorder.html" class="btn-link">Open Tool &rarr;</a>
-            </div>
-
-            <div class="tool-card">
-                <div>
-                    <div class="tool-icon">⚡</div>
-                    <h3>Reaction Test</h3>
-                    <p>Test your reflexes. Click when the color turns green.</p>
-                </div>
-                <a href="reaction-test.html" class="btn-link">Open Tool &rarr;</a>
-            </div>
-
-            <div class="tool-card">
-                <div>
-                    <div class="tool-icon">🤫</div>
-                    <h3>Secret Message</h3>
-                    <p>Encrypt text into Moon Emojis to send hidden notes.</p>
-                </div>
-                <a href="secret-message.html" class="btn-link">Open Tool &rarr;</a>
-            </div>
-            <div class="tool-card">
-                <div>
-                    <div class="tool-icon">🔁</div>
-                    <h3>Text Repeater</h3>
-                    <p>Repeat text or emojis up to 1000 times instantly.</p>
-                </div>
-                <a href="text-repeater.html" class="btn-link">Open Tool &rarr;</a>
-            </div>
-            <div class="tool-card">
-                <div>
-                    <div class="tool-icon">🏷️</div>
-                    <h3>Meta Tag Gen</h3>
-                    <p>Generate SEO-friendly meta tags for your website instantly.</p>
-                </div>
-                <a href="meta-tag-gen.html" class="btn-link">Open Tool &rarr;</a>
-            </div>
-
-            <div class="tool-card">
-                <div>
-                    <div class="tool-icon">📊</div>
-                    <h3>Keyword Density</h3>
-                    <p>Check which words are repeated most in your content.</p>
-                </div>
-                <a href="keyword-density.html" class="btn-link">Open Tool &rarr;</a>
-            </div>
-
-            <div class="tool-card">
-                <div>
-                    <div class="tool-icon">💻</div>
-                    <h3>JSON Formatter</h3>
-                    <p>Beautify and validate your JSON code to make it readable.</p>
-                </div>
-                <a href="json-formatter.html" class="btn-link">Open Tool &rarr;</a>
-            </div>
-
-            <div class="tool-card">
-                <div>
-                    <div class="tool-icon">⚡</div>
-                    <h3>CSS Minifier</h3>
-                    <p>Compress CSS code to reduce file size and boost speed.</p>
-                </div>
-                <a href="css-minifier.html" class="btn-link">Open Tool &rarr;</a>
-            </div>
-            <div class="tool-card">
-                <div>
-                    <div class="tool-icon">📝</div>
-                    <h3>HTML Formatter</h3>
-                    <p>Format and beautify your ugly HTML code instantly.</p>
-                </div>
-                <a href="html-formatter.html" class="btn-link">Open Tool &rarr;</a>
-            </div>
-
-            <div class="tool-card">
-                <div>
-                    <div class="tool-icon">📜</div>
-                    <h3>JS Minifier</h3>
-                    <p>Compress JavaScript code to improve site performance.</p>
-                </div>
-                <a href="js-minifier.html" class="btn-link">Open Tool &rarr;</a>
-            </div>
-
-            <div class="tool-card">
-                <div>
-                    <div class="tool-icon">🧐</div>
-                    <h3>SEO Analyzer</h3>
-                    <p>Analyze HTML code for missing SEO tags and errors.</p>
-                </div>
-                <a href="seo-analyzer.html" class="btn-link">Open Tool &rarr;</a>
-            </div>
-
-            <div class="tool-card">
-                <div>
-                    <div class="tool-icon">🌐</div>
-                    <h3>DNS Lookup</h3>
-                    <p>Check A, MX, and NS records for any domain name.</p>
-                </div>
-                <a href="dns-lookup.html" class="btn-link">Open Tool &rarr;</a>
-            </div>
-            <div class="tool-card">
-                <div>
-                    <div class="tool-icon">🔗</div>
-                    <h3>URL Encoder</h3>
-                    <p>Encode and Decode URLs for safe sharing online.</p>
-                </div>
-                <a href="url-encoder.html" class="btn-link">Open Tool &rarr;</a>
-            </div>
-
-            <div class="tool-card">
-                <div>
-                    <div class="tool-icon">🧾</div>
-                    <h3>GST Calculator</h3>
-                    <p>Calculate GST Tax (Inclusive/Exclusive) instantly.</p>
-                </div>
-                <a href="gst-calculator.html" class="btn-link">Open Tool &rarr;</a>
-            </div>
-
-            <div class="tool-card">
-                <div>
-                    <div class="tool-icon">💱</div>
-                    <h3>Currency Converter</h3>
-                    <p>Convert currency rates live (USD, INR, EUR, etc.).</p>
-                </div>
-                <a href="currency-converter.html" class="btn-link">Open Tool &rarr;</a>
-            </div>
-
-            <div class="tool-card">
-                <div>
-                    <div class="tool-icon">🐸</div>
-                    <h3>Meme Generator</h3>
-                    <p>Create funny memes with custom text and download.</p>
-                </div>
-                <a href="meme-generator.html" class="btn-link">Open Tool &rarr;</a>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="footer-container">
-            <div class="footer-brand">
-                <h2>medusasmmTools</h2>
-                <p>The ultimate suite of digital utilities for the modern web. Fast, secure, and free.</p>
-            </div>
-
-            <div class="footer-column">
-                <h3>Legal</h3>
-                <ul>
-                    <li><a href="privacy.html">Privacy Policy</a></li>
-                    <li><a href="terms.html">Terms of Use</a></li>
-                    <li><a href="disclaimer.html">Disclaimer</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-column">
-                <h3>Company</h3>
-                <ul>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="copyright">
-            &copy; 2024 MedusaSMM Tools. All rights reserved.
-        </div>
-    </footer>
 
 </body>
-</html>
+                </html>
