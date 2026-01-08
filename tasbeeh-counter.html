@@ -1,144 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="description" content="Digital Tasbeeh Counter for daily Dhikr and Mantras. Click to count and save your progress online. Simple and ad-free Tasbeeh tool.">
-<meta name="keywords" content="digital tasbeeh counter, online tasbeeh, dhikr counter, tally counter online, islamic prayer counter, click counter tool, mantra counter">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Tasbeeh - MedusaSMM</title>
+    <meta name="description" content="Create your digital signature online. Draw, sign, and download as transparent PNG for free. Works on Mobile and Desktop.">
+    <meta name="keywords" content="signature maker, digital signature online, draw signature, electronic signature creator, free esign tool, medusasmm">
+    <title>Signature Maker - MedusaSMM Tools</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #030014; --glass: rgba(255,255,255,0.05); --border: rgba(255,255,255,0.1); --primary: #ff0055; --text: #fff; --gray: #9ca3af; }
-        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; margin: 0; }
+        :root { --bg: #050510; --card-bg: rgba(255,255,255,0.03); --border: rgba(255,255,255,0.1); --primary: #ff0055; --text: #fff; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; touch-action: none; }
         
-        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Outfit', sans-serif; font-size: 1.5rem; text-decoration: none; color: #fff; }
+        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: rgba(5,5,16,0.9); }
+        .logo { font-family: 'Outfit'; font-size: 1.5rem; color: #fff; text-decoration: none; font-weight: 700; }
         
-        .main-wrapper { flex: 1; padding: 40px 20px; width: 100%; max-width: 600px; margin: 0 auto; }
-        .tool-box { background: var(--glass); border: 1px solid var(--border); border-radius: 20px; padding: 40px; margin-bottom: 40px; text-align: center; }
-        h1 { font-family: 'Outfit'; color: var(--primary); margin-bottom: 20px; font-size: 2rem; }
+        .main-wrapper { width: 100%; max-width: 800px; margin: 40px auto; padding: 0 20px; text-align: center; flex: 1; }
         
-        .counter-display { font-size: 5rem; font-family: 'Outfit'; color: #fff; margin: 20px 0; text-shadow: 0 0 20px rgba(255,0,85,0.5); }
-        
-        .tap-area { 
-            width: 200px; height: 200px; 
-            background: linear-gradient(135deg, var(--primary), #ff5e90); 
-            border-radius: 50%; margin: 0 auto; 
-            display: flex; justify-content: center; align-items: center; 
-            cursor: pointer; box-shadow: 0 0 30px rgba(255,0,85,0.4); 
-            transition: transform 0.1s; user-select: none;
+        canvas { 
+            background: #fff; 
+            border-radius: 10px; 
+            cursor: crosshair; 
+            touch-action: none; /* Prevents scrolling while drawing */
+            width: 100%;
+            height: 300px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
         }
-        .tap-area:active { transform: scale(0.95); }
-        .tap-area span { font-size: 1.5rem; font-weight: bold; color: #fff; pointer-events: none; }
-        
-        .controls { margin-top: 30px; display: flex; justify-content: center; gap: 15px; }
-        .btn-small { padding: 10px 20px; background: rgba(255,255,255,0.1); color: #fff; border: 1px solid var(--border); border-radius: 8px; cursor: pointer; }
-        .btn-small:hover { background: #fff; color: #000; }
 
-        /* Content & Footer */
-        .content-section { margin-top: 40px; color: var(--gray); line-height: 1.6; text-align: left; }
-        .suggestions { margin-top: 50px; border-top: 1px solid var(--border); padding-top: 30px; text-align: left; }
-        .sugg-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 20px; }
-        .sugg-card { background: var(--glass); padding: 15px; border-radius: 10px; text-align: center; border: 1px solid var(--border); }
-        .sugg-card a { text-decoration: none; color: #fff; }
-        
-        footer { border-top: 1px solid var(--border); padding: 40px 5%; background: rgba(0,0,0,0.3); margin-top: auto; }
-        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
-        .footer-col h3 { color: #fff; margin-bottom: 15px; }
-        .footer-col ul { list-style: none; padding: 0; }
-        .footer-col li a { color: var(--gray); text-decoration: none; display: block; margin-bottom: 8px; }
-        .copy { text-align: center; margin-top: 40px; color: var(--gray); font-size: 0.8rem; border-top: 1px solid var(--border); padding-top: 20px; }
+        .controls { margin-top: 20px; display: flex; gap: 10px; justify-content: center; }
+        button { padding: 15px 30px; border: none; border-radius: 50px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .btn-clear { background: #ff4444; color: #fff; }
+        .btn-down { background: var(--primary); color: #fff; }
+        button:hover { transform: scale(1.05); }
+
+        .content-section { text-align: left; margin-top: 50px; padding: 25px; background: var(--card-bg); border-radius: 15px; border: 1px solid var(--border); }
+        .content-section h2 { color: var(--primary); font-family: 'Outfit'; margin-bottom: 15px; }
+
+        .more-tools { margin-top: 50px; border-top: 1px solid var(--border); padding-top: 30px; }
+        .grid-suggestions { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 20px; }
+        .suggestion-card { background: var(--card-bg); padding: 15px; border-radius: 10px; text-decoration: none; color: #fff; border: 1px solid var(--border); transition: 0.3s; }
+        .suggestion-card:hover { border-color: var(--primary); }
+
+        footer { border-top: 1px solid var(--border); padding: 40px; text-align: center; color: gray; font-size: 0.9rem; margin-top: auto; }
     </style>
 </head>
 <body>
-    <nav>
-        <a href="index.html" class="logo">MedusaTools</a>
-        <a href="index.html" style="color:#aaa; text-decoration:none;">Back</a>
-    </nav>
-
+    <nav><a href="index.html" class="logo">MedusaTools</a><a href="index.html" style="color:#aaa;">Back</a></nav>
+    
     <div class="main-wrapper">
-        <div class="tool-box">
-            <h1>📿 Digital Tasbeeh</h1>
-            <p>Tap the circle to count</p>
-            
-            <div class="counter-display" id="count">0</div>
-            
-            <div class="tap-area" onclick="increment()">
-                <span>TAP</span>
-            </div>
-
-            <div class="controls">
-                <button class="btn-small" onclick="reset()">Reset</button>
-                <button class="btn-small" onclick="save()">Save</button>
-            </div>
+        <h1 style="font-family:'Outfit'; margin-bottom:10px;">✍️ Signature Maker</h1>
+        <p style="color:#aaa; margin-bottom:20px;">Draw your signature in the white box.</p>
+        
+        <canvas id="sigCanvas"></canvas>
+        
+        <div class="controls">
+            <button class="btn-clear" onclick="clearSig()">🗑 Clear</button>
+            <button class="btn-down" onclick="downloadSig()">⬇️ Download PNG</button>
         </div>
 
         <div class="content-section">
-            <h2>Benefits of Digital Tasbeeh</h2>
-            <p>This simple tool helps you perform Dhikr (remembrance) or count Mantras without needing physical beads. It is designed to be distraction-free and saves your progress locally even if you refresh the page.</p>
+            <h2>Why use Digital Signature?</h2>
+            <p style="color:#ccc;">Save paper and sign documents electronically.</p>
+            <ul>
+                <li><strong>Transparent Background:</strong> Easily place on PDFs.</li>
+                <li><strong>Mobile Friendly:</strong> Sign using your finger on touchscreens.</li>
+                <li><strong>Secure:</strong> Signature is generated locally, not saved on server.</li>
+            </ul>
         </div>
 
-        <div class="suggestions">
-            <h2>🔥 Try These</h2>
-            <div class="sugg-grid">
-                <div class="sugg-card"><a href="zakat-calculator.html">🌙 Zakat Calc</a></div>
-                <div class="sugg-card"><a href="countdown.html">⏳ Timer</a></div>
+        <div class="more-tools">
+            <h3>Creative Tools</h3>
+            <div class="grid-suggestions">
+                <a href="image-generator.html" class="suggestion-card">✨ AI Image Gen</a>
+                <a href="color-palette.html" class="suggestion-card">🎨 Color Palette</a>
+                <a href="image-converter.html" class="suggestion-card">🖼️ Image Converter</a>
             </div>
         </div>
     </div>
-
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-col">
-                <h3>MedusaSMM</h3>
-                <p style="color:var(--gray); font-size:0.9rem;">Spiritual & Digital Tools.</p>
-            </div>
-            <div class="footer-col">
-                <h3>Legal</h3>
-                <ul>
-                    <li><a href="privacy.html">Privacy Policy</a></li>
-                    <li><a href="terms.html">Terms of Use</a></li>
-                    <li><a href="disclaimer.html">Disclaimer</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h3>Company</h3>
-                <ul>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="copy">&copy; 2024 MedusaSMM Tools. All rights reserved.</div>
-    </footer>
+    
+    <footer>&copy; 2026 MedusaSMM Tools. All rights reserved.</footer>
 
     <script>
-        let countVal = 0;
-        
-        // Load saved count
-        if(localStorage.getItem('tasbeehCount')) {
-            countVal = parseInt(localStorage.getItem('tasbeehCount'));
-            document.getElementById('count').innerText = countVal;
+        const canvas = document.getElementById('sigCanvas');
+        const ctx = canvas.getContext('2d');
+        let drawing = false;
+
+        function resizeCanvas() {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // Mouse Events
+        canvas.addEventListener('mousedown', startDraw);
+        canvas.addEventListener('mouseup', endDraw);
+        canvas.addEventListener('mousemove', draw);
+
+        // Touch Events
+        canvas.addEventListener('touchstart', (e) => { startDraw(e.touches[0]); e.preventDefault(); });
+        canvas.addEventListener('touchend', endDraw);
+        canvas.addEventListener('touchmove', (e) => { draw(e.touches[0]); e.preventDefault(); });
+
+        function startDraw(e) {
+            drawing = true;
+            ctx.beginPath();
+            let rect = canvas.getBoundingClientRect();
+            ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
         }
 
-        function increment() {
-            countVal++;
-            document.getElementById('count').innerText = countVal;
-            // Vibrate on mobile
-            if (navigator.vibrate) navigator.vibrate(50);
-            localStorage.setItem('tasbeehCount', countVal);
+        function endDraw() { drawing = false; }
+
+        function draw(e) {
+            if (!drawing) return;
+            let rect = canvas.getBoundingClientRect();
+            ctx.lineWidth = 3;
+            ctx.lineCap = 'round';
+            ctx.strokeStyle = '#000';
+            ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+            ctx.stroke();
         }
 
-        function reset() {
-            if(confirm("Are you sure you want to reset?")) {
-                countVal = 0;
-                document.getElementById('count').innerText = 0;
-                localStorage.setItem('tasbeehCount', 0);
-            }
+        function clearSig() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
         }
 
-        function save() {
-            alert("Count saved! You can close the browser and come back later.");
+        function downloadSig() {
+            let link = document.createElement('a');
+            link.download = 'signature.png';
+            link.href = canvas.toDataURL();
+            link.click();
         }
     </script>
 </body>
