@@ -1,127 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="description" content="Convert images between JPG, PNG, and WEBP formats for free. Fast and secure online image converter tool without quality loss.">
-<meta name="keywords" content="image converter online, jpg to png converter, png to jpg free, webp to jpg converter, photo format changer, change image type, picture converter">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Converter - MedusaSMM</title>
+    <meta name="description" content="Convert images between JPG, PNG, and WEBP formats online. Free image format changer tool without uploading to server.">
+    <meta name="keywords" content="image converter, jpg to png, png to jpg, webp converter, change image format, medusasmm">
+    <title>Image Converter - MedusaSMM Tools</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        /* Shared CSS */
-        :root { --bg: #030014; --glass: rgba(255,255,255,0.05); --border: rgba(255,255,255,0.1); --primary: #00b4d8; --text: #fff; --gray: #9ca3af; }
-        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; margin: 0; }
-        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Outfit', sans-serif; font-size: 1.5rem; text-decoration: none; color: #fff; }
+        :root { --bg: #050510; --card-bg: rgba(255,255,255,0.03); --border: rgba(255,255,255,0.1); --primary: #00b4d8; --text: #fff; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
         
-        .main-wrapper { flex: 1; padding: 40px 20px; width: 100%; max-width: 800px; margin: 0 auto; }
-        .tool-box { background: var(--glass); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px; text-align: center; }
-        h1 { font-family: 'Outfit'; color: var(--primary); margin-bottom: 20px; }
+        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: rgba(5,5,16,0.9); }
+        .logo { font-family: 'Outfit'; font-size: 1.5rem; color: #fff; text-decoration: none; font-weight: 700; }
         
-        select, input[type="file"] { width: 100%; padding: 15px; background: rgba(0,0,0,0.3); border: 1px solid #444; color: #fff; border-radius: 8px; margin-bottom: 15px; outline:none; }
+        .main-wrapper { width: 100%; max-width: 800px; margin: 40px auto; padding: 0 20px; text-align: center; flex: 1; }
         
-        button { width: 100%; padding: 18px; background: var(--primary); color: #000; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; transition: 0.3s; }
-        button:hover { box-shadow: 0 0 15px var(--primary); }
+        .upload-box { border: 2px dashed var(--border); padding: 40px; border-radius: 15px; margin-bottom: 20px; cursor: pointer; transition: 0.3s; }
+        .upload-box:hover { border-color: var(--primary); background: rgba(0, 180, 216, 0.05); }
+        input[type="file"] { display: none; }
         
-        .result-area { margin-top: 30px; display: none; text-align: center; }
-        .result-area img { max-width: 100%; border-radius: 10px; border: 1px solid var(--border); margin-bottom: 15px; }
-        .download-link { display: inline-block; padding: 10px 20px; background: #fff; color: #000; text-decoration: none; border-radius: 5px; font-weight: bold; }
+        select { padding: 15px; width: 100%; background: #222; color: #fff; border: 1px solid #444; border-radius: 10px; margin-bottom: 15px; }
+        
+        button { padding: 15px 40px; background: var(--primary); color: #000; font-weight: bold; border: none; border-radius: 50px; cursor: pointer; transition: 0.3s; }
+        button:hover { transform: translateY(-3px); }
 
-        .content-section { margin-top: 40px; color: var(--gray); line-height: 1.6; text-align: left; }
-        .suggestions { margin-top: 50px; border-top: 1px solid var(--border); padding-top: 30px; }
-        .sugg-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 20px; }
-        .sugg-card { background: var(--glass); padding: 15px; border-radius: 10px; text-align: center; border: 1px solid var(--border); transition:0.3s; }
-        .sugg-card:hover { border-color: var(--primary); transform: translateY(-3px); }
-        .sugg-card a { text-decoration: none; color: #fff; display: block; }
-        
-        footer { border-top: 1px solid var(--border); padding: 40px 5%; background: rgba(0,0,0,0.3); margin-top: auto; }
-        .copy { text-align: center; color: var(--gray); font-size: 0.8rem; }
+        .content-section { text-align: left; margin-top: 50px; padding: 25px; background: var(--card-bg); border-radius: 15px; border: 1px solid var(--border); }
+        .content-section h2 { color: var(--primary); font-family: 'Outfit'; margin-bottom: 15px; }
+
+        .more-tools { margin-top: 50px; border-top: 1px solid var(--border); padding-top: 30px; }
+        .grid-suggestions { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 20px; }
+        .suggestion-card { background: var(--card-bg); padding: 15px; border-radius: 10px; text-decoration: none; color: #fff; border: 1px solid var(--border); transition: 0.3s; }
+        .suggestion-card:hover { border-color: var(--primary); }
+
+        footer { border-top: 1px solid var(--border); padding: 40px; text-align: center; color: gray; font-size: 0.9rem; margin-top: auto; }
     </style>
 </head>
 <body>
-    <nav>
-        <a href="index.html" class="logo">MedusaTools</a>
-        <a href="index.html" style="color:#aaa; text-decoration:none;">Back</a>
-    </nav>
-
+    <nav><a href="index.html" class="logo">MedusaTools</a><a href="index.html" style="color:#aaa;">Back</a></nav>
+    
     <div class="main-wrapper">
-        <div class="tool-box">
-            <h1>🖼️ Image Converter</h1>
-            <p style="color:gray; margin-bottom:20px;">Convert JPG to PNG, PNG to WEBP, etc.</p>
-            
-            <input type="file" id="imageInput" accept="image/*">
-            
-            <label style="display:block; text-align:left; margin-bottom:5px; color:gray;">Convert to:</label>
-            <select id="format">
-                <option value="image/png">PNG</option>
-                <option value="image/jpeg">JPG</option>
-                <option value="image/webp">WEBP</option>
-            </select>
-            
-            <button onclick="convertImage()">Convert & Preview</button>
+        <h1 style="font-family:'Outfit'; margin-bottom:20px;">🖼️ Image Converter</h1>
+        
+        <label for="fileInput" class="upload-box">
+            <span style="font-size:2rem;">📂</span><br>
+            <span id="fileName">Click to Upload Image</span>
+        </label>
+        <input type="file" id="fileInput" accept="image/*">
 
-            <div class="result-area" id="resultArea">
-                <p>Converted Image:</p>
-                <img id="outputImg" src="">
-                <br>
-                <a id="downloadLink" class="download-link" download>Download Image</a>
-            </div>
-        </div>
+        <label style="display:block; text-align:left; color:#aaa; margin-bottom:5px;">Convert To:</label>
+        <select id="format">
+            <option value="image/png">PNG (Transparent)</option>
+            <option value="image/jpeg">JPG (Standard)</option>
+            <option value="image/webp">WEBP (Fast)</option>
+        </select>
+        
+        <button onclick="convertImage()">🔄 Convert & Download</button>
 
         <div class="content-section">
-            <h2>Supported Conversions</h2>
-            <p>This tool uses your browser's capabilities to re-encode images. You can convert between:</p>
+            <h2>Features</h2>
             <ul>
-                <li><strong>JPG to PNG:</strong> Best for high quality transparency.</li>
-                <li><strong>PNG to JPG:</strong> Best for reducing file size.</li>
-                <li><strong>ANY to WEBP:</strong> Best for modern web performance.</li>
+                <li>Convert JPG to PNG (or vice versa).</li>
+                <li>Secure: Images are processed in your browser.</li>
+                <li>Fast conversion for large files.</li>
             </ul>
         </div>
 
-        <div class="suggestions">
-            <h2>🔥 Recommended Tools</h2>
-            <div class="sugg-grid">
-                <div class="sugg-card"><a href="image-compressor.html">📉 Image Compressor</a></div>
-                <div class="sugg-card"><a href="device-info.html">📱 Device Info</a></div>
-                <div class="sugg-card"><a href="qr-generator.html">🔳 QR Generator</a></div>
+        <div class="more-tools">
+            <h3>Media Tools</h3>
+            <div class="grid-suggestions">
+                <a href="image-compressor.html" class="suggestion-card">📉 Image Compressor</a>
+                <a href="signature-maker.html" class="suggestion-card">✍️ Signature Maker</a>
+                <a href="qr-generator.html" class="suggestion-card">📷 QR Generator</a>
             </div>
         </div>
     </div>
-
-    <footer>
-        <div class="copy">&copy; 2024 MedusaSMM Tools. All rights reserved.</div>
-    </footer>
+    
+    <footer>&copy; 2026 MedusaSMM Tools. All rights reserved.</footer>
 
     <script>
+        let fileInput = document.getElementById('fileInput');
+        fileInput.addEventListener('change', function() {
+            if(this.files && this.files[0]) document.getElementById('fileName').innerText = this.files[0].name;
+        });
+
         function convertImage() {
-            const input = document.getElementById('imageInput');
-            const format = document.getElementById('format').value;
-            
-            if (input.files && input.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const img = new Image();
-                    img.src = e.target.result;
-                    img.onload = function() {
-                        const canvas = document.createElement('canvas');
-                        canvas.width = img.width;
-                        canvas.height = img.height;
-                        const ctx = canvas.getContext('2d');
-                        ctx.drawImage(img, 0, 0);
-                        
-                        const dataUrl = canvas.toDataURL(format);
-                        
-                        document.getElementById('resultArea').style.display = 'block';
-                        document.getElementById('outputImg').src = dataUrl;
-                        
-                        const ext = format.split('/')[1];
-                        document.getElementById('downloadLink').href = dataUrl;
-                        document.getElementById('downloadLink').download = `converted-medusa.${ext}`;
-                    }
+            let file = fileInput.files[0];
+            let format = document.getElementById('format').value;
+            if(!file) return alert("Please upload an image!");
+
+            let reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function(event) {
+                let img = new Image();
+                img.src = event.target.result;
+                img.onload = function() {
+                    let canvas = document.createElement('canvas');
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    let ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0);
+                    
+                    let dataUrl = canvas.toDataURL(format);
+                    let ext = format.split('/')[1];
+                    
+                    let link = document.createElement('a');
+                    link.href = dataUrl;
+                    link.download = `converted.${ext}`;
+                    link.click();
                 }
-                reader.readAsDataURL(input.files[0]);
-            } else {
-                alert("Please select an image first.");
             }
         }
     </script>
