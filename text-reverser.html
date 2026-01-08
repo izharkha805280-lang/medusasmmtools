@@ -3,39 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Reverse text, flip words, or flip letters instantly online. Fun tool to write backwards text for social media.">
-    <meta name="keywords" content="text reverser, reverse text generator, backwards text, flip text, mirror text, reverse words, online string reverser">
-    <title>Text Reverser - MedusaSMM</title>
+    <meta name="description" content="Reverse text, flip words, or flip letters instantly online. Fun tool to write backwards text for social media and puzzles.">
+    <meta name="keywords" content="text reverser, reverse text generator, backwards text, flip text, mirror text, reverse words, medusasmm">
+    <title>Text Reverser - MedusaSMM Tools</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #030014; --glass: rgba(255,255,255,0.05); --border: rgba(255,255,255,0.1); --primary: #00b4d8; --text: #fff; }
-        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; margin: 0; }
-        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Outfit', sans-serif; font-size: 1.5rem; text-decoration: none; color: #fff; }
-        .main-wrapper { flex: 1; padding: 40px 20px; width: 100%; max-width: 800px; margin: 0 auto; text-align: center; }
+        :root { --bg: #050510; --card-bg: rgba(255,255,255,0.03); --border: rgba(255,255,255,0.1); --primary: #00b4d8; --text: #fff; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
         
-        textarea { width: 100%; height: 150px; background: rgba(0,0,0,0.3); border: 1px solid #444; color: #fff; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
-        button { padding: 15px 30px; background: var(--primary); color: #000; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; margin: 5px; }
+        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: rgba(5,5,16,0.9); }
+        .logo { font-family: 'Outfit'; font-size: 1.5rem; color: #fff; text-decoration: none; font-weight: 700; }
         
-        footer { border-top: 1px solid var(--border); padding: 40px 5%; margin-top: auto; text-align: center; color: gray; font-size: 0.8rem; }
+        .main-wrapper { width: 100%; max-width: 800px; margin: 40px auto; padding: 0 20px; text-align: center; flex: 1; }
+        
+        textarea { width: 100%; height: 150px; background: rgba(0,0,0,0.3); border: 1px solid #444; color: #fff; padding: 15px; border-radius: 10px; margin-bottom: 20px; font-size: 1.1rem; resize: vertical; }
+        
+        .btn-group { display: flex; gap: 10px; justify-content: center; margin-bottom: 20px; }
+        button { padding: 15px 30px; background: var(--primary); color: #000; font-weight: bold; border: none; border-radius: 50px; cursor: pointer; margin: 5px; transition: 0.3s; }
+        button:hover { transform: translateY(-3px); }
+
+        .content-section { text-align: left; margin-top: 50px; padding: 25px; background: var(--card-bg); border-radius: 15px; border: 1px solid var(--border); }
+        .content-section h2 { color: var(--primary); font-family: 'Outfit'; margin-bottom: 15px; }
+
+        .more-tools { margin-top: 50px; border-top: 1px solid var(--border); padding-top: 30px; }
+        .grid-suggestions { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 20px; }
+        .suggestion-card { background: var(--card-bg); padding: 15px; border-radius: 10px; text-decoration: none; color: #fff; border: 1px solid var(--border); transition: 0.3s; }
+        .suggestion-card:hover { border-color: var(--primary); }
+
+        footer { border-top: 1px solid var(--border); padding: 40px; text-align: center; color: gray; font-size: 0.9rem; margin-top: auto; }
     </style>
 </head>
 <body>
     <nav><a href="index.html" class="logo">MedusaTools</a><a href="index.html" style="color:#aaa;">Back</a></nav>
+    
     <div class="main-wrapper">
         <h1 style="font-family:'Outfit'; margin-bottom:20px;">↩️ Text Reverser</h1>
         
-        <textarea id="input" placeholder="Type something here..."></textarea>
+        <textarea id="input" placeholder="Type something here (e.g. Hello)"></textarea>
         
-        <div>
-            <button onclick="reverseText('chars')">esreveR</button>
+        <div class="btn-group">
+            <button onclick="reverseText('chars')">esreveR (Chars)</button>
             <button onclick="reverseText('words')">Reverse Words</button>
         </div>
 
         <h3 style="margin-top:20px;">Result:</h3>
         <textarea id="output" readonly></textarea>
+
+        <div class="content-section">
+            <h2>Features</h2>
+            <ul>
+                <li><strong>Reverse Chars:</strong> "Hello" -> "olleH"</li>
+                <li><strong>Reverse Words:</strong> "Hello World" -> "World Hello"</li>
+                <li>Fun for creating puzzles or weird messages.</li>
+            </ul>
+        </div>
+
+        <div class="more-tools">
+            <h3>Text Tools</h3>
+            <div class="grid-suggestions">
+                <a href="text-repeater.html" class="suggestion-card">🔁 Text Repeater</a>
+                <a href="case-converter.html" class="suggestion-card">🔠 Case Converter</a>
+                <a href="text-speech.html" class="suggestion-card">🗣️ Text to Speech</a>
+            </div>
+        </div>
     </div>
-    <footer>&copy; 2024 MedusaSMM Tools.</footer>
+    
+    <footer>&copy; 2026 MedusaSMM Tools. All rights reserved.</footer>
 
     <script>
         function reverseText(type) {
