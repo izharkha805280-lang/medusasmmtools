@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free Meta Tag Generator for SEO. Create Title, Description, and Keyword tags for your website instantly.">
+    <meta name="keywords" content="meta tag generator, seo tool, create meta tags, html meta tag builder, website seo tags">
+    <title>Meta Tag Generator - MedusaSMM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #030014; --glass: rgba(255,255,255,0.05); --border: rgba(255,255,255,0.1); --primary: #00ff9d; --text: #fff; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; margin: 0; }
+        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Outfit', sans-serif; font-size: 1.5rem; text-decoration: none; color: #fff; }
+        .main-wrapper { flex: 1; padding: 40px 20px; width: 100%; max-width: 800px; margin: 0 auto; text-align: center; }
+        
+        input, textarea { width: 100%; padding: 15px; background: rgba(0,0,0,0.3); border: 1px solid #444; color: #fff; border-radius: 8px; margin-bottom: 15px; font-family: 'Inter'; }
+        label { display: block; text-align: left; margin-bottom: 5px; color: var(--primary); }
+        
+        .code-box { background: #111; padding: 20px; border-radius: 10px; text-align: left; font-family: monospace; color: #0f0; border: 1px solid var(--border); white-space: pre-wrap; }
+        
+        button { padding: 15px 30px; background: var(--primary); color: #000; font-weight: bold; border: none; border-radius: 50px; cursor: pointer; margin-top: 20px; }
+        
+        footer { border-top: 1px solid var(--border); padding: 40px 5%; margin-top: auto; text-align: center; color: gray; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+    <nav><a href="index.html" class="logo">MedusaTools</a><a href="index.html" style="color:#aaa;">Back</a></nav>
+    <div class="main-wrapper">
+        <h1 style="font-family:'Outfit'; margin-bottom:20px;">🏷️ Meta Tag Generator</h1>
+        
+        <label>Site Title:</label>
+        <input type="text" id="siteTitle" placeholder="e.g. MedusaSMM Tools" oninput="genTags()">
+        
+        <label>Site Description:</label>
+        <textarea id="siteDesc" placeholder="e.g. Best free online tools..." oninput="genTags()"></textarea>
+        
+        <label>Keywords (Separate with commas):</label>
+        <input type="text" id="siteKeys" placeholder="e.g. tools, seo, free" oninput="genTags()">
+        
+        <label>Author:</label>
+        <input type="text" id="siteAuthor" placeholder="e.g. Medusa Team" oninput="genTags()">
+
+        <h3>Your Code:</h3>
+        <div class="code-box" id="output">
+</div>
+        <button onclick="copyCode()">📋 Copy Code</button>
+    </div>
+    <footer>&copy; 2024 MedusaSMM Tools.</footer>
+
+    <script>
+        function genTags() {
+            let title = document.getElementById('siteTitle').value;
+            let desc = document.getElementById('siteDesc').value;
+            let keys = document.getElementById('siteKeys').value;
+            let author = document.getElementById('siteAuthor').value;
+
+            let code = `<meta charset="UTF-8">\n`;
+            code += `<meta name="viewport" content="width=device-width, initial-scale=1.0">\n`;
+            if(title) code += `<title>${title}</title>\n`;
+            if(desc) code += `<meta name="description" content="${desc}">\n`;
+            if(keys) code += `<meta name="keywords" content="${keys}">\n`;
+            if(author) code += `<meta name="author" content="${author}">`;
+
+            document.getElementById('output').innerText = code;
+        }
+        
+        function copyCode() {
+            let text = document.getElementById('output').innerText;
+            navigator.clipboard.writeText(text);
+            alert("Code copied!");
+        }
+        genTags();
+    </script>
+</body>
+</html>
