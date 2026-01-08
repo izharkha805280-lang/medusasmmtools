@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Test your reflexes with this simple Reaction Time Test. Click as soon as the color changes to Green.">
+    <meta name="keywords" content="reaction time test, reflex test, click speed test, human benchmark reaction, reaction speed game">
+    <title>Reaction Time Test - MedusaSMM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #030014; --glass: rgba(255,255,255,0.05); --border: rgba(255,255,255,0.1); --text: #fff; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; margin: 0; user-select: none; }
+        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Outfit', sans-serif; font-size: 1.5rem; text-decoration: none; color: #fff; }
+        
+        .game-area { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; cursor: pointer; text-align: center; padding: 20px; transition: background 0.2s; }
+        
+        .waiting { background: #ce2e2e; } /* Red */
+        .ready { background: #2e8bce; } /* Blue */
+        .go { background: #2ece56; } /* Green */
+        
+        h1 { font-family: 'Outfit'; font-size: 3rem; margin: 0; }
+        p { font-size: 1.2rem; opacity: 0.8; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+    <nav><a href="index.html" class="logo">MedusaTools</a><a href="index.html" style="color:#aaa;">Back</a></nav>
+    
+    <div id="gameBox" class="game-area ready" onclick="handleClick()">
+        <div id="startMsg">
+            <h1>⚡ Reaction Test</h1>
+            <p>Click anywhere to Start</p>
+        </div>
+        <div id="waitMsg" class="hidden">
+            <h1>Wait for Green...</h1>
+        </div>
+        <div id="clickMsg" class="hidden">
+            <h1>CLICK NOW!</h1>
+        </div>
+        <div id="resultMsg" class="hidden">
+            <h1 id="timeDisplay">0 ms</h1>
+            <p>Click to try again</p>
+        </div>
+    </div>
+
+    <script>
+        const box = document.getElementById('gameBox');
+        let startTime, endTime, timer;
+        let gameState = 'start'; // start, waiting, go, result
+
+        function handleClick() {
+            if (gameState === 'start' || gameState === 'result') {
+                // Start Game
+                gameState = 'waiting';
+                box.className = 'game-area waiting';
+                hideAll();
+                document.getElementById('waitMsg').style.display = 'block';
+                
+                let randomTime = Math.floor(Math.random() * 2000) + 2000; // 2-4 seconds
+                timer = setTimeout(() => {
+                    gameState = 'go';
+                    box.className = 'game-area go';
+                    hideAll();
+                    document.getElementById('clickMsg').style.display = 'block';
+                    startTime = Date.now();
+                }, randomTime);
+            } 
+            else if (gameState === 'waiting') {
+                // Clicked too early
+                clearTimeout(timer);
+                gameState = 'result';
+                box.className = 'game-area ready'; // Back to blue
+                hideAll();
+                document.getElementById('resultMsg').style.display = 'block';
+                document.getElementById('timeDisplay').innerText = "Too Early!";
+            } 
+            else if (gameState === 'go') {
+                // Successful click
+                endTime = Date.now();
+                gameState = 'result';
+                box.className = 'game-area ready';
+                let reactionTime = endTime - startTime;
+                hideAll();
+                document.getElementById('resultMsg').style.display = 'block';
+                document.getElementById('timeDisplay').innerText = reactionTime + " ms";
+            }
+        }
+
+        function hideAll() {
+            document.getElementById('startMsg').style.display = 'none';
+            document.getElementById('waitMsg').style.display = 'none';
+            document.getElementById('clickMsg').style.display = 'none';
+            document.getElementById('resultMsg').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
