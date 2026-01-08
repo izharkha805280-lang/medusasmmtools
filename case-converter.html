@@ -1,121 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="description" content="Convert text to Uppercase, Lowercase, Title Case, or Sentence Case instantly. Fix accidental caps lock text easily.">
-<meta name="keywords" content="case converter, text to uppercase, lowercase converter, title case generator, capitalize first letter, sentence case converter, change text case">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Case Converter - MedusaSMM</title>
+    <meta name="description" content="Convert Text Case Online. Change text to Uppercase, Lowercase, Title Case, and Sentence Case instantly.">
+    <meta name="keywords" content="case converter, text to uppercase, lowercase converter, title case, capitalize text tool">
+    <title>Case Converter - MedusaSMM Tools</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        /* Shared CSS */
-        :root { --bg: #030014; --glass: rgba(255,255,255,0.05); --border: rgba(255,255,255,0.1); --primary: #ff9e00; --text: #fff; --gray: #9ca3af; }
-        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; margin: 0; }
+        :root { --bg: #050510; --card-bg: rgba(255,255,255,0.03); --border: rgba(255,255,255,0.1); --primary: #d900ff; --text: #fff; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; display: flex; flex-direction: column; }
         
-        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Outfit', sans-serif; font-size: 1.5rem; text-decoration: none; color: #fff; }
+        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: rgba(5,5,16,0.9); }
+        .logo { font-family: 'Outfit'; font-size: 1.5rem; color: #fff; text-decoration: none; font-weight: 700; }
         
-        .main-wrapper { flex: 1; padding: 40px 20px; width: 100%; max-width: 800px; margin: 0 auto; }
-        .tool-box { background: var(--glass); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px; }
-        h1 { font-family: 'Outfit'; color: var(--primary); margin-bottom: 20px; font-size: 2rem; text-align: center; }
+        .main-wrapper { width: 100%; max-width: 800px; margin: 40px auto; padding: 0 20px; text-align: center; flex: 1; }
         
-        textarea { width: 100%; height: 200px; padding: 20px; background: rgba(0,0,0,0.3); border: 1px solid var(--border); color: #fff; border-radius: 8px; margin-bottom: 20px; outline:none; resize: none; font-size: 1rem; }
-        textarea:focus { border-color: var(--primary); }
+        textarea { width: 100%; height: 200px; padding: 15px; background: rgba(0,0,0,0.3); border: 1px solid #444; color: #fff; border-radius: 10px; margin-bottom: 15px; font-size: 1.1rem; resize: vertical; }
+        
+        .btn-group { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+        button { flex: 1; padding: 12px; background: var(--card-bg); color: #fff; border: 1px solid var(--border); border-radius: 8px; cursor: pointer; transition: 0.3s; min-width: 120px; }
+        button:hover { border-color: var(--primary); color: var(--primary); }
 
-        .btn-group { display: flex; gap: 10px; flex-wrap: wrap; }
-        button { flex: 1; min-width: 120px; padding: 15px; background: rgba(255,255,255,0.1); border: 1px solid var(--border); color: #fff; cursor: pointer; border-radius: 8px; transition: 0.3s; font-weight: 500; }
-        button:hover { background: var(--primary); color: #000; border-color: var(--primary); }
-        
-        .content-section { margin-top: 40px; color: var(--gray); line-height: 1.6; }
-        .content-section h2 { color: #fff; font-family: 'Outfit'; margin-bottom: 15px; }
-        .suggestions { margin-top: 50px; border-top: 1px solid var(--border); padding-top: 30px; }
-        .sugg-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px; }
-        .sugg-card { background: var(--glass); padding: 20px; border-radius: 10px; text-align: center; border: 1px solid var(--border); transition:0.3s; }
-        .sugg-card:hover { border-color: var(--primary); transform: translateY(-3px); }
-        .sugg-card a { text-decoration: none; color: #fff; display: block; }
-        
-        footer { border-top: 1px solid var(--border); padding: 40px 5%; background: rgba(0,0,0,0.3); margin-top: auto; }
-        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
-        .footer-col h3 { color: #fff; margin-bottom: 15px; font-family: 'Outfit'; }
-        .footer-col ul { list-style: none; padding: 0; }
-        .footer-col li a { color: var(--gray); text-decoration: none; font-size: 0.9rem; display: block; margin-bottom: 8px; }
-        .copy { text-align: center; margin-top: 40px; color: var(--gray); font-size: 0.8rem; border-top: 1px solid var(--border); padding-top: 20px; }
+        .content-section { text-align: left; margin-top: 50px; padding: 25px; background: var(--card-bg); border-radius: 15px; border: 1px solid var(--border); }
+        .content-section h2 { color: var(--primary); font-family: 'Outfit'; margin-bottom: 15px; }
+
+        .more-tools { margin-top: 50px; border-top: 1px solid var(--border); padding-top: 30px; }
+        .grid-suggestions { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 20px; }
+        .suggestion-card { background: var(--card-bg); padding: 15px; border-radius: 10px; text-decoration: none; color: #fff; border: 1px solid var(--border); transition: 0.3s; }
+        .suggestion-card:hover { border-color: var(--primary); }
+
+        footer { border-top: 1px solid var(--border); padding: 40px; text-align: center; color: gray; font-size: 0.9rem; margin-top: auto; }
     </style>
 </head>
 <body>
-    <nav>
-        <a href="index.html" class="logo">MedusaTools</a>
-        <a href="index.html" style="color:#aaa; text-decoration:none;">Back</a>
-    </nav>
-
+    <nav><a href="index.html" class="logo">MedusaTools</a><a href="index.html" style="color:#aaa;">Back</a></nav>
+    
     <div class="main-wrapper">
-        <div class="tool-box">
-            <h1>🔠 Case Converter</h1>
-            <p style="text-align:center; color:gray; margin-bottom:20px;">Transform your text format instantly.</p>
-            <textarea id="textInput" placeholder="Type or paste your text here..."></textarea>
-            <div class="btn-group">
-                <button onclick="convert('upper')">UPPERCASE</button>
-                <button onclick="convert('lower')">lowercase</button>
-                <button onclick="convert('title')">Title Case</button>
-                <button onclick="convert('sentence')">Sentence case</button>
-            </div>
+        <h1 style="font-family:'Outfit'; margin-bottom:20px;">🔠 Case Converter</h1>
+        
+        <textarea id="textInput" placeholder="Type or paste your text here..."></textarea>
+        
+        <div class="btn-group">
+            <button onclick="convert('upper')">UPPERCASE</button>
+            <button onclick="convert('lower')">lowercase</button>
+            <button onclick="convert('title')">Title Case</button>
+            <button onclick="convert('sentence')">Sentence case</button>
+            <button onclick="copyText()" style="background:var(--primary); color:#000; font-weight:bold;">Copy</button>
         </div>
 
         <div class="content-section">
-            <h2>About this Tool</h2>
-            <p>Accidentally left Caps Lock on? Or need to format a title for your blog? This tool saves you from re-typing everything manually.</p>
-            <h3>Modes:</h3>
+            <h2>Features</h2>
             <ul>
-                <li><strong>UPPERCASE:</strong> Converts all letters to capitals.</li>
-                <li><strong>lowercase:</strong> Converts all letters to small.</li>
-                <li><strong>Title Case:</strong> Capitalizes the first letter of every word.</li>
+                <li><strong>Uppercase:</strong> CONVERTS EVERYTHING TO CAPS.</li>
+                <li><strong>Lowercase:</strong> converts everything to small letters.</li>
+                <li><strong>Title Case:</strong> Capitalize First Letter Of Each Word.</li>
             </ul>
         </div>
 
-        <div class="suggestions">
-            <h2>🔥 Recommended Tools</h2>
-            <div class="sugg-grid">
-                <div class="sugg-card"><a href="word-counter.html">📝 Word Counter</a></div>
-                <div class="sugg-card"><a href="binary-translator.html">🤖 Binary Tool</a></div>
-                <div class="sugg-card"><a href="age-calculator.html">🎂 Age Calculator</a></div>
+        <div class="more-tools">
+            <h3>Text Tools</h3>
+            <div class="grid-suggestions">
+                <a href="word-counter.html" class="suggestion-card">📝 Word Counter</a>
+                <a href="text-repeater.html" class="suggestion-card">🔁 Text Repeater</a>
+                <a href="text-reverser.html" class="suggestion-card">↩️ Text Reverser</a>
             </div>
         </div>
     </div>
-
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-col">
-                <h3>MedusaSMM</h3>
-                <p style="color:var(--gray); font-size:0.9rem;">Clean tools, no ads.</p>
-            </div>
-            <div class="footer-col">
-                <h3>Legal</h3>
-                <ul>
-                    <li><a href="privacy.html">Privacy Policy</a></li>
-                    <li><a href="terms.html">Terms of Use</a></li>
-                    <li><a href="disclaimer.html">Disclaimer</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h3>Company</h3>
-                <ul>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="copy">&copy; 2024 MedusaSMM Tools. All rights reserved.</div>
-    </footer>
+    
+    <footer>&copy; 2026 MedusaSMM Tools. All rights reserved.</footer>
 
     <script>
         function convert(type) {
-            let el = document.getElementById('textInput');
-            if(type === 'upper') el.value = el.value.toUpperCase();
-            if(type === 'lower') el.value = el.value.toLowerCase();
-            if(type === 'title') el.value = el.value.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
-            if(type === 'sentence') {
-                el.value = el.value.toLowerCase().replace(/(^\s*\w|[\.\!\?]\s*\w)/g, function(c){ return c.toUpperCase() });
+            let text = document.getElementById('textInput').value;
+            if (type === 'upper') document.getElementById('textInput').value = text.toUpperCase();
+            if (type === 'lower') document.getElementById('textInput').value = text.toLowerCase();
+            if (type === 'title') {
+                document.getElementById('textInput').value = text.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
             }
+            if (type === 'sentence') {
+                document.getElementById('textInput').value = text.toLowerCase().replace(/(^\s*\w|[\.\!\?]\s*\w)/g, c => c.toUpperCase());
+            }
+        }
+        function copyText() {
+            let text = document.getElementById('textInput');
+            text.select();
+            document.execCommand("copy");
+            alert("Copied to clipboard!");
         }
     </script>
 </body>
