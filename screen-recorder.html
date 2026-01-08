@@ -5,30 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Free Online Screen Recorder. Capture your screen, application window, or browser tab without installing software. Save as HD video.">
     <meta name="keywords" content="screen recorder online, free screen capture, record screen without watermark, browser video recorder, capture desktop video">
-    <title>Screen Recorder - MedusaSMM</title>
+    <title>Screen Recorder - MedusaSMM Tools</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #030014; --glass: rgba(255,255,255,0.05); --border: rgba(255,255,255,0.1); --primary: #ff3333; --text: #fff; }
-        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; margin: 0; }
-        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Outfit', sans-serif; font-size: 1.5rem; text-decoration: none; color: #fff; }
-        .main-wrapper { flex: 1; padding: 40px 20px; width: 100%; max-width: 800px; margin: 0 auto; text-align: center; }
+        :root { --bg: #050510; --card-bg: rgba(255,255,255,0.03); --border: rgba(255,255,255,0.1); --primary: #ff3333; --text: #fff; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
         
-        video { width: 100%; max-width: 100%; border-radius: 10px; background: #000; margin-top: 20px; border: 1px solid var(--border); display: none; }
+        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: rgba(5,5,16,0.9); }
+        .logo { font-family: 'Outfit'; font-size: 1.5rem; color: #fff; text-decoration: none; font-weight: 700; }
+        
+        .main-wrapper { width: 100%; max-width: 800px; margin: 40px auto; padding: 0 20px; text-align: center; flex: 1; }
+        
+        video { width: 100%; border-radius: 10px; background: #000; margin-top: 20px; border: 1px solid var(--border); display: none; }
+        
         .controls { margin-top: 20px; display: flex; gap: 15px; justify-content: center; }
         button { padding: 15px 30px; border: none; border-radius: 50px; font-weight: bold; cursor: pointer; font-size: 1rem; transition: 0.3s; }
         .btn-start { background: var(--primary); color: #fff; box-shadow: 0 0 15px var(--primary); }
         .btn-stop { background: #333; color: #fff; display: none; }
         .btn-down { background: #00ff9d; color: #000; display: none; text-decoration: none; padding: 15px 30px; border-radius: 50px; font-weight: bold; }
 
-        footer { border-top: 1px solid var(--border); padding: 40px 5%; margin-top: auto; text-align: center; color: gray; font-size: 0.8rem; }
+        .content-section { text-align: left; margin-top: 50px; padding: 25px; background: var(--card-bg); border-radius: 15px; border: 1px solid var(--border); }
+        .content-section h2 { color: var(--primary); font-family: 'Outfit'; margin-bottom: 15px; }
+
+        .more-tools { margin-top: 50px; border-top: 1px solid var(--border); padding-top: 30px; }
+        .grid-suggestions { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 20px; }
+        .suggestion-card { background: var(--card-bg); padding: 15px; border-radius: 10px; text-decoration: none; color: #fff; border: 1px solid var(--border); transition: 0.3s; }
+        .suggestion-card:hover { border-color: var(--primary); }
+
+        footer { border-top: 1px solid var(--border); padding: 40px; text-align: center; color: gray; font-size: 0.9rem; margin-top: auto; }
     </style>
 </head>
 <body>
     <nav><a href="index.html" class="logo">MedusaTools</a><a href="index.html" style="color:#aaa;">Back</a></nav>
+    
     <div class="main-wrapper">
-        <h1 style="font-family:'Outfit';">🎥 Screen Recorder</h1>
-        <p style="color:gray;">Record your screen instantly. No watermark. No limits.</p>
+        <h1 style="font-family:'Outfit'; margin-bottom:20px;">🎥 Screen Recorder</h1>
+        <p style="color:#aaa;">Note: Works best on Desktop PCs. Mobile support depends on browser.</p>
         
         <video id="preview" controls autoplay muted></video>
         
@@ -37,8 +50,28 @@
             <button id="stopBtn" class="btn-stop" onclick="stopRecording()">⏹ Stop</button>
             <a id="downloadBtn" class="btn-down">⬇️ Download Video</a>
         </div>
+
+        <div class="content-section">
+            <h2>Features</h2>
+            <ul>
+                <li>Record Full Screen, Window, or Browser Tab.</li>
+                <li>No watermark on videos.</li>
+                <li>No software installation required.</li>
+                <li>Instant Download in WebM/MP4 format.</li>
+            </ul>
+        </div>
+
+        <div class="more-tools">
+            <h3>Media Tools</h3>
+            <div class="grid-suggestions">
+                <a href="image-compressor.html" class="suggestion-card">📉 Image Compressor</a>
+                <a href="yt-thumbnail.html" class="suggestion-card">📺 YT Thumbnail</a>
+                <a href="meme-generator.html" class="suggestion-card">🐸 Meme Generator</a>
+            </div>
+        </div>
     </div>
-    <footer>&copy; 2024 MedusaSMM Tools.</footer>
+    
+    <footer>&copy; 2026 MedusaSMM Tools. All rights reserved.</footer>
 
     <script>
         let mediaRecorder;
@@ -51,7 +84,6 @@
         async function startRecording() {
             try {
                 const stream = await navigator.mediaDevices.getDisplayMedia({ video: true, audio: true });
-                
                 mediaRecorder = new MediaRecorder(stream);
                 
                 mediaRecorder.ondataavailable = (e) => {
@@ -84,20 +116,17 @@
                 downloadBtn.style.display = "none";
                 recordedChunks = [];
 
-                // Stop recording if user clicks "Stop Sharing" in browser UI
-                stream.getVideoTracks()[0].onended = () => {
-                    stopRecording();
-                };
+                stream.getVideoTracks()[0].onended = () => stopRecording();
 
             } catch (err) {
-                console.error("Error: " + err);
+                alert("Error: " + err + ". Mobile browsers may not support screen recording.");
             }
         }
 
         function stopRecording() {
             if(mediaRecorder && mediaRecorder.state !== "inactive") {
                 mediaRecorder.stop();
-                preview.srcObject.getTracks().forEach(track => track.stop()); // Stop stream
+                preview.srcObject.getTracks().forEach(track => track.stop());
             }
         }
     </script>
