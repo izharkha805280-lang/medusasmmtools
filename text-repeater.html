@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Repeat text, words, or emojis up to 1000 times instantly. Free Text Repeater tool for messaging and fun.">
+    <meta name="keywords" content="text repeater, repeat text 100 times, message repeater, spam text generator, word repeater, repeat text online">
+    <title>Text Repeater - MedusaSMM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #030014; --glass: rgba(255,255,255,0.05); --border: rgba(255,255,255,0.1); --primary: #ff0055; --text: #fff; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; margin: 0; }
+        
+        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Outfit', sans-serif; font-size: 1.5rem; text-decoration: none; color: #fff; }
+        .main-wrapper { flex: 1; padding: 40px 20px; width: 100%; max-width: 800px; margin: 0 auto; text-align: center; }
+        
+        .input-group { margin-bottom: 15px; text-align: left; }
+        label { display: block; margin-bottom: 5px; color: var(--primary); font-weight: bold; }
+        
+        input[type="text"], input[type="number"], select { 
+            width: 100%; padding: 15px; background: rgba(0,0,0,0.3); 
+            border: 1px solid #444; color: #fff; border-radius: 8px; 
+            font-size: 1rem; outline: none; margin-bottom: 10px;
+        }
+
+        textarea { width: 100%; height: 200px; background: rgba(0,0,0,0.3); border: 1px solid #444; color: #fff; padding: 15px; border-radius: 8px; margin-top: 20px; resize: vertical; }
+        
+        button { padding: 15px 30px; background: var(--primary); color: #fff; font-weight: bold; border: none; border-radius: 50px; cursor: pointer; margin: 10px; transition: 0.3s; }
+        button:hover { box-shadow: 0 0 15px var(--primary); transform: translateY(-2px); }
+        .btn-copy { background: #00ff9d; color: #000; }
+
+        footer { border-top: 1px solid var(--border); padding: 40px 5%; margin-top: auto; text-align: center; color: gray; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+    <nav><a href="index.html" class="logo">MedusaTools</a><a href="index.html" style="color:#aaa;">Back</a></nav>
+    <div class="main-wrapper">
+        <h1 style="font-family:'Outfit'; margin-bottom:20px;">🔁 Text Repeater</h1>
+        <p style="color:gray; margin-bottom:30px;">Repeat your message up to 1000 times instantly.</p>
+        
+        <div class="input-group">
+            <label>Text to Repeat:</label>
+            <input type="text" id="textInput" placeholder="e.g. I Love You ❤️">
+        </div>
+
+        <div style="display:flex; gap:15px;">
+            <div class="input-group" style="flex:1;">
+                <label>Repetitions (Max 1000):</label>
+                <input type="number" id="countInput" placeholder="100" max="1000">
+            </div>
+            <div class="input-group" style="flex:1;">
+                <label>Separator:</label>
+                <select id="separator">
+                    <option value="\n">New Line (One below other)</option>
+                    <option value=" ">Space (Side by side)</option>
+                    <option value=", ">Comma (,)</option>
+                    <option value=". ">Period (.)</option>
+                </select>
+            </div>
+        </div>
+
+        <button onclick="repeatText()">⚡ Repeat Text</button>
+        
+        <textarea id="resultBox" readonly placeholder="Result will appear here..."></textarea>
+        
+        <button class="btn-copy" onclick="copyText()">📋 Copy Result</button>
+    </div>
+    <footer>&copy; 2024 MedusaSMM Tools.</footer>
+
+    <script>
+        function repeatText() {
+            let text = document.getElementById('textInput').value;
+            let count = parseInt(document.getElementById('countInput').value);
+            let separator = document.getElementById('separator').value;
+            let resultBox = document.getElementById('resultBox');
+
+            if (!text) {
+                alert("Please enter some text first!");
+                return;
+            }
+
+            if (!count || count <= 0) {
+                alert("Please enter a number greater than 0.");
+                return;
+            }
+
+            // Limit Check (1000 se zyada nahi)
+            if (count > 1000) {
+                alert("Limit exceeded! Automatically setting to 1000.");
+                count = 1000;
+                document.getElementById('countInput').value = 1000;
+            }
+
+            // Logic to repeat text
+            // Using Array().fill().join() prevents extra separator at the end
+            let repeated = Array(count).fill(text).join(separator === "\\n" ? "\n" : separator);
+            
+            resultBox.value = repeated;
+        }
+
+        function copyText() {
+            let resultBox = document.getElementById('resultBox');
+            if (!resultBox.value) {
+                alert("Nothing to copy!");
+                return;
+            }
+            resultBox.select();
+            resultBox.setSelectionRange(0, 99999); // For mobile devices
+            navigator.clipboard.writeText(resultBox.value);
+            alert("Copied to clipboard!");
+        }
+    </script>
+</body>
+</html>
