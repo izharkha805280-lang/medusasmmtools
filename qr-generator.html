@@ -1,121 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="description" content="Create custom QR Codes for URLs, Text, WiFi, and Email. Download high-quality QR images for free. Fast QR Code Generator.">
-<meta name="keywords" content="qr code generator free, create qr code online, link to qr code converter, wifi qr code maker, text to qr code, custom qr generator, free barcode maker">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QR Generator - MedusaSMM</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <meta name="description" content="Create custom QR Codes for URLs, Text, WiFi, and Email. Download high-quality QR images for free. Fast QR Code Generator.">
+    <meta name="keywords" content="qr code generator free, create qr code online, link to qr code converter, wifi qr code maker, text to qr code, medusasmm">
+    <title>QR Code Generator - MedusaSMM Tools</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        /* Shared CSS */
-        :root { --bg: #030014; --glass: rgba(255,255,255,0.05); --border: rgba(255,255,255,0.1); --primary: #00b4d8; --text: #fff; --gray: #9ca3af; }
-        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; margin: 0; }
-        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Outfit', sans-serif; font-size: 1.5rem; text-decoration: none; color: #fff; }
-        .main-wrapper { flex: 1; padding: 40px 20px; width: 100%; max-width: 800px; margin: 0 auto; }
-        .tool-box { background: var(--glass); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px; text-align: center; }
-        h1 { font-family: 'Outfit'; color: var(--primary); margin-bottom: 20px; font-size: 2rem; }
-        input { width: 100%; padding: 16px; background: rgba(0,0,0,0.3); border: 1px solid #555; color: #fff; border-radius: 8px; outline:none; font-size:1rem; margin-bottom: 20px; }
-        button { padding: 16px 40px; background: var(--primary); color: #000; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; font-size:1rem; transition:0.3s; }
-        button:hover { box-shadow: 0 0 15px var(--primary); }
-        #qrcode { margin-top: 30px; display: flex; justify-content: center; min-height: 150px; align-items: center; }
-        #qrcode img { border: 5px solid #fff; border-radius: 5px; }
+        :root { --bg: #050510; --card-bg: rgba(255,255,255,0.03); --border: rgba(255,255,255,0.1); --primary: #00ff9d; --text: #fff; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
         
-        /* Content & Suggestions */
-        .content-section { margin-top: 40px; color: var(--gray); line-height: 1.6; text-align: left; }
-        .content-section h2 { color: #fff; font-family: 'Outfit'; margin-bottom: 15px; }
-        .suggestions { margin-top: 50px; border-top: 1px solid var(--border); padding-top: 30px; }
-        .sugg-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px; }
-        .sugg-card { background: var(--glass); padding: 20px; border-radius: 10px; text-align: center; border: 1px solid var(--border); }
-        .sugg-card:hover { border-color: var(--primary); }
-        .sugg-card a { text-decoration: none; color: #fff; display: block; }
+        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: rgba(5,5,16,0.9); }
+        .logo { font-family: 'Outfit'; font-size: 1.5rem; color: #fff; text-decoration: none; font-weight: 700; }
         
-        /* Footer */
-        footer { border-top: 1px solid var(--border); padding: 40px 5%; background: rgba(0,0,0,0.3); margin-top: auto; }
-        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
-        .footer-col h3 { color: #fff; margin-bottom: 15px; font-family: 'Outfit'; }
-        .footer-col ul { list-style: none; padding: 0; }
-        .footer-col li a { color: var(--gray); text-decoration: none; font-size: 0.9rem; display: block; margin-bottom: 8px; }
-        .copy { text-align: center; margin-top: 40px; color: var(--gray); font-size: 0.8rem; border-top: 1px solid var(--border); padding-top: 20px; }
+        .main-wrapper { width: 100%; max-width: 600px; margin: 40px auto; padding: 0 20px; text-align: center; flex: 1; }
+        
+        input { width: 100%; padding: 15px; background: rgba(0,0,0,0.3); border: 1px solid #444; color: #fff; border-radius: 10px; margin-bottom: 20px; font-size: 1rem; }
+        
+        button { padding: 15px 40px; background: var(--primary); color: #000; font-weight: bold; border: none; border-radius: 50px; cursor: pointer; transition: 0.3s; }
+        button:hover { transform: translateY(-3px); }
+
+        #qrImage { margin-top: 30px; border: 10px solid #fff; border-radius: 10px; display: none; max-width: 100%; }
+
+        .content-section { text-align: left; margin-top: 50px; padding: 25px; background: var(--card-bg); border-radius: 15px; border: 1px solid var(--border); }
+        .content-section h2 { color: var(--primary); font-family: 'Outfit'; margin-bottom: 15px; }
+
+        .more-tools { margin-top: 50px; border-top: 1px solid var(--border); padding-top: 30px; }
+        .grid-suggestions { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 20px; }
+        .suggestion-card { background: var(--card-bg); padding: 15px; border-radius: 10px; text-decoration: none; color: #fff; border: 1px solid var(--border); transition: 0.3s; }
+        .suggestion-card:hover { border-color: var(--primary); }
+
+        footer { border-top: 1px solid var(--border); padding: 40px; text-align: center; color: gray; font-size: 0.9rem; margin-top: auto; }
     </style>
 </head>
 <body>
-    <nav>
-        <a href="index.html" class="logo">MedusaTools</a>
-        <a href="index.html" style="color:#aaa; text-decoration:none;">Back</a>
-    </nav>
+    <nav><a href="index.html" class="logo">MedusaTools</a><a href="index.html" style="color:#aaa;">Back</a></nav>
+    
     <div class="main-wrapper">
-        <div class="tool-box">
-            <h1>🔳 QR Code Generator</h1>
-            <p style="color:gray; margin-bottom:20px;">Convert URL, Text, or Email into QR Image</p>
-            <input type="text" id="text" placeholder="Type here (e.g. www.google.com)...">
-            <button onclick="genQR()">Generate Code</button>
-            <div id="qrcode"></div>
-        </div>
+        <h1 style="font-family:'Outfit'; margin-bottom:20px;">📷 QR Generator</h1>
+        
+        <input type="text" id="qrText" placeholder="Enter URL, Text or WiFi Password...">
+        <button onclick="genQR()">Generate QR Code</button>
+        
+        <br>
+        <img id="qrImage" alt="QR Code">
 
         <div class="content-section">
             <h2>Uses of QR Codes</h2>
             <ul>
-                <li>Share Website Links instantly.</li>
-                <li>Share Wi-Fi passwords securely.</li>
-                <li>Encode plain text messages.</li>
-                <li>Use for business cards and flyers.</li>
+                <li><strong>Share Links:</strong> Convert any website URL to a scannable image.</li>
+                <li><strong>WiFi Access:</strong> Share WiFi passwords without typing.</li>
+                <li><strong>Business Cards:</strong> Share contact info easily.</li>
             </ul>
         </div>
 
-        <div class="suggestions">
-            <h2>🔥 Recommended Tools</h2>
-            <div class="sugg-grid">
-                <div class="sugg-card"><a href="binary-translator.html">🤖 Binary Translator</a></div>
-                <div class="sugg-card"><a href="device-info.html">📱 Device Info</a></div>
-                <div class="sugg-card"><a href="case-converter.html">🔠 Case Converter</a></div>
+        <div class="more-tools">
+            <h3>Useful Tools</h3>
+            <div class="grid-suggestions">
+                <a href="url-encoder.html" class="suggestion-card">🔗 URL Encoder</a>
+                <a href="binary-translator.html" class="suggestion-card">🤖 Binary Tool</a>
+                <a href="password-gen.html" class="suggestion-card">🔐 Password Gen</a>
             </div>
         </div>
     </div>
-
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-col">
-                <h3>MedusaSMM</h3>
-                <p style="color:var(--gray); font-size:0.9rem;">Modern tools for smart users.</p>
-            </div>
-            <div class="footer-col">
-                <h3>Legal</h3>
-                <ul>
-                    <li><a href="privacy.html">Privacy Policy</a></li>
-                    <li><a href="terms.html">Terms of Use</a></li>
-                    <li><a href="disclaimer.html">Disclaimer</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h3>Company</h3>
-                <ul>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="copy">&copy; 2024 MedusaSMM Tools. All rights reserved.</div>
-    </footer>
+    
+    <footer>&copy; 2026 MedusaSMM Tools. All rights reserved.</footer>
 
     <script>
         function genQR() {
-            let text = document.getElementById('text').value;
-            let container = document.getElementById('qrcode');
-            container.innerHTML = "";
-            if(text) {
-                new QRCode(container, {
-                    text: text,
-                    width: 160,
-                    height: 160,
-                    colorDark : "#000000",
-                    colorLight : "#ffffff"
-                });
-            } else {
-                alert("Please enter some text!");
-            }
+            let text = document.getElementById('qrText').value;
+            let img = document.getElementById('qrImage');
+            
+            if(!text) return alert("Please enter text or URL!");
+            
+            // Using Free QR Server API
+            let url = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(text)}`;
+            
+            img.src = url;
+            img.style.display = "inline-block";
         }
     </script>
 </body>
