@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="description" content="Generate random Lorem Ipsum dummy text for web design and layouts. Choose paragraphs, words, or lists. Free content placeholder tool.">
+<meta name="keywords" content="lorem ipsum generator, dummy text generator, random text maker, content placeholder, lipsum generator, web design text, paragraph generator, fake text creator">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Generate random Lorem Ipsum dummy text for web design and layouts. Choose paragraphs, words, or lists. Free content placeholder tool.">
+    <meta name="keywords" content="lorem ipsum generator, dummy text generator, random text maker, content placeholder, lipsum generator, web design text">
+    <title>Lorem Ipsum Generator - MedusaSMM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #030014; --glass: rgba(255,255,255,0.05); --border: rgba(255,255,255,0.1); --primary: #00ff9d; --text: #fff; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; margin: 0; }
+        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Outfit', sans-serif; font-size: 1.5rem; text-decoration: none; color: #fff; }
+        .main-wrapper { flex: 1; padding: 40px 20px; width: 100%; max-width: 800px; margin: 0 auto; text-align: center; }
+        
+        .controls { display: flex; gap: 10px; justify-content: center; margin-bottom: 20px; }
+        input { padding: 10px; width: 80px; border-radius: 5px; border: none; }
+        button { padding: 10px 20px; background: var(--primary); border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
+        
+        .output-box { background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; text-align: left; min-height: 200px; line-height: 1.6; white-space: pre-wrap; }
+        footer { border-top: 1px solid var(--border); padding: 40px 5%; margin-top: auto; text-align: center; color: gray; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+    <nav><a href="index.html" class="logo">MedusaTools</a><a href="index.html" style="color:#aaa;">Back</a></nav>
+    <div class="main-wrapper">
+        <h1 style="font-family:'Outfit'; margin-bottom:20px;">📄 Lorem Ipsum Generator</h1>
+        
+        <div class="controls">
+            <input type="number" id="count" value="3" min="1" max="50">
+            <button onclick="generateLorem()">Generate Paragraphs</button>
+            <button onclick="copyText()" style="background:#fff; color:#000;">Copy</button>
+        </div>
+        
+        <div class="output-box" id="output"></div>
+    </div>
+    <footer>&copy; 2024 MedusaSMM Tools.</footer>
+
+    <script>
+        const lorem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+
+        function generateLorem() {
+            let count = document.getElementById('count').value;
+            let text = "";
+            for(let i=0; i<count; i++) {
+                text += lorem + "\n\n";
+            }
+            document.getElementById('output').innerText = text;
+        }
+
+        function copyText() {
+            let text = document.getElementById('output').innerText;
+            if(!text) return alert("Nothing to copy!");
+            navigator.clipboard.writeText(text);
+            alert("Copied to clipboard!");
+        }
+        generateLorem(); // Init
+    </script>
+</body>
+</html>
