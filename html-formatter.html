@@ -3,41 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Format ugly HTML code instantly. Free Online HTML Beautifier to make code readable with proper indentation.">
-    <meta name="keywords" content="html formatter, html beautifier, format html online, clean html code, html pretty print">
-    <title>HTML Formatter - MedusaSMM</title>
+    <meta name="description" content="Format ugly HTML code instantly. Free Online HTML Beautifier to make code readable with proper indentation. Best for developers.">
+    <meta name="keywords" content="html formatter, html beautifier, format html online, clean html code, html pretty print, medusasmm">
+    <title>HTML Formatter - MedusaSMM Tools</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #030014; --glass: rgba(255,255,255,0.05); --border: rgba(255,255,255,0.1); --primary: #00ff9d; --text: #fff; }
-        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; margin: 0; }
-        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Outfit', sans-serif; font-size: 1.5rem; text-decoration: none; color: #fff; }
-        .main-wrapper { flex: 1; padding: 40px 20px; width: 100%; max-width: 900px; margin: 0 auto; text-align: center; }
+        :root { --bg: #050510; --card-bg: rgba(255,255,255,0.03); --border: rgba(255,255,255,0.1); --primary: #00ff9d; --text: #fff; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
         
-        .container { display: flex; gap: 20px; height: 400px; flex-wrap: wrap; }
-        textarea { flex: 1; height: 100%; background: rgba(0,0,0,0.3); border: 1px solid #444; color: #fff; padding: 15px; border-radius: 8px; font-family: monospace; resize: none; min-width: 300px; }
+        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: rgba(5,5,16,0.9); }
+        .logo { font-family: 'Outfit'; font-size: 1.5rem; color: #fff; text-decoration: none; font-weight: 700; }
         
-        .controls { margin: 20px 0; }
-        button { padding: 15px 30px; background: var(--primary); color: #000; font-weight: bold; border: none; border-radius: 50px; cursor: pointer; margin: 0 10px; }
+        .main-wrapper { width: 100%; max-width: 1000px; margin: 40px auto; padding: 0 20px; text-align: center; flex: 1; }
+        
+        .code-container { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 20px; }
+        textarea { flex: 1; height: 350px; background: rgba(0,0,0,0.3); border: 1px solid #444; color: #fff; padding: 15px; border-radius: 10px; font-family: monospace; resize: none; min-width: 300px; }
+        
+        .controls { margin-bottom: 20px; display: flex; gap: 10px; justify-content: center; }
+        button { padding: 12px 30px; background: var(--primary); color: #000; font-weight: bold; border: none; border-radius: 50px; cursor: pointer; transition: 0.3s; }
+        button:hover { box-shadow: 0 0 15px rgba(0, 255, 157, 0.4); }
 
-        footer { border-top: 1px solid var(--border); padding: 40px 5%; margin-top: auto; text-align: center; color: gray; font-size: 0.8rem; }
+        .content-section { text-align: left; margin-top: 50px; padding: 25px; background: var(--card-bg); border-radius: 15px; border: 1px solid var(--border); }
+        .content-section h2 { color: var(--primary); font-family: 'Outfit'; margin-bottom: 15px; }
+
+        .more-tools { margin-top: 50px; border-top: 1px solid var(--border); padding-top: 30px; }
+        .grid-suggestions { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 20px; }
+        .suggestion-card { background: var(--card-bg); padding: 15px; border-radius: 10px; text-decoration: none; color: #fff; border: 1px solid var(--border); transition: 0.3s; }
+        .suggestion-card:hover { border-color: var(--primary); }
+
+        footer { border-top: 1px solid var(--border); padding: 40px; text-align: center; color: gray; font-size: 0.9rem; margin-top: auto; }
     </style>
 </head>
 <body>
     <nav><a href="index.html" class="logo">MedusaTools</a><a href="index.html" style="color:#aaa;">Back</a></nav>
+    
     <div class="main-wrapper">
-        <h1 style="font-family:'Outfit';">📝 HTML Formatter</h1>
+        <h1 style="font-family:'Outfit'; margin-bottom:20px;">📝 HTML Formatter</h1>
+        
         <div class="controls">
             <button onclick="formatHTML()">✨ Beautify HTML</button>
             <button onclick="clearAll()" style="background:#ff4444; color:#fff;">🗑 Clear</button>
         </div>
         
-        <div class="container">
-            <textarea id="inputHTML" placeholder="Paste ugly HTML here..."></textarea>
+        <div class="code-container">
+            <textarea id="inputHTML" placeholder="Paste ugly HTML code here..."></textarea>
             <textarea id="outputHTML" placeholder="Beautiful code will appear here..." readonly></textarea>
         </div>
+
+        <div class="content-section">
+            <h2>Why Format HTML?</h2>
+            <p style="color:#ccc;">Minified or messy HTML is hard to read. This tool adds proper indentation and line breaks to make your code readable and easy to debug.</p>
+        </div>
+
+        <div class="more-tools">
+            <h3>Developer Tools</h3>
+            <div class="grid-suggestions">
+                <a href="css-minifier.html" class="suggestion-card">⚡ CSS Minifier</a>
+                <a href="js-minifier.html" class="suggestion-card">📜 JS Minifier</a>
+                <a href="json-formatter.html" class="suggestion-card">💻 JSON Formatter</a>
+            </div>
+        </div>
     </div>
-    <footer>&copy; 2024 MedusaSMM Tools.</footer>
+    
+    <footer>&copy; 2026 MedusaSMM Tools. All rights reserved.</footer>
 
     <script>
         function formatHTML() {
