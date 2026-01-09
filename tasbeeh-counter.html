@@ -2,40 +2,61 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Create your digital signature online. Draw, sign, and download as transparent PNG for free. Works on Mobile and Desktop.">
-    <meta name="keywords" content="signature maker, digital signature online, draw signature, electronic signature creator, free esign tool, medusasmm">
-    <title>Signature Maker - MedusaSMM Tools</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="description" content="Digital Tasbeeh Counter with Target Setting. Set daily Dhikr tasks, track progress, and save count. Features vibration and night mode UI.">
+    <meta name="keywords" content="digital tasbeeh counter, online tasbeeh with target, dhikr counter app, islamic prayer counter, tally counter online, click counter">
+    <title>Smart Tasbeeh Counter - MedusaSMM Tools</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #050510; --card-bg: rgba(255,255,255,0.03); --border: rgba(255,255,255,0.1); --primary: #ff0055; --text: #fff; }
+        :root { --bg: #050510; --card-bg: rgba(255,255,255,0.03); --border: rgba(255,255,255,0.1); --primary: #00ff9d; --text: #fff; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; touch-action: none; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; user-select: none; -webkit-tap-highlight-color: transparent; }
         
-        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: rgba(5,5,16,0.9); }
+        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: rgba(5,5,16,0.9); z-index: 10; }
         .logo { font-family: 'Outfit'; font-size: 1.5rem; color: #fff; text-decoration: none; font-weight: 700; }
         
-        .main-wrapper { width: 100%; max-width: 800px; margin: 40px auto; padding: 0 20px; text-align: center; flex: 1; }
+        .main-wrapper { width: 100%; max-width: 600px; margin: 20px auto; padding: 0 20px; text-align: center; flex: 1; }
         
-        canvas { 
-            background: #fff; 
-            border-radius: 10px; 
-            cursor: crosshair; 
-            touch-action: none; /* Prevents scrolling while drawing */
-            width: 100%;
-            height: 300px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        /* Task Input Section */
+        .task-box { background: var(--card-bg); padding: 15px; border-radius: 15px; border: 1px solid var(--border); margin-bottom: 20px; display: flex; gap: 10px; align-items: center; }
+        .task-box input { flex: 1; padding: 10px; background: rgba(0,0,0,0.3); border: 1px solid #444; color: #fff; border-radius: 8px; text-align: center; font-size: 1.1rem; }
+        .btn-set { padding: 10px 20px; background: var(--primary); color: #000; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
+
+        /* Counter Circle */
+        .counter-container { position: relative; width: 280px; height: 280px; margin: 0 auto 30px; }
+        .counter-circle {
+            width: 100%; height: 100%;
+            background: radial-gradient(circle, rgba(0,255,157,0.1) 0%, rgba(0,0,0,0) 70%);
+            border: 4px solid var(--card-border);
+            border-radius: 50%;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            cursor: pointer;
+            transition: 0.1s;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
         }
+        .counter-circle:active { transform: scale(0.96); border-color: var(--primary); }
+        .counter-circle.completed { border-color: #ffd700; background: radial-gradient(circle, rgba(255, 215, 0, 0.2) 0%, rgba(0,0,0,0) 70%); box-shadow: 0 0 50px rgba(255, 215, 0, 0.3); }
 
-        .controls { margin-top: 20px; display: flex; gap: 10px; justify-content: center; }
-        button { padding: 15px 30px; border: none; border-radius: 50px; font-weight: bold; cursor: pointer; transition: 0.3s; }
-        .btn-clear { background: #ff4444; color: #fff; }
-        .btn-down { background: var(--primary); color: #fff; }
-        button:hover { transform: scale(1.05); }
+        .count-num { font-size: 5rem; font-family: 'Outfit'; font-weight: 800; color: #fff; z-index: 2; text-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+        .target-label { font-size: 1rem; color: #aaa; margin-top: -10px; z-index: 2; }
+        
+        /* Progress Ring (Optional visual flair) */
+        .progress-ring { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 50%; border: 4px solid transparent; border-top-color: var(--primary); opacity: 0.5; transition: transform 0.3s; pointer-events: none; }
 
+        /* Controls */
+        .controls { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; max-width: 300px; margin: 0 auto; }
+        button { padding: 15px; border-radius: 12px; border: none; font-weight: bold; cursor: pointer; font-size: 1rem; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn-undo { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid var(--border); }
+        .btn-reset { background: rgba(255, 68, 68, 0.2); color: #ff4444; border: 1px solid rgba(255, 68, 68, 0.3); }
+        button:hover { filter: brightness(1.2); }
+
+        /* Footer & Content */
         .content-section { text-align: left; margin-top: 50px; padding: 25px; background: var(--card-bg); border-radius: 15px; border: 1px solid var(--border); }
         .content-section h2 { color: var(--primary); font-family: 'Outfit'; margin-bottom: 15px; }
-
+        
         .more-tools { margin-top: 50px; border-top: 1px solid var(--border); padding-top: 30px; }
         .grid-suggestions { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 20px; }
         .suggestion-card { background: var(--card-bg); padding: 15px; border-radius: 10px; text-decoration: none; color: #fff; border: 1px solid var(--border); transition: 0.3s; }
@@ -48,32 +69,44 @@
     <nav><a href="index.html" class="logo">MedusaTools</a><a href="index.html" style="color:#aaa;">Back</a></nav>
     
     <div class="main-wrapper">
-        <h1 style="font-family:'Outfit'; margin-bottom:10px;">✍️ Signature Maker</h1>
-        <p style="color:#aaa; margin-bottom:20px;">Draw your signature in the white box.</p>
+        <h1 style="font-family:'Outfit'; margin-bottom:20px;">📿 Smart Tasbeeh</h1>
         
-        <canvas id="sigCanvas"></canvas>
+        <div class="task-box">
+            <label style="color:#aaa; font-size:0.9rem;">Set Target:</label>
+            <input type="number" id="targetInput" value="33" placeholder="33, 100, etc.">
+            <button class="btn-set" onclick="setTarget()">Set</button>
+        </div>
+
+        <div class="counter-container">
+            <div class="counter-circle" id="circleBtn" onclick="increment()">
+                <div class="progress-ring" id="ring"></div>
+                <span class="count-num" id="countDisplay">0</span>
+                <span class="target-label" id="targetDisplay">Target: 33</span>
+            </div>
+        </div>
         
         <div class="controls">
-            <button class="btn-clear" onclick="clearSig()">🗑 Clear</button>
-            <button class="btn-down" onclick="downloadSig()">⬇️ Download PNG</button>
+            <button class="btn-undo" onclick="decrement()">↩ Undo (-1)</button>
+            <button class="btn-reset" onclick="reset()">🗑 Reset</button>
         </div>
 
         <div class="content-section">
-            <h2>Why use Digital Signature?</h2>
-            <p style="color:#ccc;">Save paper and sign documents electronically.</p>
+            <h2>How to Use?</h2>
+            <p style="color:#ccc;">This digital counter helps you track your Dhikr or daily counts.</p>
             <ul>
-                <li><strong>Transparent Background:</strong> Easily place on PDFs.</li>
-                <li><strong>Mobile Friendly:</strong> Sign using your finger on touchscreens.</li>
-                <li><strong>Secure:</strong> Signature is generated locally, not saved on server.</li>
+                <li><strong>Set Target:</strong> Enter a number (e.g., 33 for Subhanallah) and click Set.</li>
+                <li><strong>Tap to Count:</strong> Tap anywhere on the big circle. It vibrates on every click.</li>
+                <li><strong>Task Complete:</strong> The circle turns Gold when you reach your target.</li>
+                <li><strong>Undo:</strong> Click Undo if you tapped by mistake.</li>
             </ul>
         </div>
 
         <div class="more-tools">
-            <h3>Creative Tools</h3>
+            <h3>Spiritual & Health</h3>
             <div class="grid-suggestions">
-                <a href="image-generator.html" class="suggestion-card">✨ AI Image Gen</a>
-                <a href="color-palette.html" class="suggestion-card">🎨 Color Palette</a>
-                <a href="image-converter.html" class="suggestion-card">🖼️ Image Converter</a>
+                <a href="zakat-calculator.html" class="suggestion-card">🌙 Zakat Calc</a>
+                <a href="age-calculator.html" class="suggestion-card">🎂 Age Calc</a>
+                <a href="bmi-calculator.html" class="suggestion-card">⚖️ BMI Calc</a>
             </div>
         </div>
     </div>
@@ -81,55 +114,71 @@
     <footer>&copy; 2026 MedusaSMM Tools. All rights reserved.</footer>
 
     <script>
-        const canvas = document.getElementById('sigCanvas');
-        const ctx = canvas.getContext('2d');
-        let drawing = false;
-
-        function resizeCanvas() {
-            canvas.width = canvas.offsetWidth;
-            canvas.height = canvas.offsetHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        // Mouse Events
-        canvas.addEventListener('mousedown', startDraw);
-        canvas.addEventListener('mouseup', endDraw);
-        canvas.addEventListener('mousemove', draw);
-
-        // Touch Events
-        canvas.addEventListener('touchstart', (e) => { startDraw(e.touches[0]); e.preventDefault(); });
-        canvas.addEventListener('touchend', endDraw);
-        canvas.addEventListener('touchmove', (e) => { draw(e.touches[0]); e.preventDefault(); });
-
-        function startDraw(e) {
-            drawing = true;
-            ctx.beginPath();
-            let rect = canvas.getBoundingClientRect();
-            ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+        let count = 0;
+        let target = 33;
+        const display = document.getElementById('countDisplay');
+        const targetLabel = document.getElementById('targetDisplay');
+        const circle = document.getElementById('circleBtn');
+        
+        // Load saved data if any
+        if(localStorage.getItem('tasbeehCount')) {
+            count = parseInt(localStorage.getItem('tasbeehCount'));
+            target = parseInt(localStorage.getItem('tasbeehTarget')) || 33;
+            document.getElementById('targetInput').value = target;
+            updateUI();
         }
 
-        function endDraw() { drawing = false; }
-
-        function draw(e) {
-            if (!drawing) return;
-            let rect = canvas.getBoundingClientRect();
-            ctx.lineWidth = 3;
-            ctx.lineCap = 'round';
-            ctx.strokeStyle = '#000';
-            ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
-            ctx.stroke();
+        function setTarget() {
+            let val = document.getElementById('targetInput').value;
+            if(val && val > 0) {
+                target = parseInt(val);
+                count = 0; // Reset count on new target
+                updateUI();
+                alert("Target set to " + target);
+            }
         }
 
-        function clearSig() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        function increment() {
+            count++;
+            // Haptic Feedback (Vibration) for mobile
+            if (navigator.vibrate) navigator.vibrate(30);
+            updateUI();
         }
 
-        function downloadSig() {
-            let link = document.createElement('a');
-            link.download = 'signature.png';
-            link.href = canvas.toDataURL();
-            link.click();
+        function decrement() {
+            if(count > 0) {
+                count--;
+                if (navigator.vibrate) navigator.vibrate(10);
+                updateUI();
+            }
+        }
+
+        function reset() {
+            if(confirm("Reset counter to 0?")) {
+                count = 0;
+                circle.classList.remove('completed');
+                updateUI();
+            }
+        }
+
+        function updateUI() {
+            display.innerText = count;
+            targetLabel.innerText = `Target: ${target}`;
+            
+            // Save to local storage
+            localStorage.setItem('tasbeehCount', count);
+            localStorage.setItem('tasbeehTarget', target);
+
+            // Check completion
+            if(count >= target) {
+                circle.classList.add('completed');
+                targetLabel.innerText = "Target Reached! 🎉";
+                targetLabel.style.color = "#000"; // Visible on gold
+                if(count === target && navigator.vibrate) navigator.vibrate([100, 50, 100]); // Celebration vibe
+            } else {
+                circle.classList.remove('completed');
+                targetLabel.style.color = "#aaa";
+            }
         }
     </script>
 </body>
