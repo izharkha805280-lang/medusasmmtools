@@ -148,27 +148,44 @@
             .tools-grid { grid-template-columns: 1fr; padding: 20px; }
         }
         /* --- DRAWER MENU & FEEDBACK CSS --- */
-        /* Menu Button Fix */
-        .menu-btn { 
-            font-size: 2rem; 
-            background: transparent !important; /* Background hata diya */
-            border: none !important; /* Border hata diya */
-            outline: none !important; /* Click karne par jo line aati hai wo hatayi */
-            box-shadow: none !important; /* Koi shadow nahi */
-            color: #fff; 
-            cursor: pointer; 
-            margin-right: 15px; 
-            padding: 0;
+        /* --- 3-DOT MENU FIX (NO BLACK BOX) --- */
+        .menu-btn {
+            /* Basic Styling */
+            font-size: 2rem;
+            color: #fff;
+            cursor: pointer;
+            margin-right: 15px;
+            padding: 5px; /* Thoda space taaki touch asaan ho */
             display: flex;
             align-items: center;
-            -webkit-tap-highlight-color: transparent; /* Mobile par click wala box gayab */
+            justify-content: center;
+
+            /* RESET DEFAULT BROWSER STYLES */
+            background: transparent !important;
+            border: none !important;
+            outline: none !important;
+            box-shadow: none !important;
+            
+            /* MOBILE SPECIFIC MAGIC (Black Box Remover) */
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            -webkit-tap-highlight-color: transparent !important;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important;
+            user-select: none;
+            -webkit-touch-callout: none;
         }
-        
-        /* Click/Focus hone par bhi box na aaye */
-        .menu-btn:focus, .menu-btn:active {
+
+        /* Jab click karein ya dabayein tab bhi box na aaye */
+        .menu-btn:focus, 
+        .menu-btn:active, 
+        .menu-btn:hover,
+        .menu-btn:focus-visible {
             outline: none !important;
             border: none !important;
             background: transparent !important;
+            box-shadow: none !important;
+            -webkit-tap-highlight-color: transparent !important;
         }
         
         /* Drawer Design */
