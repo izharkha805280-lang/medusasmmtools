@@ -3,47 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Free Online CSS Minifier. Compress your CSS code to reduce file size and improve website loading speed.">
-    <meta name="keywords" content="css minifier, compress css, css optimizer, minify css online, website speed booster">
-    <title>CSS Minifier - MedusaSMM</title>
+    <meta name="description" content="Free Online CSS Minifier. Compress your CSS code to reduce file size and improve website loading speed. Best for developers.">
+    <meta name="keywords" content="css minifier, compress css, css optimizer, minify css online, website speed booster, medusasmm">
+    <title>CSS Minifier - MedusaSMM Tools</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #030014; --glass: rgba(255,255,255,0.05); --border: rgba(255,255,255,0.1); --primary: #00ff9d; --text: #fff; }
-        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; margin: 0; }
-        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Outfit', sans-serif; font-size: 1.5rem; text-decoration: none; color: #fff; }
-        .main-wrapper { flex: 1; padding: 40px 20px; width: 100%; max-width: 800px; margin: 0 auto; text-align: center; }
+        :root { --bg: #050510; --card-bg: rgba(255,255,255,0.03); --border: rgba(255,255,255,0.1); --primary: #00ff9d; --text: #fff; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
         
-        textarea { width: 100%; height: 200px; background: rgba(0,0,0,0.3); border: 1px solid #444; color: #fff; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-family: monospace; }
-        button { padding: 15px 30px; background: var(--primary); color: #000; font-weight: bold; border: none; border-radius: 50px; cursor: pointer; }
+        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: rgba(5,5,16,0.9); }
+        .logo { font-family: 'Outfit'; font-size: 1.5rem; color: #fff; text-decoration: none; font-weight: 700; }
         
-        footer { border-top: 1px solid var(--border); padding: 40px 5%; margin-top: auto; text-align: center; color: gray; font-size: 0.8rem; }
+        .main-wrapper { width: 100%; max-width: 900px; margin: 40px auto; padding: 0 20px; text-align: center; flex: 1; }
+        
+        .code-container { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 20px; }
+        textarea { flex: 1; height: 350px; background: rgba(0,0,0,0.3); border: 1px solid #444; color: #fff; padding: 15px; border-radius: 10px; font-family: monospace; resize: none; min-width: 300px; }
+        
+        .controls { margin-bottom: 20px; display: flex; gap: 10px; justify-content: center; }
+        button { padding: 12px 30px; background: var(--primary); color: #000; font-weight: bold; border: none; border-radius: 50px; cursor: pointer; transition: 0.3s; }
+        button:hover { box-shadow: 0 0 15px rgba(0, 255, 157, 0.4); }
+
+        .content-section { text-align: left; margin-top: 50px; padding: 25px; background: var(--card-bg); border-radius: 15px; border: 1px solid var(--border); }
+        .content-section h2 { color: var(--primary); font-family: 'Outfit'; margin-bottom: 15px; }
+
+        .more-tools { margin-top: 50px; border-top: 1px solid var(--border); padding-top: 30px; }
+        .grid-suggestions { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 20px; }
+        .suggestion-card { background: var(--card-bg); padding: 15px; border-radius: 10px; text-decoration: none; color: #fff; border: 1px solid var(--border); transition: 0.3s; }
+        .suggestion-card:hover { border-color: var(--primary); }
+
+        footer { border-top: 1px solid var(--border); padding: 40px; text-align: center; color: gray; font-size: 0.9rem; margin-top: auto; }
     </style>
 </head>
 <body>
     <nav><a href="index.html" class="logo">MedusaTools</a><a href="index.html" style="color:#aaa;">Back</a></nav>
+    
     <div class="main-wrapper">
         <h1 style="font-family:'Outfit'; margin-bottom:20px;">⚡ CSS Minifier</h1>
-        <p style="color:gray; margin-bottom:20px;">Paste CSS below to compress it.</p>
         
-        <textarea id="inputCSS" placeholder="body { background: #000; }"></textarea>
-        <button onclick="minifyCSS()">Compress CSS</button>
+        <div class="controls">
+            <button onclick="minifyCSS()">⚡ Compress CSS</button>
+            <button onclick="clearAll()" style="background:#ff4444; color:#fff;">🗑 Clear</button>
+        </div>
         
-        <h3 style="margin-top:20px;">Minified Output:</h3>
-        <textarea id="outputCSS" readonly></textarea>
+        <div class="code-container">
+            <textarea id="inputCSS" placeholder="Paste CSS code here (e.g. body { color: red; })"></textarea>
+            <textarea id="outputCSS" placeholder="Minified code will appear here..." readonly></textarea>
+        </div>
+
+        <div class="content-section">
+            <h2>Why Minify CSS?</h2>
+            <p style="color:#ccc;">Minifying CSS removes extra spaces, comments, and line breaks. This makes your file smaller and helps your website load faster for users.</p>
+        </div>
+
+        <div class="more-tools">
+            <h3>Developer Tools</h3>
+            <div class="grid-suggestions">
+                <a href="html-formatter.html" class="suggestion-card">📝 HTML Beautifier</a>
+                <a href="js-minifier.html" class="suggestion-card">📜 JS Minifier</a>
+                <a href="json-formatter.html" class="suggestion-card">💻 JSON Formatter</a>
+            </div>
+        </div>
     </div>
-    <footer>&copy; 2024 MedusaSMM Tools.</footer>
+    
+    <footer>&copy; 2026 MedusaSMM Tools. All rights reserved.</footer>
 
     <script>
         function minifyCSS() {
             let css = document.getElementById('inputCSS').value;
-            // Simple regex for minification
-            css = css.replace(/\/\*[\s\S]*?\*\//g, "") // Comments removal
-                     .replace(/\s+/g, " ")             // Extra spaces removal
+            // Robust Regex for Minification
+            css = css.replace(/\/\*[\s\S]*?\*\//g, "") // Comments
+                     .replace(/\s+/g, " ")             // Extra spaces
                      .replace(/\s*([{}:;,])\s*/g, "$1") // Space around symbols
                      .replace(/;}/g, "}")              // Last semicolon
                      .trim();
             document.getElementById('outputCSS').value = css;
+        }
+
+        function clearAll() {
+            document.getElementById('inputCSS').value = "";
+            document.getElementById('outputCSS').value = "";
         }
     </script>
 </body>
