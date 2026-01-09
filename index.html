@@ -148,7 +148,28 @@
             .tools-grid { grid-template-columns: 1fr; padding: 20px; }
         }
         /* --- DRAWER MENU & FEEDBACK CSS --- */
-        .menu-btn { font-size: 1.8rem; background: none; border: none; color: #fff; cursor: pointer; margin-right: 15px; padding: 0; }
+        /* Menu Button Fix */
+        .menu-btn { 
+            font-size: 2rem; 
+            background: transparent !important; /* Background hata diya */
+            border: none !important; /* Border hata diya */
+            outline: none !important; /* Click karne par jo line aati hai wo hatayi */
+            box-shadow: none !important; /* Koi shadow nahi */
+            color: #fff; 
+            cursor: pointer; 
+            margin-right: 15px; 
+            padding: 0;
+            display: flex;
+            align-items: center;
+            -webkit-tap-highlight-color: transparent; /* Mobile par click wala box gayab */
+        }
+        
+        /* Click/Focus hone par bhi box na aaye */
+        .menu-btn:focus, .menu-btn:active {
+            outline: none !important;
+            border: none !important;
+            background: transparent !important;
+        }
         
         /* Drawer Design */
         .drawer-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 999; display: none; opacity: 0; transition: opacity 0.3s; }
