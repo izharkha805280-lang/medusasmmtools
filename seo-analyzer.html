@@ -4,43 +4,78 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Free On-Page SEO Checker. Paste your HTML code to find missing Title, Meta Descriptions, and Heading tags.">
-    <meta name="keywords" content="seo analyzer, on page seo checker, html seo check, meta tag checker, h1 tag finder">
-    <title>SEO Analyzer - MedusaSMM</title>
+    <meta name="keywords" content="seo analyzer, on page seo checker, html seo check, meta tag checker, h1 tag finder, medusasmm">
+    <title>SEO Analyzer - MedusaSMM Tools</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #030014; --glass: rgba(255,255,255,0.05); --border: rgba(255,255,255,0.1); --primary: #00b4d8; --text: #fff; }
-        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; margin: 0; }
-        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Outfit', sans-serif; font-size: 1.5rem; text-decoration: none; color: #fff; }
-        .main-wrapper { flex: 1; padding: 40px 20px; width: 100%; max-width: 800px; margin: 0 auto; text-align: center; }
+        :root { --bg: #050510; --card-bg: rgba(255,255,255,0.03); --border: rgba(255,255,255,0.1); --primary: #00b4d8; --text: #fff; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
         
-        textarea { width: 100%; height: 200px; background: rgba(0,0,0,0.3); border: 1px solid #444; color: #fff; padding: 15px; border-radius: 8px; font-family: monospace; margin-bottom: 20px; }
-        button { padding: 15px 30px; background: var(--primary); color: #000; font-weight: bold; border: none; border-radius: 50px; cursor: pointer; }
+        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: rgba(5,5,16,0.9); }
+        .logo { font-family: 'Outfit'; font-size: 1.5rem; color: #fff; text-decoration: none; font-weight: 700; }
+        
+        .main-wrapper { width: 100%; max-width: 800px; margin: 40px auto; padding: 0 20px; text-align: center; flex: 1; }
+        
+        textarea { width: 100%; height: 250px; background: rgba(0,0,0,0.3); border: 1px solid #444; color: #fff; padding: 15px; border-radius: 10px; font-family: monospace; margin-bottom: 20px; resize:vertical; }
+        
+        button { padding: 15px 40px; background: var(--primary); color: #000; font-weight: bold; border: none; border-radius: 50px; cursor: pointer; transition: 0.3s; }
+        button:hover { box-shadow: 0 0 20px rgba(0, 180, 216, 0.4); }
 
         .report { text-align: left; margin-top: 30px; display: none; }
-        .item { padding: 15px; border: 1px solid var(--border); margin-bottom: 10px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; }
-        .pass { border-left: 5px solid #00ff9d; background: rgba(0, 255, 157, 0.1); }
-        .fail { border-left: 5px solid #ff4444; background: rgba(255, 68, 68, 0.1); }
+        .item { padding: 15px; border: 1px solid var(--border); margin-bottom: 10px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; background: var(--card-bg); }
+        .pass { border-left: 5px solid #00ff9d; }
+        .fail { border-left: 5px solid #ff4444; }
         .icon { font-size: 1.5rem; }
 
-        footer { border-top: 1px solid var(--border); padding: 40px 5%; margin-top: auto; text-align: center; color: gray; font-size: 0.8rem; }
+        .content-section { text-align: left; margin-top: 50px; padding: 25px; background: var(--card-bg); border-radius: 15px; border: 1px solid var(--border); }
+        .content-section h2 { color: var(--primary); font-family: 'Outfit'; margin-bottom: 15px; }
+
+        .more-tools { margin-top: 50px; border-top: 1px solid var(--border); padding-top: 30px; }
+        .grid-suggestions { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 20px; }
+        .suggestion-card { background: var(--card-bg); padding: 15px; border-radius: 10px; text-decoration: none; color: #fff; border: 1px solid var(--border); transition: 0.3s; }
+        .suggestion-card:hover { border-color: var(--primary); }
+
+        footer { border-top: 1px solid var(--border); padding: 40px; text-align: center; color: gray; font-size: 0.9rem; margin-top: auto; }
     </style>
 </head>
 <body>
     <nav><a href="index.html" class="logo">MedusaTools</a><a href="index.html" style="color:#aaa;">Back</a></nav>
+    
     <div class="main-wrapper">
         <h1 style="font-family:'Outfit'; margin-bottom:20px;">🧐 SEO Code Analyzer</h1>
-        <p style="color:gray; margin-bottom:20px;">Paste your website's Source Code (HTML) below to check basic SEO health.</p>
+        <p style="color:#aaa; margin-bottom:20px;">Paste your website source code (HTML) to find errors.</p>
         
-        <textarea id="inputCode" placeholder="Paste <html>...</html> here"></textarea>
+        <textarea id="inputCode" placeholder="Paste <html>...</html> code here..."></textarea>
         <button onclick="analyzeSEO()">Analyze Code</button>
         
         <div class="report" id="report">
-            <h3 style="margin-bottom:15px;">Analysis Report:</h3>
+            <h3 style="margin-bottom:15px; font-family:'Outfit';">Analysis Report:</h3>
             <div id="results"></div>
         </div>
+
+        <div class="content-section">
+            <h2>SEO Checklist</h2>
+            <p style="color:#ccc;">This tool scans your HTML for basics:</p>
+            <ul>
+                <li><strong>Title Tag:</strong> Essential for search results.</li>
+                <li><strong>Meta Description:</strong> Summary of your page.</li>
+                <li><strong>H1 Tag:</strong> Main heading of the page.</li>
+                <li><strong>Alt Text:</strong> Descriptions for images.</li>
+            </ul>
+        </div>
+
+        <div class="more-tools">
+            <h3>Webmaster Tools</h3>
+            <div class="grid-suggestions">
+                <a href="meta-tag-gen.html" class="suggestion-card">🏷️ Meta Tag Gen</a>
+                <a href="keyword-density.html" class="suggestion-card">📊 Keyword Check</a>
+                <a href="dns-lookup.html" class="suggestion-card">🌐 DNS Lookup</a>
+            </div>
+        </div>
     </div>
-    <footer>&copy; 2024 MedusaSMM Tools.</footer>
+    
+    <footer>&copy; 2026 MedusaSMM Tools. All rights reserved.</footer>
 
     <script>
         function analyzeSEO() {
@@ -52,13 +87,12 @@
             function addItem(label, passed, msg) {
                 let div = document.createElement('div');
                 div.className = `item ${passed ? 'pass' : 'fail'}`;
-                div.innerHTML = `<div><strong>${label}</strong><br><small>${msg}</small></div><div class="icon">${passed ? '✅' : '❌'}</div>`;
+                div.innerHTML = `<div><strong>${label}</strong><br><small style="color:#aaa">${msg}</small></div><div class="icon">${passed ? '✅' : '❌'}</div>`;
                 results.appendChild(div);
             }
 
-            // Checks
             addItem("Title Tag", code.includes("<title>"), code.includes("<title>") ? "Title tag found." : "Missing <title> tag.");
-            addItem("Meta Description", code.includes('name="description"'), code.includes('name="description"') ? "Meta Description found." : "Missing Meta Description.");
+            addItem("Meta Description", code.includes('name="description"'), code.includes('name="description"') ? "Description found." : "Missing Meta Description.");
             addItem("H1 Heading", code.includes("<h1"), code.includes("<h1") ? "H1 tag found." : "Missing <h1> tag. Essential for SEO.");
             addItem("Image Alt Attributes", !code.includes("<img") || code.includes('alt='), "Checks if images have descriptions.");
             addItem("Viewport Meta", code.includes('name="viewport"'), "Mobile responsive tag check.");
