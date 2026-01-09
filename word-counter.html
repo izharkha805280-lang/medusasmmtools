@@ -1,128 +1,97 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="description" content="Count words, characters, sentences, and paragraphs in real-time. Best free tool for bloggers, students, and social media posts.">
-<meta name="keywords" content="word counter online, character count tool, check word count, sentence counter, twitter character limit checker, essay word counter, text length checker">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Word Counter - MedusaSMM</title>
+    <meta name="description" content="Count words, characters, sentences, and paragraphs in real-time. Best free tool for bloggers, students, and social media posts.">
+    <meta name="keywords" content="word counter online, character count tool, check word count, sentence counter, twitter character limit checker, essay word counter, medusasmm">
+    <title>Word Counter - MedusaSMM Tools</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        /* Shared CSS */
-        :root { --bg: #030014; --glass: rgba(255,255,255,0.05); --border: rgba(255,255,255,0.1); --primary: #00b4d8; --text: #fff; --gray: #9ca3af; }
-        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; margin: 0; }
+        :root { --bg: #050510; --card-bg: rgba(255,255,255,0.03); --border: rgba(255,255,255,0.1); --primary: #00ff9d; --text: #fff; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
         
-        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Outfit', sans-serif; font-size: 1.5rem; text-decoration: none; color: #fff; }
+        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: rgba(5,5,16,0.9); }
+        .logo { font-family: 'Outfit'; font-size: 1.5rem; color: #fff; text-decoration: none; font-weight: 700; }
         
-        .main-wrapper { flex: 1; padding: 40px 20px; width: 100%; max-width: 900px; margin: 0 auto; }
-        .tool-box { background: var(--glass); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px; }
-        h1 { font-family: 'Outfit'; color: var(--primary); margin-bottom: 20px; font-size: 2rem; text-align: center; }
+        .main-wrapper { width: 100%; max-width: 800px; margin: 40px auto; padding: 0 20px; text-align: center; flex: 1; }
         
-        textarea { width: 100%; height: 250px; background: rgba(0,0,0,0.3); border: 1px solid var(--border); color: #fff; padding: 20px; border-radius: 10px; resize: none; font-size: 1.1rem; margin-bottom: 20px; outline: none; font-family: 'Inter', sans-serif; }
-        textarea:focus { border-color: var(--primary); }
+        textarea { width: 100%; height: 300px; background: rgba(0,0,0,0.3); border: 1px solid #444; color: #fff; padding: 15px; border-radius: 10px; font-size: 1.1rem; resize: vertical; margin-bottom: 20px; font-family: 'Inter'; line-height: 1.6; }
+        textarea:focus { border-color: var(--primary); outline: none; }
         
-        .stats { display: flex; justify-content: space-around; background: rgba(255,255,255,0.05); padding: 25px; border-radius: 10px; flex-wrap: wrap; gap: 20px; }
-        .stat-box { text-align: center; min-width: 100px; }
-        .stat-num { font-size: 2.5rem; font-weight: bold; color: var(--primary); display: block; margin-bottom: 5px; font-family: 'Outfit'; }
-        
-        .content-section { margin-top: 40px; color: var(--gray); line-height: 1.6; }
-        .content-section h2 { color: #fff; font-family: 'Outfit'; margin-bottom: 15px; }
-        .suggestions { margin-top: 50px; border-top: 1px solid var(--border); padding-top: 30px; }
-        .sugg-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px; }
-        .sugg-card { background: var(--glass); padding: 20px; border-radius: 10px; text-align: center; border: 1px solid var(--border); transition:0.3s; }
-        .sugg-card:hover { border-color: var(--primary); transform: translateY(-3px); }
-        .sugg-card a { text-decoration: none; color: #fff; display: block; }
-        
-        footer { border-top: 1px solid var(--border); padding: 40px 5%; background: rgba(0,0,0,0.3); margin-top: auto; }
-        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
-        .footer-col h3 { color: #fff; margin-bottom: 15px; font-family: 'Outfit'; }
-        .footer-col ul { list-style: none; padding: 0; }
-        .footer-col li a { color: var(--gray); text-decoration: none; font-size: 0.9rem; display: block; margin-bottom: 8px; }
-        .copy { text-align: center; margin-top: 40px; color: var(--gray); font-size: 0.8rem; border-top: 1px solid var(--border); padding-top: 20px; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 15px; }
+        .stat-box { background: var(--card-bg); padding: 20px; border-radius: 15px; border: 1px solid var(--border); transition: 0.3s; }
+        .stat-box:hover { border-color: var(--primary); transform: translateY(-3px); }
+        .stat-num { font-size: 2.5rem; font-weight: bold; color: var(--primary); display: block; font-family: 'Outfit'; }
+        .stat-label { color: gray; font-size: 0.9rem; margin-top: 5px; display: block; }
+
+        .content-section { text-align: left; margin-top: 50px; padding: 25px; background: var(--card-bg); border-radius: 15px; border: 1px solid var(--border); }
+        .content-section h2 { color: var(--primary); font-family: 'Outfit'; margin-bottom: 15px; }
+
+        .more-tools { margin-top: 50px; border-top: 1px solid var(--border); padding-top: 30px; }
+        .grid-suggestions { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 20px; }
+        .suggestion-card { background: var(--card-bg); padding: 15px; border-radius: 10px; text-decoration: none; color: #fff; border: 1px solid var(--border); transition: 0.3s; }
+        .suggestion-card:hover { border-color: var(--primary); }
+
+        footer { border-top: 1px solid var(--border); padding: 40px; text-align: center; color: gray; font-size: 0.9rem; margin-top: auto; }
     </style>
 </head>
 <body>
-    <nav>
-        <a href="index.html" class="logo">MedusaTools</a>
-        <a href="index.html" style="color:#aaa; text-decoration:none;">Back</a>
-    </nav>
-
+    <nav><a href="index.html" class="logo">MedusaTools</a><a href="index.html" style="color:#aaa;">Back</a></nav>
+    
     <div class="main-wrapper">
-        <div class="tool-box">
-            <h1>📝 Word & Character Counter</h1>
-            <textarea placeholder="Start typing or paste your document here..." oninput="count(this)"></textarea>
-            
-            <div class="stats">
-                <div class="stat-box">
-                    <span class="stat-num" id="words">0</span>
-                    <span>Words</span>
-                </div>
-                <div class="stat-box">
-                    <span class="stat-num" id="chars">0</span>
-                    <span>Characters</span>
-                </div>
-                <div class="stat-box">
-                    <span class="stat-num" id="lines">0</span>
-                    <span>Lines</span>
-                </div>
-            </div>
+        <h1 style="font-family:'Outfit'; margin-bottom:20px;">📝 Word Counter</h1>
+        
+        <div class="stats-grid" style="margin-bottom:20px;">
+            <div class="stat-box"><span class="stat-num" id="words">0</span><span class="stat-label">Words</span></div>
+            <div class="stat-box"><span class="stat-num" id="chars">0</span><span class="stat-label">Characters</span></div>
+            <div class="stat-box"><span class="stat-num" id="sentences">0</span><span class="stat-label">Sentences</span></div>
+            <div class="stat-box"><span class="stat-num" id="paras">0</span><span class="stat-label">Paragraphs</span></div>
         </div>
 
+        <textarea id="input" placeholder="Start typing or paste your text here..." oninput="countText()"></textarea>
+        
         <div class="content-section">
-            <h2>About Word Counter</h2>
-            <p>This is a real-time text analysis tool. Whether you are writing an essay, a tweet, or a blog post, knowing your character count is essential.</p>
-            <h3>Common Character Limits:</h3>
+            <h2>Why Use Word Counter?</h2>
+            <p style="color:#ccc;">This tool is perfect for writers, students, and SEO experts.</p>
             <ul>
-                <li><strong>Twitter (X):</strong> 280 characters</li>
-                <li><strong>Instagram Bio:</strong> 150 characters</li>
-                <li><strong>Google SEO Title:</strong> 60 characters</li>
-                <li><strong>SMS Message:</strong> 160 characters</li>
+                <li><strong>Bloggers:</strong> Check article length for SEO.</li>
+                <li><strong>Students:</strong> Meet essay word count requirements.</li>
+                <li><strong>Social Media:</strong> Check character limits for Twitter (X).</li>
             </ul>
         </div>
 
-        <div class="suggestions">
-            <h2>🔥 Recommended Tools</h2>
-            <div class="sugg-grid">
-                <div class="sugg-card"><a href="case-converter.html">🔠 Case Converter</a></div>
-                <div class="sugg-card"><a href="bmi-calculator.html">⚖️ BMI Calculator</a></div>
-                <div class="sugg-card"><a href="password-gen.html">🔐 Password Gen</a></div>
+        <div class="more-tools">
+            <h3>Text Tools</h3>
+            <div class="grid-suggestions">
+                <a href="text-repeater.html" class="suggestion-card">🔁 Text Repeater</a>
+                <a href="case-converter.html" class="suggestion-card">🔠 Case Converter</a>
+                <a href="keyword-density.html" class="suggestion-card">📊 Keyword Check</a>
             </div>
         </div>
     </div>
-
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-col">
-                <h3>MedusaSMM</h3>
-                <p style="color:var(--gray); font-size:0.9rem;">Tools for creators.</p>
-            </div>
-            <div class="footer-col">
-                <h3>Legal</h3>
-                <ul>
-                    <li><a href="privacy.html">Privacy Policy</a></li>
-                    <li><a href="terms.html">Terms of Use</a></li>
-                    <li><a href="disclaimer.html">Disclaimer</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h3>Company</h3>
-                <ul>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="copy">&copy; 2024 MedusaSMM Tools. All rights reserved.</div>
-    </footer>
+    
+    <footer>&copy; 2026 MedusaSMM Tools. All rights reserved.</footer>
 
     <script>
-        function count(el) {
-            let text = el.value.trim();
-            document.getElementById('chars').innerText = el.value.length;
-            document.getElementById('words').innerText = text.length > 0 ? text.split(/\s+/).length : 0;
-            document.getElementById('lines').innerText = text.length > 0 ? el.value.split("\n").length : 0;
+        function countText() {
+            let text = document.getElementById('input').value;
+            
+            // Characters
+            document.getElementById('chars').innerText = text.length;
+            
+            // Words
+            let words = text.trim().split(/\s+/).filter(word => word.length > 0);
+            document.getElementById('words').innerText = words.length;
+            
+            // Sentences
+            let sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0);
+            document.getElementById('sentences').innerText = sentences.length;
+
+            // Paragraphs
+            let paras = text.split(/\n\n+/).filter(p => p.trim().length > 0);
+            document.getElementById('paras').innerText = paras.length || (text.length > 0 ? 1 : 0);
         }
     </script>
 </body>
