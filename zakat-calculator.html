@@ -1,144 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="description" content="Calculate your Zakat accurately based on Gold, Silver, Cash, and Assets. Free Islamic Zakat Calculator as per Nisab.">
-<meta name="keywords" content="zakat calculator, islamic finance tools, calculate zakat on gold, zakat nisab calculator, muslim charity calculator, zakat on cash and assets">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zakat Calculator - MedusaSMM</title>
+    <meta name="description" content="Calculate your Zakat accurately based on Gold, Silver, Cash, and Assets. Free Islamic Zakat Calculator as per Nisab rules.">
+    <meta name="keywords" content="zakat calculator, islamic finance tools, calculate zakat on gold, zakat nisab calculator, muslim charity calculator, zakat on cash and assets, medusasmm">
+    <title>Zakat Calculator - MedusaSMM Tools</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        /* Shared CSS */
-        :root { --bg: #030014; --glass: rgba(255,255,255,0.05); --border: rgba(255,255,255,0.1); --primary: #00ff9d; --text: #fff; --gray: #9ca3af; }
-        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; margin: 0; }
+        :root { --bg: #050510; --card-bg: rgba(255,255,255,0.03); --border: rgba(255,255,255,0.1); --primary: #ff9e00; --text: #fff; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
         
-        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Outfit', sans-serif; font-size: 1.5rem; text-decoration: none; color: #fff; }
+        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: rgba(5,5,16,0.9); }
+        .logo { font-family: 'Outfit'; font-size: 1.5rem; color: #fff; text-decoration: none; font-weight: 700; }
         
-        .main-wrapper { flex: 1; padding: 40px 20px; width: 100%; max-width: 800px; margin: 0 auto; }
-        .tool-box { background: var(--glass); border: 1px solid var(--border); border-radius: 20px; padding: 30px; margin-bottom: 40px; }
-        h1 { font-family: 'Outfit'; text-align: center; color: var(--primary); margin-bottom: 20px; font-size: 2rem; }
+        .main-wrapper { width: 100%; max-width: 600px; margin: 40px auto; padding: 0 20px; text-align: center; flex: 1; }
         
         .input-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 8px; color: var(--gray); font-size:0.95rem; }
-        input { width: 100%; padding: 15px; background: rgba(0,0,0,0.3); border: 1px solid #444; color: #fff; border-radius: 8px; font-size: 1rem; outline: none; }
+        label { display: block; text-align: left; color: #aaa; margin-bottom: 5px; }
+        input { width: 100%; padding: 15px; background: rgba(0,0,0,0.3); border: 1px solid #444; color: #fff; border-radius: 10px; font-size: 1rem; }
         
-        button { width: 100%; padding: 18px; background: var(--primary); color: #000; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; font-size: 1.1rem; margin-top: 15px; transition: 0.3s; }
-        button:hover { box-shadow: 0 0 20px var(--primary); }
-        
-        .result { margin-top: 25px; text-align: center; font-size: 1.5rem; color: #fff; padding: 20px; border-top: 1px solid var(--border); }
-        .highlight { color: var(--primary); font-weight: bold; font-size: 2rem; display: block; margin-top: 10px; }
+        button { width: 100%; padding: 15px; background: var(--primary); color: #000; font-weight: bold; border: none; border-radius: 50px; cursor: pointer; transition: 0.3s; margin-top: 15px; font-size: 1.1rem; }
+        button:hover { transform: translateY(-3px); box-shadow: 0 0 20px rgba(255, 158, 0, 0.4); }
 
-        /* Content & Footer */
-        .content-section { margin-top: 40px; color: var(--gray); line-height: 1.6; }
-        .content-section h2 { color: #fff; font-family: 'Outfit'; margin-bottom: 15px; }
-        .content-section ul { padding-left: 20px; }
-        .content-section li { margin-bottom: 10px; }
-        
-        .suggestions { margin-top: 50px; border-top: 1px solid var(--border); padding-top: 30px; }
-        .sugg-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px; }
-        .sugg-card { background: var(--glass); padding: 20px; border-radius: 10px; text-align: center; border: 1px solid var(--border); transition:0.3s; }
-        .sugg-card:hover { border-color: var(--primary); transform: translateY(-3px); }
-        .sugg-card a { text-decoration: none; color: #fff; display: block; }
+        .result-box { margin-top: 30px; background: var(--card-bg); padding: 30px; border-radius: 15px; border: 1px solid var(--border); display: none; }
+        .zakat-val { font-size: 3rem; font-family: 'Outfit'; color: var(--primary); }
+        .total-assets { font-size: 1.1rem; color: #aaa; margin-top: 5px; }
 
-        footer { border-top: 1px solid var(--border); padding: 40px 5%; background: rgba(0,0,0,0.3); margin-top: auto; }
-        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
-        .footer-col h3 { color: #fff; margin-bottom: 15px; font-family: 'Outfit'; }
-        .footer-col ul { list-style: none; padding: 0; }
-        .footer-col li a { color: var(--gray); text-decoration: none; font-size: 0.9rem; display: block; margin-bottom: 8px; }
-        .copy { text-align: center; margin-top: 40px; color: var(--gray); font-size: 0.8rem; border-top: 1px solid var(--border); padding-top: 20px; }
+        .content-section { text-align: left; margin-top: 50px; padding: 25px; background: var(--card-bg); border-radius: 15px; border: 1px solid var(--border); }
+        .content-section h2 { color: var(--primary); font-family: 'Outfit'; margin-bottom: 15px; }
+
+        .more-tools { margin-top: 50px; border-top: 1px solid var(--border); padding-top: 30px; }
+        .grid-suggestions { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 20px; }
+        .suggestion-card { background: var(--card-bg); padding: 15px; border-radius: 10px; text-decoration: none; color: #fff; border: 1px solid var(--border); transition: 0.3s; }
+        .suggestion-card:hover { border-color: var(--primary); }
+
+        footer { border-top: 1px solid var(--border); padding: 40px; text-align: center; color: gray; font-size: 0.9rem; margin-top: auto; }
     </style>
 </head>
 <body>
-    <nav>
-        <a href="index.html" class="logo">MedusaTools</a>
-        <a href="index.html" style="color:#aaa; text-decoration:none;">Back</a>
-    </nav>
-
+    <nav><a href="index.html" class="logo">MedusaTools</a><a href="index.html" style="color:#aaa;">Back</a></nav>
+    
     <div class="main-wrapper">
-        <div class="tool-box">
-            <h1>🌙 Zakat Calculator</h1>
-            <div class="input-group">
-                <label>Value of Gold & Silver Owned</label>
-                <input type="number" id="gold" placeholder="0">
-            </div>
-            <div class="input-group">
-                <label>Cash in Hand & Bank</label>
-                <input type="number" id="cash" placeholder="0">
-            </div>
-            <div class="input-group">
-                <label>Investments & Shares</label>
-                <input type="number" id="invest" placeholder="0">
-            </div>
-            <div class="input-group">
-                <label>Liabilities / Debts (To be deducted)</label>
-                <input type="number" id="debts" placeholder="0">
-            </div>
-            <button onclick="calcZakat()">Calculate Zakat (2.5%)</button>
-            <div class="result" id="output">Total Zakat Payable: <span class="highlight">0.00</span></div>
+        <h1 style="font-family:'Outfit'; margin-bottom:20px;">🌙 Zakat Calculator</h1>
+        
+        <div class="input-group">
+            <label>Value of Gold & Silver:</label>
+            <input type="number" id="gold" placeholder="0">
+        </div>
+        <div class="input-group">
+            <label>Cash in Hand / Bank:</label>
+            <input type="number" id="cash" placeholder="0">
+        </div>
+        <div class="input-group">
+            <label>Other Assets / Investment:</label>
+            <input type="number" id="assets" placeholder="0">
+        </div>
+        <div class="input-group">
+            <label>Debts / Liabilities (To be subtracted):</label>
+            <input type="number" id="debts" placeholder="0">
+        </div>
+        
+        <button onclick="calcZakat()">Calculate Zakat</button>
+
+        <div class="result-box" id="result">
+            <div class="zakat-val" id="zakatAmount">0</div>
+            <div class="total-assets" id="totalAssets">Total Net Assets: 0</div>
+            <p style="color:#aaa; font-size:0.9rem; margin-top:10px;">(2.5% of Net Assets)</p>
         </div>
 
         <div class="content-section">
             <h2>About Zakat</h2>
-            <p>Zakat is one of the Five Pillars of Islam. It is a mandatory charitable contribution for all Muslims who meet the necessary criteria of wealth (Nisab). It is calculated as 2.5% of your total net assets held for one lunar year.</p>
-            <h3>How to use:</h3>
-            <ul>
-                <li><strong>Gold/Silver:</strong> Enter the current market value of your jewelry or bars.</li>
-                <li><strong>Cash:</strong> Include money in savings, checking accounts, and cash at home.</li>
-                <li><strong>Investments:</strong> Value of stocks, crypto, or business merchandise.</li>
-                <li><strong>Liabilities:</strong> Enter any immediate debts you owe (this reduces your taxable amount).</li>
-            </ul>
+            <p style="color:#ccc;">Zakat is a mandatory charitable contribution for Muslims. It is calculated as 2.5% of your total qualifying wealth (Nisab) held for a lunar year.</p>
         </div>
 
-        <div class="suggestions">
-            <h2>🔥 Recommended Tools</h2>
-            <div class="sugg-grid">
-                <div class="sugg-card"><a href="tasbeeh-counter.html">📿 Digital Tasbeeh</a></div>
-                <div class="sugg-card"><a href="age-calculator.html">🎂 Age Calculator</a></div>
-                <div class="sugg-card"><a href="emi-calculator.html">💸 EMI Calculator</a></div>
+        <div class="more-tools">
+            <h3>Spiritual & Finance</h3>
+            <div class="grid-suggestions">
+                <a href="tasbeeh-counter.html" class="suggestion-card">📿 Tasbeeh Counter</a>
+                <a href="gst-calculator.html" class="suggestion-card">🧾 GST Calc</a>
+                <a href="currency-converter.html" class="suggestion-card">💱 Currency Rate</a>
             </div>
         </div>
     </div>
-
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-col">
-                <h3>MedusaSMM</h3>
-                <p style="color:var(--gray); font-size:0.9rem;">Ethical tools for everyone.</p>
-            </div>
-            <div class="footer-col">
-                <h3>Legal</h3>
-                <ul>
-                    <li><a href="privacy.html">Privacy Policy</a></li>
-                    <li><a href="terms.html">Terms of Use</a></li>
-                    <li><a href="disclaimer.html">Disclaimer</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h3>Company</h3>
-                <ul>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="copy">&copy; 2024 MedusaSMM Tools. All rights reserved.</div>
-    </footer>
+    
+    <footer>&copy; 2026 MedusaSMM Tools. All rights reserved.</footer>
 
     <script>
         function calcZakat() {
-            let gold = Number(document.getElementById('gold').value) || 0;
-            let cash = Number(document.getElementById('cash').value) || 0;
-            let invest = Number(document.getElementById('invest').value) || 0;
-            let debts = Number(document.getElementById('debts').value) || 0;
+            let gold = parseFloat(document.getElementById('gold').value) || 0;
+            let cash = parseFloat(document.getElementById('cash').value) || 0;
+            let assets = parseFloat(document.getElementById('assets').value) || 0;
+            let debts = parseFloat(document.getElementById('debts').value) || 0;
 
-            let totalAssets = (gold + cash + invest) - debts;
-            if (totalAssets < 0) totalAssets = 0;
+            let netAssets = (gold + cash + assets) - debts;
+            
+            if(netAssets < 0) netAssets = 0;
 
-            let zakat = totalAssets * 0.025; // 2.5%
+            let zakat = (netAssets * 0.025);
 
-            document.getElementById('output').innerHTML = 
-                `Net Assets: ${totalAssets}<br>Total Zakat Payable: <span class="highlight">${zakat.toFixed(2)}</span>`;
+            document.getElementById('zakatAmount').innerText = zakat.toFixed(2);
+            document.getElementById('totalAssets').innerText = `Net Assets: ${netAssets.toFixed(2)}`;
+            document.getElementById('result').style.display = "block";
         }
     </script>
 </body>
