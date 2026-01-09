@@ -1,58 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="description" content="Create your digital signature online for free. Draw your signature and download it as a transparent PNG for documents and emails.">
-<meta name="keywords" content="signature maker online, create digital signature, draw signature free, electronic signature creator, esign tool, transparent signature png, online autograph maker, sign pdf online">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Create your digital signature online. Draw, sign, and download as transparent PNG for free.">
+    <meta name="description" content="Create your digital signature online. Draw, sign, and download as transparent PNG for free. Works on Mobile and Desktop.">
     <meta name="keywords" content="signature maker, digital signature online, draw signature, electronic signature creator, free esign tool">
-    <title>Signature Maker - MedusaSMM</title>
+    <title>Signature Maker - MedusaSMM Tools</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #030014; --glass: rgba(255,255,255,0.05); --border: rgba(255,255,255,0.1); --primary: #ff0055; --text: #fff; }
-        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; display: flex; flex-direction: column; min-height: 100vh; margin: 0; }
-        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Outfit', sans-serif; font-size: 1.5rem; text-decoration: none; color: #fff; }
+        :root { --bg: #050510; --card-bg: rgba(255,255,255,0.03); --border: rgba(255,255,255,0.1); --primary: #ff0055; --text: #fff; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; touch-action: none; }
         
-        .main-wrapper { flex: 1; padding: 40px 20px; width: 100%; max-width: 800px; margin: 0 auto; text-align: center; }
+        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: rgba(5,5,16,0.9); }
+        .logo { font-family: 'Outfit'; font-size: 1.5rem; color: #fff; text-decoration: none; font-weight: 700; }
         
-        canvas { 
-            background: #fff; 
-            border-radius: 10px; 
-            cursor: crosshair; 
-            touch-action: none; /* Prevents scrolling while drawing */
-            width: 100%;
-            height: 300px;
-        }
+        .main-wrapper { width: 100%; max-width: 800px; margin: 40px auto; padding: 0 20px; text-align: center; flex: 1; }
+        
+        canvas { background: #fff; border-radius: 10px; cursor: crosshair; width: 100%; height: 300px; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
 
         .controls { margin-top: 20px; display: flex; gap: 10px; justify-content: center; }
-        button { padding: 12px 25px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
+        button { padding: 15px 30px; border: none; border-radius: 50px; font-weight: bold; cursor: pointer; transition: 0.3s; }
         .btn-clear { background: #ff4444; color: #fff; }
         .btn-down { background: var(--primary); color: #fff; }
+
+        .content-section { text-align: left; margin-top: 50px; padding: 25px; background: var(--card-bg); border-radius: 15px; border: 1px solid var(--border); }
+        .content-section h2 { color: var(--primary); font-family: 'Outfit'; margin-bottom: 15px; }
+
+        .more-tools { margin-top: 50px; border-top: 1px solid var(--border); padding-top: 30px; }
+        .grid-suggestions { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 20px; }
+        .suggestion-card { background: var(--card-bg); padding: 15px; border-radius: 10px; text-decoration: none; color: #fff; border: 1px solid var(--border); transition: 0.3s; }
+        .suggestion-card:hover { border-color: var(--primary); }
+
+        footer { border-top: 1px solid var(--border); padding: 40px; text-align: center; color: gray; font-size: 0.9rem; margin-top: auto; }
     </style>
 </head>
 <body>
     <nav><a href="index.html" class="logo">MedusaTools</a><a href="index.html" style="color:#aaa;">Back</a></nav>
+    
     <div class="main-wrapper">
-        <h1 style="font-family:'Outfit'; margin-bottom:20px;">✍️ Signature Maker</h1>
-        <p style="color:gray; margin-bottom:20px;">Sign in the white box below</p>
+        <h1 style="font-family:'Outfit'; margin-bottom:10px;">✍️ Signature Maker</h1>
+        <p style="color:#aaa; margin-bottom:20px;">Draw your signature in the white box.</p>
         
         <canvas id="sigCanvas"></canvas>
         
         <div class="controls">
-            <button class="btn-clear" onclick="clearSig()">Clear</button>
-            <button class="btn-down" onclick="downloadSig()">Download Signature</button>
+            <button class="btn-clear" onclick="clearSig()">🗑 Clear</button>
+            <button class="btn-down" onclick="downloadSig()">⬇️ Download</button>
+        </div>
+
+        <div class="content-section">
+            <h2>Why use Digital Signature?</h2>
+            <p style="color:#ccc;">Save paper and sign documents electronically. The PNG file is transparent, perfect for placing on PDFs.</p>
+        </div>
+
+        <div class="more-tools">
+            <h3>Creative Tools</h3>
+            <div class="grid-suggestions">
+                <a href="image-generator.html" class="suggestion-card">✨ AI Image Gen</a>
+                <a href="color-palette.html" class="suggestion-card">🎨 Color Palette</a>
+                <a href="image-converter.html" class="suggestion-card">🖼️ Image Converter</a>
+            </div>
         </div>
     </div>
-    <footer style="text-align:center; padding:20px; color:gray; font-size:0.8rem;">&copy; 2024 MedusaSMM Tools.</footer>
+    
+    <footer>&copy; 2026 MedusaSMM Tools. All rights reserved.</footer>
 
     <script>
         const canvas = document.getElementById('sigCanvas');
         const ctx = canvas.getContext('2d');
         let drawing = false;
 
-        // Resize canvas to fix blurriness
         function resizeCanvas() {
             canvas.width = canvas.offsetWidth;
             canvas.height = canvas.offsetHeight;
@@ -60,18 +78,13 @@
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
-        // Mouse Events
+        // Mouse & Touch Events
         canvas.addEventListener('mousedown', startDraw);
         canvas.addEventListener('mouseup', endDraw);
         canvas.addEventListener('mousemove', draw);
-
-        // Touch Events (Mobile)
-        canvas.addEventListener('touchstart', (e) => { startDraw(e.touches[0]) });
+        canvas.addEventListener('touchstart', (e) => { startDraw(e.touches[0]); e.preventDefault(); });
         canvas.addEventListener('touchend', endDraw);
-        canvas.addEventListener('touchmove', (e) => { 
-            e.preventDefault(); 
-            draw(e.touches[0]);
-        });
+        canvas.addEventListener('touchmove', (e) => { draw(e.touches[0]); e.preventDefault(); });
 
         function startDraw(e) {
             drawing = true;
@@ -80,9 +93,7 @@
             ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
         }
 
-        function endDraw() {
-            drawing = false;
-        }
+        function endDraw() { drawing = false; }
 
         function draw(e) {
             if (!drawing) return;
@@ -100,7 +111,7 @@
 
         function downloadSig() {
             let link = document.createElement('a');
-            link.download = 'my-signature.png';
+            link.download = 'signature.png';
             link.href = canvas.toDataURL();
             link.click();
         }
