@@ -147,95 +147,11 @@
             .hero h1 { font-size: 2rem; }
             .tools-grid { grid-template-columns: 1fr; padding: 20px; }
         }
-        /* --- DRAWER MENU & FEEDBACK CSS --- */
-        /* --- 3-DOT MENU FIX (NO BLACK BOX) --- */
-        .menu-btn {
-            /* Basic Styling */
-            font-size: 2rem;
-            color: #fff;
-            cursor: pointer;
-            margin-right: 15px;
-            padding: 5px; /* Thoda space taaki touch asaan ho */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            /* RESET DEFAULT BROWSER STYLES */
-            background: transparent !important;
-            border: none !important;
-            outline: none !important;
-            box-shadow: none !important;
-            
-            /* MOBILE SPECIFIC MAGIC (Black Box Remover) */
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            -webkit-tap-highlight-color: transparent !important;
-            -webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important;
-            user-select: none;
-            -webkit-touch-callout: none;
-        }
-
-        /* Jab click karein ya dabayein tab bhi box na aaye */
-        .menu-btn:focus, 
-        .menu-btn:active, 
-        .menu-btn:hover,
-        .menu-btn:focus-visible {
-            outline: none !important;
-            border: none !important;
-            background: transparent !important;
-            box-shadow: none !important;
-            -webkit-tap-highlight-color: transparent !important;
-        }
         
-        /* Drawer Design */
-        .drawer-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 999; display: none; opacity: 0; transition: opacity 0.3s; }
-        .drawer { position: fixed; top: 0; left: -300px; width: 280px; height: 100%; background: #0a0a1a; z-index: 1000; transition: 0.3s; padding: 20px; border-right: 1px solid var(--card-border); overflow-y: auto; box-shadow: 5px 0 15px rgba(0,0,0,0.5); }
-        .drawer.open { left: 0; }
-        .drawer h2 { font-family: 'Outfit'; color: var(--primary); margin-bottom: 20px; border-bottom: 1px solid var(--card-border); padding-bottom: 10px; }
-
-        /* Feedback Form */
-        .stars { display: flex; gap: 5px; margin-bottom: 15px; justify-content: center; }
-        .star { font-size: 1.8rem; color: #444; cursor: pointer; transition: 0.2s; }
-        .star.active { color: #ffd700; }
-        
-        .fb-input { width: 100%; padding: 12px; background: rgba(255,255,255,0.05); border: 1px solid var(--card-border); color: #fff; border-radius: 8px; margin-bottom: 10px; font-family: 'Inter'; outline: none; }
-        .btn-submit { width: 100%; padding: 12px; background: var(--primary); color: #000; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; transition: 0.3s; }
-        .btn-submit:hover { opacity: 0.9; }
-
-        /* Recent Reviews List */
-        .review-list { margin-top: 20px; border-top: 1px solid var(--card-border); padding-top: 15px; }
-        .review-card { background: rgba(255,255,255,0.03); padding: 10px; border-radius: 8px; margin-bottom: 10px; border: 1px solid var(--card-border); font-size: 0.9rem; }
-        .r-header { display: flex; justify-content: space-between; color: var(--primary); margin-bottom: 5px; font-weight: bold; }
-        .r-text { color: #ccc; font-size: 0.85rem; }
-    </style>
-</head>
-<body>
-<div class="drawer-overlay" id="overlay" onclick="toggleMenu()"></div>
-    <div class="drawer" id="drawer">
-        <h2>🌟 Feedback</h2>
-        <p style="color:#aaa; font-size:0.9rem; margin-bottom:15px;">Rate your experience with MedusaSMM Tools.</p>
-        
-        <div class="stars" id="starContainer">
-            <span class="star" onclick="rate(1)">★</span>
-            <span class="star" onclick="rate(2)">★</span>
-            <span class="star" onclick="rate(3)">★</span>
-            <span class="star" onclick="rate(4)">★</span>
-            <span class="star" onclick="rate(5)">★</span>
-        </div>
-        
-        <input type="text" id="userName" class="fb-input" placeholder="Your Name (Optional)">
-        <textarea id="userReview" class="fb-input" rows="3" placeholder="Write your suggestion..."></textarea>
-        <button class="btn-submit" onclick="submitFeedback()">Submit Review</button>
-
-        <div class="review-list">
-            <h3 style="font-family:'Outfit'; color:#fff; font-size:1rem; margin-bottom:10px;">Recent Reviews</h3>
-            <div id="reviewList"></div>
         </div>
     </div>
     <nav>
-        <nav>
-        <button class="menu-btn" onclick="toggleMenu()">⋮</button> 
+        <nav> 
         
         </nav>
         <a href="index.html" class="logo">MedusaTools</a>
@@ -582,77 +498,7 @@
             }
             document.getElementById('noResults').style.display = hasResults ? "none" : "block";
         }
-        // --- Drawer & Feedback Logic ---
-        let selectedRating = 0;
-        // Default Fake Reviews to show initially
-        let reviews = [
-            { name: "Rahul", stars: 5, text: "Best tools website!" },
-            { name: "Sanya", stars: 5, text: "Love the UI design." },
-            { name: "Dev", stars: 4, text: "Very fast and useful." }
-        ];
-
-        // Load saved reviews if any
-        if(localStorage.getItem('siteReviews')) {
-            reviews = JSON.parse(localStorage.getItem('siteReviews'));
-        }
-
-        function toggleMenu() {
-            document.getElementById('drawer').classList.toggle('open');
-            let overlay = document.getElementById('overlay');
-            if (overlay.style.display === 'block') {
-                overlay.style.opacity = '0';
-                setTimeout(() => overlay.style.display = 'none', 300);
-            } else {
-                overlay.style.display = 'block';
-                setTimeout(() => overlay.style.opacity = '1', 10);
-            }
-        }
-
-        function rate(star) {
-            selectedRating = star;
-            let stars = document.querySelectorAll('.star');
-            stars.forEach((s, index) => {
-                if(index < star) s.classList.add('active');
-                else s.classList.remove('active');
-            });
-        }
-
-        function submitFeedback() {
-            let name = document.getElementById('userName').value || "User";
-            let text = document.getElementById('userReview').value;
-
-            if(selectedRating === 0) return alert("Please select a star rating!");
-            
-            // Add new review to top
-            reviews.unshift({ name: name, stars: selectedRating, text: text });
-
-            // Keep only top 5 reviews (remove old ones)
-            if(reviews.length > 5) reviews.pop();
-
-            localStorage.setItem('siteReviews', JSON.stringify(reviews));
-            renderReviews();
-            
-            // Clear inputs
-            document.getElementById('userName').value = "";
-            document.getElementById('userReview').value = "";
-            rate(0);
-            alert("Thanks for your feedback!");
-        }
-
-        function renderReviews() {
-            let list = document.getElementById('reviewList');
-            list.innerHTML = "";
-            reviews.forEach(r => {
-                let starStr = "★".repeat(r.stars);
-                let html = `
-                    <div class="review-card">
-                        <div class="r-header"><span>${r.name}</span><span>${starStr}</span></div>
-                        <div class="r-text">${r.text || "No comment"}</div>
-                    </div>`;
-                list.innerHTML += html;
-            });
-        }
-        renderReviews(); // Run on load
+       
     </script>
 
 </body>
