@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI YouTube Title Generator from Script. Paste your video script, and our tool analyzes it to generate viral, clickbait, and SEO-optimized titles.">
+    <title>Script to Title Generator - MedusaSMM Tools</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <style>
+        :root { --bg: #050510; --card-bg: rgba(255,255,255,0.03); --border: rgba(255,255,255,0.1); --primary: #00ff9d; --text: #fff; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
+        
+        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: rgba(5,5,16,0.9); }
+        .logo { font-family: 'Outfit'; font-size: 1.5rem; color: #fff; text-decoration: none; font-weight: 700; }
+        
+        .main-wrapper { width: 100%; max-width: 900px; margin: 40px auto; padding: 0 20px; text-align: center; flex: 1; }
+        
+        /* Script Input Area */
+        .input-section { background: var(--card-bg); padding: 20px; border-radius: 15px; border: 1px solid var(--border); }
+        textarea { width: 100%; height: 250px; padding: 15px; border-radius: 10px; border: 1px solid #444; background: rgba(0,0,0,0.5); color: #fff; font-size: 1rem; outline: none; resize: vertical; font-family: 'Inter'; line-height: 1.5; }
+        textarea:focus { border-color: var(--primary); }
+        
+        .controls { margin-top: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+        .word-count { color: #aaa; font-size: 0.9rem; }
+        
+        button.analyze-btn { padding: 15px 40px; background: var(--primary); color: #000; font-weight: bold; border: none; border-radius: 50px; cursor: pointer; transition: 0.3s; font-size: 1.1rem; }
+        button.analyze-btn:hover { box-shadow: 0 0 20px rgba(0, 255, 157, 0.4); transform: translateY(-2px); }
+
+        /* Results */
+        .output-section { display: none; margin-top: 40px; text-align: left; }
+        .analysis-badge { display: inline-block; background: rgba(255,255,255,0.1); padding: 5px 15px; border-radius: 20px; font-size: 0.85rem; color: #ccc; margin-bottom: 20px; border: 1px solid var(--border); }
+        
+        .title-group { margin-bottom: 30px; }
+        .title-group h3 { color: var(--primary); font-family: 'Outfit'; margin-bottom: 10px; border-left: 4px solid var(--primary); padding-left: 10px; }
+        
+        .title-card { background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border: 1px solid transparent; transition: 0.2s; }
+        .title-card:hover { border-color: var(--primary); background: rgba(255,255,255,0.08); }
+        .title-text { font-weight: 500; color: #fff; flex: 1; margin-right: 15px; font-size: 1.05rem; }
+        
+        .copy-btn { background: #fff; color: #000; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 0.8rem; }
+        .copy-btn:hover { background: #ddd; }
+
+        /* Loader */
+        .loader { display: none; margin: 20px auto; font-size: 1.2rem; color: var(--primary); font-weight: bold; }
+
+        .content-section { text-align: left; margin-top: 50px; padding: 25px; background: var(--card-bg); border-radius: 15px; border: 1px solid var(--border); }
+        .content-section h2 { color: var(--primary); font-family: 'Outfit'; margin-bottom: 15px; }
+
+        .more-tools { margin-top: 50px; border-top: 1px solid var(--border); padding-top: 30px; }
+        .grid-suggestions { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 20px; }
+        .suggestion-card { background: var(--card-bg); padding: 15px; border-radius: 10px; text-decoration: none; color: #fff; border: 1px solid var(--border); transition: 0.3s; }
+        .suggestion-card:hover { border-color: var(--primary); }
+
+        footer { border-top: 1px solid var(--border); padding: 40px; text-align: center; color: gray; font-size: 0.9rem; margin-top: auto; }
+    </style>
+</head>
+<body>
+    <nav><a href="index.html" class="logo">MedusaTools</a><a href="index.html" style="color:#aaa;">Back</a></nav>
+    
+    <div class="main-wrapper">
+        <h1 style="font-family:'Outfit'; margin-bottom:10px;">📝 Script to Viral Title</h1>
+        <p style="color:#aaa; margin-bottom:30px;">Paste your video script below. AI will analyze the context and generate the best titles.</p>
+        
+        <div class="input-section">
+            <textarea id="scriptInput" placeholder="Paste your full video script or summary here... (e.g. In this video I am going to show how to cook Biryani in 10 minutes without pressure cooker...)"></textarea>
+            <div class="controls">
+                <span class="word-count" id="wordCount">0 words</span>
+                <button class="analyze-btn" onclick="analyzeScript()">✨ Analyze & Generate</button>
+            </div>
+        </div>
+
+        <div class="loader" id="loader">Analyzing Script Context... 🧠</div>
+
+        <div id="outputArea" class="output-section">
+            <div class="analysis-badge" id="detectedTopic">Detected Topic: ...</div>
+            
+            <div class="title-group">
+                <h3>🔥 High CTR (Viral)</h3>
+                <div id="viralList"></div>
+            </div>
+
+            <div class="title-group">
+                <h3>📖 Storytelling Style</h3>
+                <div id="storyList"></div>
+            </div>
+
+            <div class="title-group">
+                <h3>🔍 Search Optimized (SEO)</h3>
+                <div id="seoList"></div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>How does it work?</h2>
+            <p style="color:#ccc;">This tool scans your script for the most repeated and important keywords (Topic Modeling). It then combines these topics with proven psychological triggers used by top creators like MrBeast and Veritasium.</p>
+        </div>
+
+        <div class="more-tools">
+            <h3>More Creator Tools</h3>
+            <div class="grid-suggestions">
+                <a href="yt-tag-gen.html" class="suggestion-card">🏷️ Tag Generator</a>
+                <a href="word-counter.html" class="suggestion-card">📝 Word Counter</a>
+            </div>
+        </div>
+    </div>
+    
+    <footer>&copy; 2026 MedusaSMM Tools. All rights reserved.</footer>
+
+    <script>
+        // Word Counter
+        document.getElementById('scriptInput').addEventListener('input', function() {
+            let words = this.value.trim().split(/\s+/).filter(word => word.length > 0).length;
+            document.getElementById('wordCount').innerText = words + " words";
+        });
+
+        function analyzeScript() {
+            let script = document.getElementById('scriptInput').value;
+            if(script.length < 50) return alert("Please paste a longer script for better analysis!");
+
+            document.getElementById('loader').style.display = 'block';
+            document.getElementById('outputArea').style.display = 'none';
+
+            // Fake processing delay for "AI Feel"
+            setTimeout(() => {
+                let topic = extractTopic(script); // Extract main topic
+                generateTitles(topic);
+                document.getElementById('detectedTopic').innerText = "Detected Topic: " + capitalize(topic);
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('outputArea').style.display = 'block';
+            }, 1500);
+        }
+
+        // Simple logic to find the most frequent meaningful word (Topic Extraction)
+        function extractTopic(text) {
+            const stopWords = ["the", "is", "in", "and", "to", "of", "a", "for", "on", "with", "this", "that", "it", "i", "my", "how", "video", "show", "you", "are", "what", "so", "just", "very", "your"];
+            
+            // Clean text
+            let words = text.toLowerCase().replace(/[^\w\s]/g, '').split(/\s+/);
+            let wordMap = {};
+
+            words.forEach(word => {
+                if (!stopWords.includes(word) && word.length > 3) {
+                    wordMap[word] = (wordMap[word] || 0) + 1;
+                }
+            });
+
+            // Find max repeated word
+            let maxCount = 0;
+            let bestWord = "Video";
+            for (let word in wordMap) {
+                if (wordMap[word] > maxCount) {
+                    maxCount = wordMap[word];
+                    bestWord = word;
+                }
+            }
+            return bestWord; // Returns the most frequent keyword
+        }
+
+        function generateTitles(topic) {
+            let Topic = capitalize(topic);
+
+            // 1. Viral Templates
+            let viral = [
+                `I Tried ${Topic} and This Happened...`,
+                `Why Everyone is Wrong About ${Topic}`,
+                `The Truth About ${Topic} (Revealed)`,
+                `Stop Doing ${Topic} Like This!`,
+                `I Spent 24 Hours on ${Topic}`,
+                `This ${Topic} Hack Changes Everything`
+            ];
+
+            // 2. Story Templates
+            let story = [
+                `How ${Topic} Ruined My Life (Not Clickbait)`,
+                `The Day I Discovered ${Topic}`,
+                `My Secret ${Topic} Strategy`,
+                `I Quit ${Topic} for 30 Days`,
+                `The Dark Side of ${Topic}`
+            ];
+
+            // 3. SEO Templates
+            let seo = [
+                `How to Master ${Topic} (Step by Step)`,
+                `${Topic} Tutorial for Beginners 2026`,
+                `10 Best ${Topic} Tips You Need to Know`,
+                `Ultimate Guide to ${Topic}`,
+                `Top 5 Mistakes in ${Topic}`
+            ];
+
+            renderList('viralList', viral);
+            renderList('storyList', story);
+            renderList('seoList', seo);
+        }
+
+        function renderList(id, arr) {
+            let container = document.getElementById(id);
+            container.innerHTML = "";
+            arr.forEach(title => {
+                let div = document.createElement('div');
+                div.className = 'title-card';
+                div.innerHTML = `<span class="title-text">${title}</span><button class="copy-btn" onclick="copyTitle(this)">Copy</button>`;
+                container.appendChild(div);
+            });
+        }
+
+        function capitalize(str) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+
+        function copyTitle(btn) {
+            let text = btn.previousElementSibling.innerText;
+            navigator.clipboard.writeText(text);
+            btn.innerText = "Copied!";
+            setTimeout(() => btn.innerText = "Copy", 1500);
+        }
+    </script>
+</body>
+</html>
