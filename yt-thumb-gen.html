@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Free AI YouTube Thumbnail Generator. Create viral, high-quality thumbnails from your video title instantly. No design skills needed.">
-    <title>AI Thumbnail Generator - MedusaSMM Tools</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <meta name="description" content="Free AI YouTube Thumbnail Generator with Text. Create viral thumbnails with custom text overlay instantly.">
+    <title>Pro Thumbnail Generator - MedusaSMM Tools</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400;500&family=Anton&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="favicon.png">
     <style>
         :root { --bg: #050510; --card-bg: rgba(255,255,255,0.03); --border: rgba(255,255,255,0.1); --primary: #00ff9d; --text: #fff; }
@@ -15,72 +15,82 @@
         nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: rgba(5,5,16,0.9); }
         .logo { font-family: 'Outfit'; font-size: 1.5rem; color: #fff; text-decoration: none; font-weight: 700; }
         
-        .main-wrapper { width: 100%; max-width: 900px; margin: 40px auto; padding: 0 20px; text-align: center; flex: 1; }
+        .main-wrapper { width: 100%; max-width: 1000px; margin: 40px auto; padding: 0 20px; text-align: center; flex: 1; }
         
-        /* Input Area */
-        .input-section { display: flex; flex-direction: column; gap: 15px; margin-bottom: 30px; }
-        
-        input, select { padding: 15px; border-radius: 50px; border: 1px solid #444; background: rgba(0,0,0,0.3); color: #fff; font-size: 1rem; outline: none; width: 100%; }
-        input:focus, select:focus { border-color: var(--primary); }
-        
-        .row { display: flex; gap: 10px; }
-        
-        button.gen-btn { padding: 15px 40px; background: linear-gradient(45deg, var(--primary), #00b4d8); color: #000; font-weight: bold; border: none; border-radius: 50px; cursor: pointer; transition: 0.3s; font-size: 1.1rem; width: 100%; margin-top: 10px; }
-        button.gen-btn:hover { box-shadow: 0 0 20px rgba(0, 255, 157, 0.4); transform: scale(1.02); }
+        /* Two Column Layout */
+        .editor-container { display: flex; flex-wrap: wrap; gap: 30px; margin-top: 30px; align-items: flex-start; }
+        .controls { flex: 1; min-width: 300px; background: var(--card-bg); padding: 20px; border-radius: 15px; border: 1px solid var(--border); text-align: left; }
+        .preview-area { flex: 1.5; min-width: 300px; }
 
-        /* Image Display */
-        .image-container { margin-top: 20px; position: relative; min-height: 400px; display: none; border-radius: 15px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 0 30px rgba(0,0,0,0.5); }
+        /* Inputs */
+        label { display: block; margin-bottom: 8px; font-weight: 600; color: var(--primary); font-size: 0.9rem; }
+        input, select { width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; border: 1px solid #444; background: rgba(0,0,0,0.3); color: #fff; outline: none; }
+        input:focus { border-color: var(--primary); }
+
+        button.gen-btn { width: 100%; padding: 15px; background: var(--primary); color: #000; font-weight: bold; border: none; border-radius: 50px; cursor: pointer; font-size: 1rem; margin-top: 10px; transition: 0.3s; }
+        button.gen-btn:hover { box-shadow: 0 0 15px rgba(0, 255, 157, 0.5); }
+
+        button.dl-btn { width: 100%; padding: 15px; background: #fff; color: #000; font-weight: bold; border: none; border-radius: 50px; cursor: pointer; font-size: 1rem; margin-top: 15px; }
+
+        /* Canvas Preview */
+        canvas { width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.5); background: #000; }
         
-        img { width: 100%; height: auto; display: block; }
+        .loader { display: none; margin: 10px 0; color: var(--primary); font-weight: bold; }
         
-        .download-btn { position: absolute; bottom: 20px; right: 20px; background: #fff; color: #000; padding: 10px 20px; text-decoration: none; font-weight: bold; border-radius: 50px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
-        .download-btn:hover { background: #eee; }
-
-        .loader { display: none; font-size: 1.2rem; color: var(--primary); margin: 20px 0; }
-
-        .content-section { text-align: left; margin-top: 50px; padding: 25px; background: var(--card-bg); border-radius: 15px; border: 1px solid var(--border); }
-        .content-section h2 { color: var(--primary); font-family: 'Outfit'; margin-bottom: 15px; }
-
-        .more-tools { margin-top: 50px; border-top: 1px solid var(--border); padding-top: 30px; }
-        .grid-suggestions { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 20px; }
-        .suggestion-card { background: var(--card-bg); padding: 15px; border-radius: 10px; text-decoration: none; color: #fff; border: 1px solid var(--border); transition: 0.3s; }
-        .suggestion-card:hover { border-color: var(--primary); }
-
-        footer { border-top: 1px solid var(--border); padding: 40px; text-align: center; color: gray; font-size: 0.9rem; margin-top: auto; }
+        footer { border-top: 1px solid var(--border); padding: 40px; text-align: center; color: gray; margin-top: auto; }
     </style>
 </head>
 <body>
     <nav><a href="index.html" class="logo">MedusaTools</a><a href="index.html" style="color:#aaa;">Back</a></nav>
     
     <div class="main-wrapper">
-        <h1 style="font-family:'Outfit';">🎨 AI Thumbnail Generator</h1>
-        <p style="color:#aaa; margin-bottom:30px;">Enter your video title, and AI will create a unique thumbnail for you.</p>
+        <h1 style="font-family:'Outfit';">🎨 Pro Thumbnail Maker</h1>
+        <p style="color:#aaa;">AI Generates Background + YOU Add Text (No Glitches)</p>
         
-        <div class="input-section">
-            <input type="text" id="promptInput" placeholder="Enter video title (e.g. Minecraft Survival Ep 1, Unboxing iPhone 16)...">
+        <div class="editor-container">
             
-            <div class="row">
-                <select id="styleSelect">
-                    <option value="cinematic, highly detailed, dramatic lighting">🔥 Cinematic</option>
-                    <option value="cartoon, vibrant colors, fortnite style">🎮 Gaming / Cartoon</option>
-                    <option value="realistic, 4k, tech review style, clean">📱 Tech / Realistic</option>
-                    <option value="anime style, colorful, expressive">🌸 Anime Style</option>
-                    <option value="dark, horror, mysterious, scary">👻 Horror / Dark</option>
-                    <option value="bright, happy, vlog style, youtube thumbnail">📹 Vlog / Lifestyle</option>
+            <div class="controls">
+                <h3>1. Generate Background</h3>
+                <label>Image Description (No Text here)</label>
+                <input type="text" id="bgPrompt" placeholder="e.g. Minecraft Steve fighting zombies, cinematic lighting">
+                
+                <label>Style</label>
+                <select id="bgStyle">
+                    <option value="cinematic, 4k, realistic lighting">🔥 Cinematic Realistic</option>
+                    <option value="cartoon, vibrant colors, gaming style">🎮 Gaming Cartoon</option>
+                    <option value="anime style, highly detailed">🌸 Anime Style</option>
+                    <option value="dark, horror, scary atmosphere">👻 Horror / Dark</option>
+                </select>
+
+                <button class="gen-btn" onclick="generateBackground()">✨ Create Background</button>
+                <div class="loader" id="loader">Generating AI Image... ⏳</div>
+
+                <hr style="border: 0; border-top: 1px solid #333; margin: 20px 0;">
+
+                <h3>2. Add Text Overlays</h3>
+                <label>Main Title (Big Text)</label>
+                <input type="text" id="textMain" placeholder="e.g. SURVIVAL SERIES" oninput="updateCanvas()">
+                
+                <label>Sub Title (Smaller/Color)</label>
+                <input type="text" id="textSub" placeholder="e.g. PART 1" oninput="updateCanvas()">
+
+                <label>Text Color</label>
+                <select id="textColor" onchange="updateCanvas()">
+                    <option value="#ffffff">⚪ White</option>
+                    <option value="#ff0000">🔴 Red</option>
+                    <option value="#ffff00">🟡 Yellow</option>
+                    <option value="#00ff9d">🟢 Green</option>
                 </select>
             </div>
 
-            <button class="gen-btn" onclick="generateThumbnail()">✨ Generate Thumbnail</button>
+            <div class="preview-area">
+                <canvas id="thumbCanvas" width="1280" height="720"></canvas>
+                <button class="dl-btn" onclick="downloadImage()">⬇ Download HD Thumbnail</button>
+                <p style="color:#777; font-size:0.8rem; margin-top:10px;">Right click on image to save if button fails.</p>
+            </div>
         </div>
-
-        <div class="loader" id="loader">Creating Magic... (Wait 5-10s) 🎨</div>
-
-        <div class="image-container" id="resultArea">
-            <img id="generatedImg" src="" alt="AI Thumbnail">
-            <a id="downLink" href="#" download="thumbnail.jpg" class="download-btn">⬇ Download HD</a>
-        </div>
-
-        <div class="content-section">
+    </div>
+    <div class="content-section">
             <h2>How to get the best result?</h2>
             <p style="color:#ccc;">This tool uses AI to visualize your text.</p>
             <ul style="margin-left:20px; margin-top:10px; color:#ccc;">
@@ -98,42 +108,102 @@
                 <a href="yt-tag-gen.html" class="suggestion-card">🏷️ Tag Generator</a>
             </div>
         </div>
-    </div>
-    
-    <footer>&copy; 2026 MedusaSMM Tools. All rights reserved.</footer>
+    <footer>&copy; 2026 MedusaSMM Tools.</footer>
 
     <script>
-        function generateThumbnail() {
-            let prompt = document.getElementById('promptInput').value.trim();
-            let style = document.getElementById('styleSelect').value;
-            
-            if(!prompt) return alert("Please enter a video title!");
+        const canvas = document.getElementById('thumbCanvas');
+        const ctx = canvas.getContext('2d');
+        let currentImage = new Image();
+        
+        // Initial setup
+        currentImage.src = "https://placehold.co/1280x720/111/444?text=Generate+Background+First"; 
+        currentImage.onload = function() { updateCanvas(); }
+
+        function generateBackground() {
+            let prompt = document.getElementById('bgPrompt').value.trim();
+            let style = document.getElementById('bgStyle').value;
+            if(!prompt) return alert("Describe the background image first!");
 
             let loader = document.getElementById('loader');
-            let resultArea = document.getElementById('resultArea');
-            let img = document.getElementById('generatedImg');
-            let btn = document.getElementById('downLink');
-
             loader.style.display = "block";
-            resultArea.style.display = "none";
 
-            // Constructing the Prompt for 16:9 Aspect Ratio
-            // Using Pollinations AI (Free, No Key)
-            let finalPrompt = `YouTube thumbnail for video about ${prompt}, ${style}, 8k resolution, highly detailed, eye catching, 16:9 aspect ratio`;
+            // PROMPT ENGINEERING: 
+            // We force "no text" in AI generation to avoid glitches
+            let finalPrompt = `${prompt}, ${style}, no text, no letters, clear background, high quality, 8k`;
             let encodedPrompt = encodeURIComponent(finalPrompt);
+            
+            // Pollinations AI URL
             let url = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=1280&height=720&nologo=true&seed=${Math.random()}`;
 
-            // Image Pre-loading
-            img.src = url;
-            img.onload = function() {
+            currentImage.crossOrigin = "Anonymous"; // Crucial for download
+            currentImage.src = url;
+
+            currentImage.onload = function() {
                 loader.style.display = "none";
-                resultArea.style.display = "block";
-                btn.href = url;
+                updateCanvas();
             };
-            img.onerror = function() {
+            currentImage.onerror = function() {
                 loader.style.display = "none";
-                alert("Server busy! Please try again.");
-            };
+                alert("Server busy, try again!");
+            }
+        }
+
+        function updateCanvas() {
+            // 1. Draw Background Image
+            ctx.drawImage(currentImage, 0, 0, 1280, 720);
+
+            // 2. Add Dark Overlay (Dim) so text pops
+            ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
+            ctx.fillRect(0, 0, 1280, 720);
+
+            // 3. Get User Text
+            let mainText = document.getElementById('textMain').value.toUpperCase();
+            let subText = document.getElementById('textSub').value.toUpperCase();
+            let color = document.getElementById('textColor').value;
+
+            // 4. Draw MAIN Text (Big)
+            if(mainText) {
+                ctx.font = "900 130px 'Anton', sans-serif"; // Bold YouTube Font
+                ctx.textAlign = "center";
+                ctx.strokeStyle = "black";
+                ctx.lineWidth = 15;
+                ctx.lineJoin = "round";
+
+                // Shadow effect
+                ctx.shadowColor = "rgba(0,0,0,0.8)";
+                ctx.shadowBlur = 20;
+
+                // Draw Outline
+                ctx.strokeText(mainText, 640, 350);
+                
+                // Draw Fill
+                ctx.fillStyle = "white";
+                ctx.fillText(mainText, 640, 350);
+            }
+
+            // 5. Draw SUB Text (Part 1, etc)
+            if(subText) {
+                ctx.shadowBlur = 0; // Reset shadow for cleaner look
+                ctx.font = "900 100px 'Anton', sans-serif";
+                ctx.lineWidth = 12;
+
+                // Position slightly lower
+                ctx.strokeText(subText, 640, 500);
+                
+                ctx.fillStyle = color; // User selected color
+                ctx.fillText(subText, 640, 500);
+            }
+        }
+
+        function downloadImage() {
+            try {
+                const link = document.createElement('a');
+                link.download = 'thumbnail.jpg';
+                link.href = canvas.toDataURL('image/jpeg', 0.9); // High Quality JPG
+                link.click();
+            } catch(e) {
+                alert("Please Right Click on the image and 'Save Image As'");
+            }
         }
     </script>
 </body>
