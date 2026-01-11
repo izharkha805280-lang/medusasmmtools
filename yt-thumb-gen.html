@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free AI YouTube Thumbnail Generator. Create viral, high-quality thumbnails from your video title instantly. No design skills needed.">
+    <title>AI Thumbnail Generator - MedusaSMM Tools</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <style>
+        :root { --bg: #050510; --card-bg: rgba(255,255,255,0.03); --border: rgba(255,255,255,0.1); --primary: #00ff9d; --text: #fff; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
+        
+        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: rgba(5,5,16,0.9); }
+        .logo { font-family: 'Outfit'; font-size: 1.5rem; color: #fff; text-decoration: none; font-weight: 700; }
+        
+        .main-wrapper { width: 100%; max-width: 900px; margin: 40px auto; padding: 0 20px; text-align: center; flex: 1; }
+        
+        /* Input Area */
+        .input-section { display: flex; flex-direction: column; gap: 15px; margin-bottom: 30px; }
+        
+        input, select { padding: 15px; border-radius: 50px; border: 1px solid #444; background: rgba(0,0,0,0.3); color: #fff; font-size: 1rem; outline: none; width: 100%; }
+        input:focus, select:focus { border-color: var(--primary); }
+        
+        .row { display: flex; gap: 10px; }
+        
+        button.gen-btn { padding: 15px 40px; background: linear-gradient(45deg, var(--primary), #00b4d8); color: #000; font-weight: bold; border: none; border-radius: 50px; cursor: pointer; transition: 0.3s; font-size: 1.1rem; width: 100%; margin-top: 10px; }
+        button.gen-btn:hover { box-shadow: 0 0 20px rgba(0, 255, 157, 0.4); transform: scale(1.02); }
+
+        /* Image Display */
+        .image-container { margin-top: 20px; position: relative; min-height: 400px; display: none; border-radius: 15px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 0 30px rgba(0,0,0,0.5); }
+        
+        img { width: 100%; height: auto; display: block; }
+        
+        .download-btn { position: absolute; bottom: 20px; right: 20px; background: #fff; color: #000; padding: 10px 20px; text-decoration: none; font-weight: bold; border-radius: 50px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+        .download-btn:hover { background: #eee; }
+
+        .loader { display: none; font-size: 1.2rem; color: var(--primary); margin: 20px 0; }
+
+        .content-section { text-align: left; margin-top: 50px; padding: 25px; background: var(--card-bg); border-radius: 15px; border: 1px solid var(--border); }
+        .content-section h2 { color: var(--primary); font-family: 'Outfit'; margin-bottom: 15px; }
+
+        .more-tools { margin-top: 50px; border-top: 1px solid var(--border); padding-top: 30px; }
+        .grid-suggestions { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 20px; }
+        .suggestion-card { background: var(--card-bg); padding: 15px; border-radius: 10px; text-decoration: none; color: #fff; border: 1px solid var(--border); transition: 0.3s; }
+        .suggestion-card:hover { border-color: var(--primary); }
+
+        footer { border-top: 1px solid var(--border); padding: 40px; text-align: center; color: gray; font-size: 0.9rem; margin-top: auto; }
+    </style>
+</head>
+<body>
+    <nav><a href="index.html" class="logo">MedusaTools</a><a href="index.html" style="color:#aaa;">Back</a></nav>
+    
+    <div class="main-wrapper">
+        <h1 style="font-family:'Outfit';">🎨 AI Thumbnail Generator</h1>
+        <p style="color:#aaa; margin-bottom:30px;">Enter your video title, and AI will create a unique thumbnail for you.</p>
+        
+        <div class="input-section">
+            <input type="text" id="promptInput" placeholder="Enter video title (e.g. Minecraft Survival Ep 1, Unboxing iPhone 16)...">
+            
+            <div class="row">
+                <select id="styleSelect">
+                    <option value="cinematic, highly detailed, dramatic lighting">🔥 Cinematic</option>
+                    <option value="cartoon, vibrant colors, fortnite style">🎮 Gaming / Cartoon</option>
+                    <option value="realistic, 4k, tech review style, clean">📱 Tech / Realistic</option>
+                    <option value="anime style, colorful, expressive">🌸 Anime Style</option>
+                    <option value="dark, horror, mysterious, scary">👻 Horror / Dark</option>
+                    <option value="bright, happy, vlog style, youtube thumbnail">📹 Vlog / Lifestyle</option>
+                </select>
+            </div>
+
+            <button class="gen-btn" onclick="generateThumbnail()">✨ Generate Thumbnail</button>
+        </div>
+
+        <div class="loader" id="loader">Creating Magic... (Wait 5-10s) 🎨</div>
+
+        <div class="image-container" id="resultArea">
+            <img id="generatedImg" src="" alt="AI Thumbnail">
+            <a id="downLink" href="#" download="thumbnail.jpg" class="download-btn">⬇ Download HD</a>
+        </div>
+
+        <div class="content-section">
+            <h2>How to get the best result?</h2>
+            <p style="color:#ccc;">This tool uses AI to visualize your text.</p>
+            <ul style="margin-left:20px; margin-top:10px; color:#ccc;">
+                <li><strong>Be Specific:</strong> Instead of "Car", type "Red Ferrari racing on neon street".</li>
+                <li><strong>Select Style:</strong> Choose 'Gaming' for games or 'Realistic' for tech reviews.</li>
+                <li><strong>Note:</strong> AI is great at images but might struggle with spelling specific text on the image. Use it for the background!</li>
+            </ul>
+        </div>
+
+        <div class="more-tools">
+            <h3>YouTube Essentials</h3>
+            <div class="grid-suggestions">
+                <a href="yt-title-gen.html" class="suggestion-card">🔥 Title Generator</a>
+                <a href="yt-script-title.html" class="suggestion-card">📝 Script Analyzer</a>
+                <a href="yt-tag-gen.html" class="suggestion-card">🏷️ Tag Generator</a>
+            </div>
+        </div>
+    </div>
+    
+    <footer>&copy; 2026 MedusaSMM Tools. All rights reserved.</footer>
+
+    <script>
+        function generateThumbnail() {
+            let prompt = document.getElementById('promptInput').value.trim();
+            let style = document.getElementById('styleSelect').value;
+            
+            if(!prompt) return alert("Please enter a video title!");
+
+            let loader = document.getElementById('loader');
+            let resultArea = document.getElementById('resultArea');
+            let img = document.getElementById('generatedImg');
+            let btn = document.getElementById('downLink');
+
+            loader.style.display = "block";
+            resultArea.style.display = "none";
+
+            // Constructing the Prompt for 16:9 Aspect Ratio
+            // Using Pollinations AI (Free, No Key)
+            let finalPrompt = `YouTube thumbnail for video about ${prompt}, ${style}, 8k resolution, highly detailed, eye catching, 16:9 aspect ratio`;
+            let encodedPrompt = encodeURIComponent(finalPrompt);
+            let url = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=1280&height=720&nologo=true&seed=${Math.random()}`;
+
+            // Image Pre-loading
+            img.src = url;
+            img.onload = function() {
+                loader.style.display = "none";
+                resultArea.style.display = "block";
+                btn.href = url;
+            };
+            img.onerror = function() {
+                loader.style.display = "none";
+                alert("Server busy! Please try again.");
+            };
+        }
+    </script>
+</body>
+</html>
