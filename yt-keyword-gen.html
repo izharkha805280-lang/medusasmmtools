@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free YouTube Keyword Generator. Get high search volume keyword ideas for your video Titles and Descriptions. Real data from YouTube.">
+    <title>YouTube Keyword Generator - MedusaSMM Tools</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <style>
+        :root { --bg: #050510; --card-bg: rgba(255,255,255,0.03); --border: rgba(255,255,255,0.1); --primary: #ff0000; --text: #fff; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
+        
+        nav { padding: 20px 5%; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: rgba(5,5,16,0.9); }
+        .logo { font-family: 'Outfit'; font-size: 1.5rem; color: #fff; text-decoration: none; font-weight: 700; }
+        
+        .main-wrapper { width: 100%; max-width: 800px; margin: 40px auto; padding: 0 20px; text-align: center; flex: 1; }
+        
+        .search-box { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; }
+        input { flex: 1; padding: 15px; border-radius: 50px; border: 1px solid #444; background: rgba(0,0,0,0.3); color: #fff; font-size: 1rem; outline: none; }
+        button.gen-btn { padding: 15px 40px; background: var(--primary); color: #fff; font-weight: bold; border: none; border-radius: 50px; cursor: pointer; transition: 0.3s; }
+        button.gen-btn:hover { box-shadow: 0 0 20px rgba(255, 0, 0, 0.4); }
+
+        textarea { width: 100%; height: 300px; background: rgba(0,0,0,0.5); border: 1px solid #333; color: #ddd; padding: 15px; border-radius: 10px; resize: none; font-family: monospace; font-size: 1rem; margin-top: 20px; }
+        .copy-btn { margin-top: 15px; padding: 10px 30px; background: #fff; color: #000; border: none; border-radius: 50px; cursor: pointer; font-weight: bold; }
+        
+        .loader { display: none; margin: 20px auto; color: var(--primary); font-weight: bold; }
+
+        /* Content & Suggestion Styles */
+        .content-section { text-align: left; margin-top: 50px; padding: 25px; background: var(--card-bg); border-radius: 15px; border: 1px solid var(--border); }
+        .content-section h2 { color: var(--primary); font-family: 'Outfit'; margin-bottom: 15px; }
+
+        .more-tools { margin-top: 50px; border-top: 1px solid var(--border); padding-top: 30px; }
+        .grid-suggestions { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 20px; }
+        .suggestion-card { background: var(--card-bg); padding: 15px; border-radius: 10px; text-decoration: none; color: #fff; border: 1px solid var(--border); transition: 0.3s; }
+        .suggestion-card:hover { border-color: var(--primary); }
+
+        footer { border-top: 1px solid var(--border); padding: 40px; text-align: center; color: gray; margin-top: auto; }
+    </style>
+</head>
+<body>
+    <nav><a href="index.html" class="logo">MedusaTools</a><a href="index.html" style="color:#aaa;">Back</a></nav>
+    
+    <div class="main-wrapper">
+        <h1 style="font-family:'Outfit';">🔑 YT Keyword Generator</h1>
+        <p style="color:#aaa; margin-bottom:30px;">Find viral titles and keywords from real YouTube data.</p>
+        
+        <div class="search-box">
+            <input type="text" id="keywordInput" placeholder="Enter topic (e.g. funny cats)...">
+            <button class="gen-btn" onclick="fetchKeywords()">Search</button>
+        </div>
+        
+        <div class="loader" id="loader">Fetching Real Data... ⏳</div>
+        <textarea id="output" readonly placeholder="Keywords list will appear here..."></textarea>
+        <button class="copy-btn" onclick="copyText()">Copy All</button>
+
+        <div class="content-section">
+            <h2>Why use Keyword Generator?</h2>
+            <p style="color:#ccc;">To rank your video, you need to use words that people are actually searching for. This tool fetches <strong>Live Suggestions</strong> directly from YouTube.</p>
+            <ul style="margin-left:20px; margin-top:10px; color:#ccc;">
+                <li>Find long-tail keywords with less competition.</li>
+                <li>Get ideas for your next video topic.</li>
+                <li>Optimize your video Title and Description.</li>
+            </ul>
+        </div>
+
+        <div class="more-tools">
+            <h3>Boost Your Channel</h3>
+            <div class="grid-suggestions">
+                <a href="yt-tag-gen.html" class="suggestion-card">🏷️ Tag Generator</a>
+                <a href="yt-hashtag-gen.html" class="suggestion-card">#️⃣ Hashtag Gen</a>
+            </div>
+        </div>
+    </div>
+    
+    <footer>&copy; 2026 MedusaSMM Tools. All rights reserved.</footer>
+
+    <script>
+        async function fetchKeywords() {
+            let input = document.getElementById('keywordInput').value.trim();
+            if(!input) return alert("Enter a keyword!");
+            document.getElementById('loader').style.display = 'block';
+            try {
+                const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent('http://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q=' + input)}`);
+                const data = await response.json();
+                const realData = JSON.parse(data.contents)[1];
+                document.getElementById('output').value = realData.join("\n");
+            } catch (e) { alert("Error fetching data! Check internet."); }
+            document.getElementById('loader').style.display = 'none';
+        }
+        function copyText() {
+            let text = document.getElementById('output');
+            if(!text.value) return;
+            text.select();
+            document.execCommand("copy");
+            alert("Keywords Copied!");
+        }
+    </script>
+</body>
+</html>
