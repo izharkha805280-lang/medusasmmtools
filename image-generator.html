@@ -75,6 +75,25 @@
     <footer>&copy; 2026 MedusaSMM Tools. All rights reserved.</footer>
 
     <script>
+        <script>
+    // ❌ BANNED WORDS LIST
+    const bannedWords = [
+        // Bad words (example – aap badha sakte ho)
+        "sex","porn","xxx","nude","naked","fuck","fucking","bitch","boobs","breast",
+        "vagina","penis","ass","asshole","dick","pussy","cum","orgasm",
+
+        // Female / girls related sexual words
+        "girl nude","hot girl","sexy girl","naked girl","boob","cleavage",
+
+        // Body parts (adult)
+        "private parts","genitals","butt","hips","thighs"
+    ];
+
+    function containsBannedWords(text) {
+        text = text.toLowerCase();
+        return bannedWords.some(word => text.includes(word));
+    }
+        
         function generateImage() {
             let prompt = document.getElementById('prompt').value;
             let img = document.getElementById('resultImage');
@@ -82,6 +101,42 @@
             let downBtn = document.getElementById('downBtn');
 
             if(!prompt) return alert("Please enter a prompt!");
+
+                function generateImage() {
+        let prompt = document.getElementById('prompt').value;
+        let img = document.getElementById('resultImage');
+        let loader = document.getElementById('loader');
+        let downBtn = document.getElementById('downBtn');
+
+        if(!prompt) {
+            alert("Please enter a prompt!");
+            return;
+        }
+
+        // ❌ CHECK FOR BANNED WORDS
+        if (containsBannedWords(prompt)) {
+            alert("⚠️ Your prompt contains banned or inappropriate words. Please use clean language.");
+            return;
+        }
+
+        loader.style.display = "block";
+        img.style.display = "none";
+        downBtn.style.display = "none";
+
+        let safePrompt = encodeURIComponent(prompt);
+        let url = `https://image.pollinations.ai/prompt/${safePrompt}?width=1024&height=1024&seed=${Math.random()}&nologo=true`;
+
+        img.onload = function() {
+            loader.style.display = "none";
+            img.style.display = "block";
+            downBtn.href = url;
+            downBtn.download = "ai-art.jpg";
+            downBtn.style.display = "inline-block";
+        };
+        img.src = url;
+    }
+</script>
+    
 
             loader.style.display = "block";
             img.style.display = "none";
