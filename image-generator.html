@@ -77,7 +77,7 @@
     <script>
     // ❌ BANNED WORDS LIST
     const bannedWords = [
-        // Bad words (example – aap badha sakte ho)
+        // Bad words
         "sex","porn","xxx","nude","naked","fuck","fucking","bitch","boobs","breast",
         "vagina","penis","ass","asshole","dick","pussy","cum","orgasm",
 
@@ -92,22 +92,14 @@
         text = text.toLowerCase();
         return bannedWords.some(word => text.includes(word));
     }
-        
-        function generateImage() {
-            let prompt = document.getElementById('prompt').value;
-            let img = document.getElementById('resultImage');
-            let loader = document.getElementById('loader');
-            let downBtn = document.getElementById('downBtn');
 
-            if(!prompt) return alert("Please enter a prompt!");
+    function generateImage() {
+        const prompt = document.getElementById('prompt').value.trim();
+        const img = document.getElementById('resultImage');
+        const loader = document.getElementById('loader');
+        const downBtn = document.getElementById('downBtn');
 
-                function generateImage() {
-        let prompt = document.getElementById('prompt').value;
-        let img = document.getElementById('resultImage');
-        let loader = document.getElementById('loader');
-        let downBtn = document.getElementById('downBtn');
-
-        if(!prompt) {
+        if (!prompt) {
             alert("Please enter a prompt!");
             return;
         }
@@ -122,37 +114,25 @@
         img.style.display = "none";
         downBtn.style.display = "none";
 
-        let safePrompt = encodeURIComponent(prompt);
-                    
-        let url = `https://image.pollinations.ai/prompt/${safePrompt}?width=1024&height=1024&seed=${Math.random()}&nologo=true`;
+        const safePrompt = encodeURIComponent(prompt);
+        const url = `https://image.pollinations.ai/prompt/${safePrompt}?width=1024&height=1024&seed=${Math.random()}&nologo=true`;
 
-        img.onload = function() {
+        img.onload = () => {
             loader.style.display = "none";
             img.style.display = "block";
             downBtn.href = url;
             downBtn.download = "ai-art.jpg";
             downBtn.style.display = "inline-block";
         };
+
+        img.onerror = () => {
+            loader.style.display = "none";
+            alert("Failed to generate image. Try again.");
+        };
+
         img.src = url;
     }
-</script>
-          loader.style.display = "block";
-            img.style.display = "none";
-            downBtn.style.display = "none";
-
-            // Encode prompt for URL
-            let safePrompt = encodeURIComponent(prompt);
-            let url = `https://image.pollinations.ai/prompt/${safePrompt}?width=1024&height=1024&seed=${Math.random()}&nologo=true`;
-
-            img.onload = function() {
-                loader.style.display = "none";
-                img.style.display = "block";
-                downBtn.href = url;
-                downBtn.download = "ai-art.jpg";
-                downBtn.style.display = "inline-block";
-            };
-            img.src = url;
-        }
+    
     </script>
 </body>
 </html>
