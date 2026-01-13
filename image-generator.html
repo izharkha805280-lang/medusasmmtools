@@ -75,7 +75,6 @@
     <footer>&copy; 2026 MedusaSMM Tools. All rights reserved.</footer>
 
     <script>
-        <script>
     // ❌ BANNED WORDS LIST
     const bannedWords = [
         // Bad words (example – aap badha sakte ho)
@@ -124,6 +123,7 @@
         downBtn.style.display = "none";
 
         let safePrompt = encodeURIComponent(prompt);
+                    
         let url = `https://image.pollinations.ai/prompt/${safePrompt}?width=1024&height=1024&seed=${Math.random()}&nologo=true`;
 
         img.onload = function() {
@@ -136,9 +136,7 @@
         img.src = url;
     }
 </script>
-    
-
-            loader.style.display = "block";
+          loader.style.display = "block";
             img.style.display = "none";
             downBtn.style.display = "none";
 
